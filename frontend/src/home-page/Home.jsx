@@ -2,7 +2,7 @@ import React from 'react'
 import Hero from './Hero'
 import Welcome from './Welcome'
 import DentalSpecialities from './Dentalspecialities'
-import WhyChooseUs from './WhyChooseUs'
+import Whychooseus from './Whychooseus'
 import Counter from './Counter'
 
 function Home() {
@@ -12,7 +12,7 @@ function Home() {
         <Welcome/>
         <DentalSpecialities/>
         <Counter/>
-        <WhyChooseUs/>
+        <Whychooseus/>
         
     </div>
   )
