@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 // Removed Tooth to fix the crash shown in image_d0ee8b.png
 import { Menu, X } from 'lucide-react'; 
+import { NavLink } from "react-router-dom";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'Services', href: '#' },
-    { name: 'About Us', href: '#' },
-    { name: 'Testimonials', href: '#' },
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'About Us', href: '/about' },
   ];
 
   return (
@@ -28,11 +29,11 @@ const Navbar = () => {
              
               <div>
               
-              <img src="/images/Dentist-logo.jpg" alt="RANGA'S DENTAL CLINIC Logo" className="h-15 w-15 object-contain" />
+              <img src="/images/RANGAS-ENTAL-CLINIC-FINAL-LOGO-1.png" alt="RANGA'S DENTAL CLINIC Logo" className="h-37 w-37 object-contain" />
               
             </div>
             
-            <div className="flex flex-col leading-none">
+            {/* <div className="flex flex-col leading-none">
   <span className="text-xl lg:text-2xl font-bold bg-gradient-to-r from-slate-800 to-cyan-600 bg-clip-text text-transparent">
     RANGA'S
   </span>
@@ -40,16 +41,16 @@ const Navbar = () => {
   <span className="text-[10px] lg:text-xs font-medium tracking-[0.25em] uppercase text-slate-500 mt-1">
     dental clinic
   </span>
-</div>
+</div> */}
           </motion.div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="flex space-x-1">
               {navLinks.map((link, index) => (
-                <motion.a
+                <NavLink
                   key={link.name}
-                  href={link.href}
+                  to={link.href}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -57,7 +58,7 @@ const Navbar = () => {
                 >
                   {link.name}
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                </motion.a>
+                </NavLink>
               ))}
             </div>
 
@@ -95,14 +96,14 @@ const Navbar = () => {
           >
             <div className="px-4 pt-2 pb-6 space-y-2">
               {navLinks.map((link) => (
-                <a
+                <NavLink
                   key={link.name}
-                  href={link.href}
+                  to={link.href}
                   className="block px-4 py-3 rounded-xl text-base font-medium text-slate-600 hover:bg-cyan-50 hover:text-cyan-600 transition-all"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.name}
-                </a>
+                </NavLink>
               ))}
               <div className="pt-4 px-4">
                 <button className="w-full bg-cyan-600 text-white py-3 rounded-xl font-semibold shadow-lg shadow-cyan-100">

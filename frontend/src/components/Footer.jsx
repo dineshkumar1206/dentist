@@ -44,12 +44,12 @@ export default function Footer() {
           {/* COLUMN 1: BRAND IDENTITY BLOCK */}
           <motion.div variants={itemVariants} className="lg:col-span-4 space-y-5">
             <div className="flex items-center space-x-3 group cursor-pointer">
-            <img src="/images/Dentist-logo.jpg" alt="RANGA'S DENTAL CLINIC Logo" className="h-15 w-15 object-contain" />
+            <img src="/images/Footer-img.png" alt="RANGA'S DENTAL CLINIC Logo" className="h-40 w-40 object-contain" />
 
-              <div className="flex flex-col">
+              {/* <div className="flex flex-col">
                 <span className="text-xl font-bold tracking-wider text-white uppercase leading-none">Ranga's</span>
                 <span className="text-xs tracking-[0.3em] text-cyan-400 uppercase font-light mt-1">Dental Clinic</span>
-              </div>
+              </div> */}
             </div>
             
             <p className="text-sm font-light leading-relaxed text-slate-400 max-w-sm">
@@ -87,7 +87,7 @@ export default function Footer() {
           <motion.div variants={itemVariants} className="lg:col-span-2 space-y-4">
             <h4 className="text-white font-bold text-sm uppercase tracking-wider">Quick Links</h4>
             <ul className="space-y-2.5 text-sm font-light">
-              {['Home', 'Services', 'About Us', 'Testimonials'].map((link) => (
+              {['Home', 'Services', 'About Us'].map((link) => (
                 <li key={link}>
                   <a href="#" className="hover:text-cyan-400 transition-colors duration-200 flex items-center group">
                     <span>{link}</span>

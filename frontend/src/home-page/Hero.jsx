@@ -358,7 +358,7 @@ const Hero = () => {
                 <div className="h-img-frame">
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(255,255,255,0.09) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 2 }} />
                   <img
-                    src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=1000"
+                    src="/images/img-2.png"
                     alt="Patient smiling at a modern dental clinic"
                   />
                   <div className="h-img-fade" />

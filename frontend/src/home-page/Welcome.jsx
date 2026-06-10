@@ -177,7 +177,7 @@ const Hero2 = () => {
           {/* Practice image workspace layout layer */}
           <img
             className="w-full h-full object-cover object-center rounded-[2rem] block transform group-hover:scale-[1.015] transition-transform duration-700 ease-out"
-            src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=85&w=1200"
+            src="/images/img-4.png"
             alt="State of the art modern clinical dental workspace"
           />
           <div className="absolute inset-4 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent pointer-events-none rounded-[2rem]" />
