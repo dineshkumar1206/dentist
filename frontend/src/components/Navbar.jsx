@@ -103,6 +103,18 @@ const Navbar = () => {
                 About Us
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
               </NavLink>
+
+                                           {/* Contact us */}
+               <NavLink
+                to="/contact"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+                className="relative px-4 py-2 text-sm font-medium text-slate-600 hover:text-cyan-600 transition-colors duration-300 rounded-lg group"
+              >
+                Contact
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+              </NavLink>
             </div>
 
             <motion.button
