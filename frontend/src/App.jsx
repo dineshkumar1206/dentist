@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Home from "./home-page/Home";
 import About from "./pages/About";
+import Implants from "./services/Implants";
 
 export default function App() {
   return (
@@ -19,6 +20,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+
+          {/* services */}
+          <Route path="services/implants" element={<Implants/>} />
         </Routes>
 
         <Footer />

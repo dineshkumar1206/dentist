@@ -1,71 +1,108 @@
 import { Check } from "lucide-react";
+import { motion } from "framer-motion";
 
 const features = [
-  "Dental check-ups;",
-  "Root canal treatment;",
-  "Hygiene treatments;",
-  "Dental implant restoration;",
-  "Crowns, veneers and bridges;",
+  "Dental check-ups",
+  "Root canal treatment",
+  "Hygiene treatments",
+  "Dental implant restoration",
+  "Crowns, veneers and bridges",
   "Professional teeth-whitening.",
 ];
 
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+};
+
 export default function WhyChooseUs() {
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-24 px-4 sm:px-8 lg:px-16 xl:px-24">
+    <section className="bg-white py-16 sm:py-20 lg:py-24 px-4 sm:px-8 lg:px-16 xl:px-24 overflow-hidden">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
         {/* LEFT: Text Content */}
-        <div className="flex-1 w-full">
+        <motion.div 
+          className="flex-1 w-full"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.1 } }
+          }}
+        >
           {/* Tag */}
-          <p className="text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-gray-400 mb-5">
+          <motion.p 
+            variants={fadeUpVariants}
+            className="text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-gray-400 mb-5"
+          >
             Why Choose Us
-          </p>
+          </motion.p>
 
           {/* Headline */}
-          <h2
+          <motion.h2
+            variants={fadeUpVariants}
             className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 leading-tight mb-6"
             style={{ fontFamily: "'Georgia', serif" }}
           >
             Are you looking for a dentist to give you that special smile?
-          </h2>
+          </motion.h2>
 
           {/* Subtext */}
-          <p className="text-gray-500 text-sm sm:text-base leading-relaxed mb-8 max-w-md">
+          <motion.p 
+            variants={fadeUpVariants}
+            className="text-gray-500 text-sm sm:text-base leading-relaxed mb-8 max-w-md"
+          >
             Our clinic provides the highest quality dental care with a group of experienced dentists and specialists dedicated to your smile.
-          </p>
+          </motion.p>
 
           {/* Features Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 mb-10">
+          <motion.div 
+            variants={fadeUpVariants}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 mb-10"
+          >
             {features.map((item, i) => (
               <div key={i} className="flex items-center gap-3">
                 <Check size={16} strokeWidth={3} className="text-teal-500 flex-shrink-0" />
                 <span className="text-gray-700 text-sm sm:text-base">{item}</span>
               </div>
             ))}
-          </div>
+          </motion.div>
 
           {/* CTA Button */}
-          <button className="border border-gray-800 text-gray-800 text-xs font-semibold tracking-[0.2em] uppercase px-8 py-4 hover:bg-gray-900 hover:text-white transition-all duration-300">
-            Book a Visit
-          </button>
-        </div>
+          <motion.div variants={fadeUpVariants}>
+            <button className="border border-gray-800 text-gray-800 text-xs font-semibold tracking-[0.2em] uppercase px-8 py-4 hover:bg-gray-900 hover:text-white transition-all duration-300">
+              Book a Visit
+            </button>
+          </motion.div>
+        </motion.div>
 
-        {/* RIGHT: Image */}
-        <div className="flex-1 w-full flex justify-center lg:justify-end">
+        {/* RIGHT: Responsive Landscape Image */}
+        <motion.div 
+          className="flex-1 w-full flex justify-center lg:justify-end"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        >
           <div
-            className="w-full max-w-sm sm:max-w-md lg:max-w-lg overflow-hidden"
+            className="w-full max-w-xl lg:max-w-2xl overflow-hidden bg-gray-100 shadow-sm"
             style={{
-              borderRadius: "50% 50% 50% 50% / 10% 10% 10% 10%",
+              // Elegant asymmetrical curve styling optimized specifically for landscape frames
+              borderRadius: "120px 24px 120px 24px", 
+              aspectRatio: "16/10" 
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=700&q=80"
+              src="/images/why-choose-us.png"
               alt="Happy patient with a beautiful smile"
-              className="w-full h-full object-cover object-top"
-              style={{ aspectRatio: "4/5" }}
+              className="w-full h-full object-cover object-center"
             />
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </section>

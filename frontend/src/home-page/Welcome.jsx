@@ -60,7 +60,7 @@ const CircularText = ({ text, spinDuration = 20, onHover = 'speedUp', className 
       className={className}
       style={{
         rotate: rotation,
-        width: 160, height: 160,
+        width: '100%', height: '100%',
         position: 'relative',
         borderRadius: '50%',
         cursor: 'pointer',
@@ -84,7 +84,7 @@ const CircularText = ({ text, spinDuration = 20, onHover = 'speedUp', className 
               position: 'absolute',
               inset: 0,
               display: 'inline-block',
-              fontSize: 11.5,
+              fontSize: 'clamp(8px, 1vw, 11.5px)',
               fontFamily: FONT_FAMILY,
               fontWeight: 900,
               letterSpacing: '0.09em',
@@ -105,33 +105,27 @@ const CircularText = ({ text, spinDuration = 20, onHover = 'speedUp', className 
 };
 
 const SpinBadge = () => (
-  <div className="relative w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] md:w-[140px] md:h-[140px] lg:w-[160px] lg:h-[160px]">
+  <div className="relative w-[95px] h-[95px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] lg:w-[160px] lg:h-[160px]">
     <CircularText
       text="BEST SERVICES • EXCELLENCE • "
       spinDuration={18}
       onHover="speedUp"
     />
     
-       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-       w-[56px] h-[56px]
-sm:w-[64px] sm:h-[64px]
-md:w-[80px] md:h-[80px]
-lg:w-[88px] lg:h-[88px]
-       bg-white border border-cyan-100 rounded-full flex items-center justify-center shadow-lg shadow-cyan-950/15 pointer-events-none z-10">     
-        <svg className='w-[60%] h-[60%]' viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M28 35 C25 45 28 65 35 78 C38 85 43 91 50 90 C47 78 48 70 53 70" fill="#bae6fd" opacity="0.8"/>
-        <path d="M62 28 C70 27 78 30 78 35" stroke="#bae6fd" strokeWidth="6" strokeLinecap="round"/>
-        <path d="M61 75 C63 83 60 90 58 91 C57 92 55 86 56 79" fill="#bae6fd" opacity="0.8"/>
-        <path 
-          d="M50 28 C41 25 28 30 25 43 C21 56 28 69 34 82 C36 86 41 91 47 90 C51 89 51 80 51 73 C51 80 51 89 55 90 C61 91 66 86 68 82 C74 69 81 56 77 43 C74 30 61 25 50 28 Z" 
-          stroke="#034675" 
-          strokeWidth="5" 
-          strokeLinejoin="round" 
-          strokeLinecap="round"
-        />
-        <path d="M34 38 C33 46 35 51 36 55" stroke="#034675" strokeWidth="4" strokeLinecap="round"/>
-      </svg>
-    </div>
+       <div
+  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+  w-[56px] h-[56px]
+  sm:w-[64px] sm:h-[64px]
+  md:w-[80px] md:h-[80px]
+  lg:w-[88px] lg:h-[88px]
+  bg-white border border-cyan-100 rounded-full flex items-center justify-center shadow-lg shadow-cyan-950/15 pointer-events-none z-10 overflow-hidden"
+>
+  <img
+    src="/images/tooth-icon.jpg"
+    alt="Tooth Icon"
+    className="w-[60%] h-[60%] object-contain"
+  />
+</div>
   </div>
 );
 
@@ -161,10 +155,10 @@ const Hero2 = () => {
   };
 
   return (
-    <div className="w-full bg-[#f8fafc] pt-20" style={{ fontFamily: FONT_FAMILY }}>
+    <div className="w-full bg-[#f8fafc] pt-8 sm:pt-12 lg:pt-20" style={{ fontFamily: FONT_FAMILY }}>
       
       {/* Boxed Content Layout Grid Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-center min-h-[calc(100vh-10rem)]">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-6 md:py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-center min-h-[calc(100vh-10rem)]">
         
         {/* ══ LEFT VISUAL SPLIT (Triggered on Scroll Viewport Entry) ══ */}
         <motion.div 
@@ -184,7 +178,7 @@ const Hero2 = () => {
 
           {/* Floating Spinning Badge Overlay */}
           <motion.div
-            className="absolute top-10 left-1/2 -translate-x-1/2 z-30"
+            className="absolute top-4 sm:top-6 md:top-8 lg:top-10 left-1/2 -translate-x-1/2 z-30"
             initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -195,7 +189,7 @@ const Hero2 = () => {
 
           {/* Secondary Smile Result Inset Window Panel */}
           <motion.div
-            className="absolute bottom-10 sm:bottom-12 left-4 sm:left-6 w-[140px] h-[105px] sm:w-[190px] sm:h-[145px] rounded-2xl overflow-hidden shadow-2xl shadow-slate-950/30 border-4 border-white/95 z-30 transform hover:scale-105 transition-transform duration-300"
+            className="absolute bottom-4 sm:bottom-12 left-4 sm:left-6 w-[140px] h-[105px] sm:w-[190px] sm:h-[145px] rounded-2xl overflow-hidden shadow-2xl shadow-slate-950/30 border-4 border-white/95 z-30 transform hover:scale-105 transition-transform duration-300"
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}

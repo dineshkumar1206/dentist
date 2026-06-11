@@ -52,20 +52,19 @@ function ServiceCard({ service }) {
   return (
     <motion.div
       variants={itemVariants}
-      className="group relative bg-white border-b border-r border-slate-100 p-6 sm:p-10 lg:p-12 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden transition-all duration-300 hover:bg-cyan-400 w-full h-full"
+      className="group relative bg-white border-b border-r border-slate-100 p-3 sm:p-10 lg:p-12 flex flex-col items-center justify-center text-center cursor-pointer overflow-hidden transition-all duration-300 hover:bg-cyan-400 w-full h-full min-h-[140px] sm:min-h-0"
     >
       {/* Icon Wrapper Graphic */}
-      <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center text-cyan-500 transition-all duration-300 group-hover:scale-110 group-hover:text-white">
+      <div className="w-8 h-8 sm:w-14 sm:h-14 flex items-center justify-center text-cyan-500 transition-all duration-300 group-hover:scale-110 group-hover:text-white">
         <Icon
-          size={32}
           strokeWidth={1.3}
-          className="transition-colors duration-300"
+          className="w-6 h-6 sm:w-8 sm:h-8 transition-colors duration-300"
         />
       </div>
 
       {/* Specialty Title Header Block */}
-      <div className="flex items-center justify-center mt-3 mb-4 min-h-[48px] sm:min-h-[56px]">
-        <h3 className="font-semibold text-slate-800 text-sm sm:text-base lg:text-lg tracking-tight leading-snug transition-colors duration-200 group-hover:text-white max-w-[200px]">
+      <div className="flex items-center justify-center mt-2 mb-2 sm:mt-3 sm:mb-4 min-h-[42px] sm:min-h-[56px]">
+        <h3 className="font-semibold text-slate-800 text-[11px] sm:text-base lg:text-lg tracking-tight leading-tight sm:leading-snug transition-colors duration-200 group-hover:text-white max-w-full sm:max-w-[200px] line-clamp-3 sm:line-clamp-none">
           {service.title}
         </h3>
       </div>
@@ -73,20 +72,20 @@ function ServiceCard({ service }) {
       {/* Interactive CTA Anchor Vector */}
       <div
         className="
-          flex items-center justify-center gap-1
-          text-[9px] sm:text-[10px] md:text-[11px]
+          flex items-center justify-center gap-0.5 sm:gap-1
+          text-[8px] sm:text-[10px] md:text-[11px]
           font-bold
-          tracking-[0.08em] sm:tracking-[0.12em] md:tracking-[0.15em]
+          tracking-[0.04em] sm:tracking-[0.12em] md:tracking-[0.15em]
           uppercase
           text-slate-700
           transition-all duration-300
           group-hover:text-white
         "
       >
-        <span>View Details</span>
+        <span className="scale-[0.9] sm:scale-100">Details</span>
         <span
           className="
-            text-[10px] sm:text-xs
+            text-[9px] sm:text-xs
             transition-transform duration-300
             group-hover:translate-x-0.5
             group-hover:translate-y-0.5
@@ -112,31 +111,29 @@ export default function DentalSpecialities() {
         </svg>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         
         {/* Section Headline Block */}
-        <div className="mb-10 sm:mb-16 text-center mx-auto max-w-2xl">
-          <p className="text-[11px] font-bold tracking-[0.25em] uppercase text-cyan-600 mb-2">
+        <div className="mb-8 sm:mb-16 text-center mx-auto max-w-2xl">
+          <p className="text-[10px] sm:text-[11px] font-bold tracking-[0.25em] uppercase text-cyan-600 mb-2">
             Most Popular Services
           </p>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
-            Our Dental Specialities
+          <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+            Our Services
           </h2>
           <div className="mt-3 mx-auto w-10 h-0.5 bg-cyan-500 rounded-full" />
         </div>
 
-        {/* 
-          STRICT NATIVE TAILWIND GRID:
-          - grid-cols-1: 1 Column on Mobile screens
-          - md:grid-cols-2: 2 Columns on Tablet screens
-          - lg:grid-cols-3: 3 Columns on Desktop/Laptops. With 9 total cards, this guarantees a perfect 3x3 layout.
+        {/* UPDATED RESPONSIVE GRID CONFIG:
+          - grid-cols-3: Allocates exactly 3 columns across ALL screen frames (including mobile)
+          - Total 9 items / 3 columns = Strict 3 rows and 3 columns on mobile layout.
         */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.02 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-slate-100 shadow-sm"
+          className="grid grid-cols-3 border-t border-l border-slate-100 shadow-sm mx-auto"
         >
           {services.map((service) => (
             <ServiceCard key={service.id} service={service} />

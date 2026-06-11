@@ -42,7 +42,7 @@ export default function Counter() {
       targetValue: 15400,
       suffix: "+",
       title: "Happy Patients",
-      subtitle: "Trusted family dental care",
+      subtitle: "Trusted family care",
       icon: Users,
       color: "from-cyan-500 to-blue-500",
       bgColor: "bg-cyan-50",
@@ -53,7 +53,7 @@ export default function Counter() {
       targetValue: 3200,
       suffix: "+",
       title: "Smiles Straightened",
-      subtitle: "Modern expert orthodontics",
+      subtitle: "Expert orthodontics",
       icon: Smile,
       color: "from-teal-500 to-emerald-500",
       bgColor: "bg-teal-50",
@@ -64,7 +64,7 @@ export default function Counter() {
       targetValue: 16,
       suffix: "+",
       title: "Years Experienced",
-      subtitle: "Clinical dental excellence",
+      subtitle: "Clinical excellence",
       icon: Award,
       color: "from-blue-500 to-indigo-500",
       bgColor: "bg-blue-50",
@@ -75,12 +75,12 @@ export default function Counter() {
       targetValue: 99.4,
       suffix: "%",
       title: "Satisfaction Rate",
-      subtitle: "Flawless diagnostic feedback",
+      subtitle: "Diagnostic feedback",
       icon: Sparkles,
       color: "from-amber-500 to-orange-500",
       bgColor: "bg-amber-50",
       iconColor: "text-amber-600",
-      isDecimal: true, // Marker to render decimals accurately if needed later
+      isDecimal: true,
     },
   ];
 
@@ -116,12 +116,13 @@ export default function Counter() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Boxed Grid System Layout Matrix */}
+        {/* Changed grid-cols-1 to grid-cols-2 to strict lock a 2x2 grid on mobile viewports */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8"
         >
           {statMetrics.map((stat) => {
             const IconComponent = stat.icon;
@@ -131,56 +132,53 @@ export default function Counter() {
                 variants={itemVariants}
                 whileHover={{ y: -6, transition: { duration: 0.2 } }}
                 className="
-                     bg-white
-                     rounded-2xl lg:rounded-3xl
-                     p-5 sm:p-6 lg:p-8
-                     border border-slate-100
-                     shadow-md shadow-slate-200/40
-                     flex flex-col items-center sm:items-start text-center sm:text-left
-                     relative overflow-hidden
-                     group transition-all duration-300
-                     min-h-[220px]
-                     sm:min-h-[240px]
-                   "
+                   bg-white
+                   rounded-2xl lg:rounded-3xl
+                   p-4 sm:p-6 lg:p-8
+                   border border-slate-100
+                   shadow-md shadow-slate-200/40
+                   flex flex-col items-center sm:items-start text-center sm:text-left
+                   relative overflow-hidden
+                   group transition-all duration-300
+                   min-h-[190px] sm:min-h-[240px]
+                 "
               >
                 {/* Micro Ambient Hover Glow Bar */}
                 <div className={`absolute top-0 left-0 h-1.5 w-0 group-hover:w-full bg-gradient-to-r ${stat.color} transition-all duration-500 rounded-t-3xl`} />
 
                 {/* Metric Icon Container */}
                 <div className={`
-                      p-3
-                      sm:p-3.5
-                      rounded-xl
-                      sm:rounded-2xl
-                      ${stat.bgColor}
-                      ${stat.iconColor}
-                      mb-4 sm:mb-5
-                      flex items-center justify-center
-                    `}>
-                  <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2} />
+                    p-2.5
+                    sm:p-3.5
+                    rounded-xl
+                    sm:rounded-2xl
+                    ${stat.bgColor}
+                    ${stat.iconColor}
+                    mb-3 sm:mb-5
+                    flex items-center justify-center
+                  `}>
+                  <IconComponent className="w-4 h-4 sm:w-6 sm:h-6" strokeWidth={2} />
                 </div>
 
                 {/* Animated Numerical Layout Display */}
-                <div className="flex items-baseline mb-2">
-                  <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-none">
-                    {/* Handles normal counting or strict decimal outputs cleanly */}
+                <div className="flex items-baseline mb-1 sm:mb-2 max-w-full overflow-hidden">
+                  <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-none">
                     {stat.isDecimal ? (
-                      // Fallback fallback if your layout tracks decimals without extra library weight
                       <span>99.4</span>
                     ) : (
                       <CountUpNumber target={stat.targetValue} />
                     )}
                   </h2>
-                  <span className={`text-xl sm:text-2xl font-normal bg-gradient-to-r ${stat.color} bg-clip-text text-transparent ml-0.5`}>
+                  <span className={`text-lg sm:text-2xl font-normal bg-gradient-to-r ${stat.color} bg-clip-text text-transparent ml-0.5`}>
                     {stat.suffix}
                   </span>
                 </div>
 
                 {/* Typography Labels Section */}
-                <h3 className="text-slate-800 font-semibold text-sm sm:text-base lg:text-lg mb-1 tracking-tight">
+                <h3 className="text-slate-800 font-semibold text-xs sm:text-base lg:text-lg mb-0.5 sm:mb-1 tracking-tight line-clamp-1">
                   {stat.title}
                 </h3>
-                <p className="text-slate-400 text-xs sm:text-sm leading-normal">
+                <p className="text-slate-400 text-[11px] sm:text-sm leading-normal line-clamp-2">
                   {stat.subtitle}
                 </p>
               </motion.div>
