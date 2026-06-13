@@ -14,6 +14,7 @@ import FormService from "./FormService";
 export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Updated link to a clean Google Maps search query destination
   const contactDetails = [
     {
       icon: <Phone className="w-5 h-5 text-[#0ea5e9]" />,
@@ -30,8 +31,8 @@ export default function Contact() {
     {
       icon: <MapPin className="w-5 h-5 text-[#0ea5e9]" />,
       title: "Clinic Address",
-      value: "123, Health Avenue, Vyasarpadi, Chennai, TN",
-      link: "https://maps.google.com",
+      value: "RANGAS DENTAL CLINIC, RKP Hospital, 5 Vaithyalingam street, 5, Vaithiyalingam St, Nanmangalam, Chennai, Tamil Nadu 600129",
+      link: "https://www.google.com/maps/search/?api=1&query=Rangas+Dental+Clinic+Kulattur+Chennai",
     },
   ];
 
@@ -79,7 +80,7 @@ export default function Contact() {
         {/* Balanced Structural Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          {/* LEFT SECTION: Aggregated Information Stack (4 Columns) */}
+          {/* LEFT SECTION: Aggregated Information Stack (5 Columns) */}
           <div className="lg:col-span-5 flex flex-col justify-between gap-6">
             
             {/* Urgent Booking Callout */}
@@ -158,13 +159,13 @@ export default function Contact() {
 
           </div>
 
-          {/* RIGHT SECTION: Perfectly Proportioned Maps Frame (7 Columns) */}
+          {/* RIGHT SECTION: Map Frame with Updated Embed Source URL (7 Columns) */}
           <div className="lg:col-span-7 flex">
             <div className="w-full rounded-3xl overflow-hidden shadow-sm border border-slate-200/80 relative group bg-slate-100 min-h-[450px] lg:min-h-full flex">
               <iframe
-                title="Ranganathan Dental Clinic Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.284762512111!2d80.2464121!3d13.0826802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5266132791dfbf%3A0x67db91ca639ec9c0!2sVyasarpadi%2C%20Chennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1625000000000!5m2!1sen!2sin"
-                className="w-full h-full border-0 grayscale [html.dark_&]:invert contrast-125 hover:grayscale-0 transition-all duration-500"
+                title="Rangas Dental Clinic Location Map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5101028206614!2d80.17956657367091!3d12.939177515591183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525e814b007e77%3A0xddfda2eb261014d4!2sRangas%20Dental%20Clinic!5e0!3m2!1sen!2sin!4v1781336477249!5m2!1sen!2sin"
+                className="w-full h-full border-0 [html.dark_&]:invert contrast-[1.02] hover:grayscale-0 transition-all duration-500"
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -177,10 +178,12 @@ export default function Contact() {
 
       {/* MODAL SYSTEM OVERLAY */}
       <FormService 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        accentColor="#0ea5e9"
-      />
+              isOpen={isModalOpen} 
+              onClose={() => setIsModalOpen(false)} 
+              accentColor="#0ea5e9"
+              serviceName="Select a specialty service" // Added serviceName to define initial input choice string
+              defaultService="Select a specialty service" // Retained fallback mapping configuration hook
+            />
     </div>
   );
 }

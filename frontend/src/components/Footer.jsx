@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom'; // Imported Link for internal routing
 import { Phone, MapPin, Clock, ArrowUpRight } from 'lucide-react';
 
 export default function Footer() {
@@ -23,6 +24,13 @@ export default function Footer() {
     }
   };
 
+  // Structured routing manifest map
+  const navigationLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/about' },
+    { name: 'Contact', path: '/contact' },
+  ];
+
   return (
     <footer className="w-full bg-[#0f172a] text-slate-400 pt-16 pb-8 border-t border-slate-800 relative overflow-hidden">
       {/* Decorative Subtle Background Accents */}
@@ -44,19 +52,13 @@ export default function Footer() {
           {/* COLUMN 1: BRAND IDENTITY BLOCK */}
           <motion.div variants={itemVariants} className="lg:col-span-4 space-y-5">
             <div className="flex items-center space-x-3 group cursor-pointer">
-            <img src="/images/Footer-img.png" alt="RANGA'S DENTAL CLINIC Logo" className="h-40 w-40 object-contain" />
-
-              {/* <div className="flex flex-col">
-                <span className="text-xl font-bold tracking-wider text-white uppercase leading-none">Ranga's</span>
-                <span className="text-xs tracking-[0.3em] text-cyan-400 uppercase font-light mt-1">Dental Clinic</span>
-              </div> */}
+              <img src="/images/Footer-img.png" alt="RANGA'S DENTAL CLINIC Logo" className="h-40 w-40 object-contain" />
             </div>
             
             <p className="text-sm font-light leading-relaxed text-slate-400 max-w-sm">
               Providing modern, compassionate dental treatments utilizing state-of-the-art diagnostic tools to restore and protect your smile.
             </p>
 
-            {/* FIXED: Replaced Lucide imports with lightweight, bulletproof inline SVGs */}
             <div className="flex space-x-3 pt-2">
               {/* Facebook Icon */}
               <a href="#" className="p-2.5 rounded-xl bg-slate-800/60 text-slate-400 hover:bg-cyan-500 hover:text-white transition-colors duration-300 flex items-center justify-center">
@@ -87,12 +89,15 @@ export default function Footer() {
           <motion.div variants={itemVariants} className="lg:col-span-2 space-y-4">
             <h4 className="text-white font-bold text-sm uppercase tracking-wider">Quick Links</h4>
             <ul className="space-y-2.5 text-sm font-light">
-              {['Home', 'Services', 'About Us'].map((link) => (
-                <li key={link}>
-                  <a href="#" className="hover:text-cyan-400 transition-colors duration-200 flex items-center group">
-                    <span>{link}</span>
-                    <ArrowUpRight size={12} className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                  </a>
+              {navigationLinks.map((link) => (
+                <li key={link.name}>
+                  <Link 
+                    to={link.path} 
+                    className="hover:text-cyan-400 transition-colors duration-200 inline-flex items-center group cursor-pointer"
+                  >
+                    <span>{link.name}</span>
+                    <ArrowUpRight size={12} className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-cyan-400" />
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -127,7 +132,7 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          {/* COLUMN 4: HOSPITAL LOCATION ACCENT */}
+          {/* COLUMN 4: UPDATED COMPREHENSIVE ADDRESS METRICS FRAME */}
           <motion.div variants={itemVariants} className="lg:col-span-3 space-y-4">
             <h4 className="text-white font-bold text-sm uppercase tracking-wider">Location</h4>
             
@@ -136,11 +141,11 @@ export default function Footer() {
                 <MapPin size={16} />
               </div>
               <div className="space-y-1 text-slate-300">
-                <p className="text-white font-bold text-sm text-cyan-400">@ RKP HOSPITALS</p>
-                <p className="leading-relaxed">
-                  No. Vaithyalingam Street,<br />
-                  Nanmangalam,<br />
-                  Chennai - 600 129
+                <p className="text-white font-bold text-sm text-cyan-400">RANGAS DENTAL CLINIC</p>
+                <p className="leading-relaxed text-xs">
+                  RKP Hospital, 5 Vaithyalingam Street,<br />
+                  Nanmangalam, Chennai,<br />
+                  Tamil Nadu - 600 129
                 </p>
               </div>
             </div>

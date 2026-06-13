@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Calendar, ShieldCheck, Star, ArrowRight, Award } from 'lucide-react';
+import FormService from '../components/FormService';
+
 
 /* ─── Design token: Uniform Font Family ─── */
 const FONT_FAMILY = "'Outfit', system-ui, sans-serif";
+
 
 /* ─── Breakpoint hook ─── */
 const useBreakpoint = () => {
@@ -47,7 +50,7 @@ const StatPill = ({ icon: Icon, value, label, color, delay }) => (
 );
 
 /* ─── Availability card ─── */
-const AvailabilityCard = ({ isMobile }) => (
+const AvailabilityCard = ({ isMobile, onBookClick }) => (
   <motion.div
     initial={{ opacity: 0, y: 14 }}
     animate={{ opacity: 1, y: 0 }}
@@ -75,9 +78,14 @@ const AvailabilityCard = ({ isMobile }) => (
         <div style={{ fontFamily: FONT_FAMILY, fontSize: 10, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>Next Available</div>
         <div style={{ fontFamily: FONT_FAMILY, fontSize: 13, fontWeight: 700, color: '#0f172a', marginTop: 1 }}>Today · 2:30 PM</div>
       </div>
-      <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}
+      <motion.button 
+        whileHover={{ scale: 1.05 }} 
+        whileTap={{ scale: 0.96 }}
+        onClick={onBookClick} // Attached booking form trigger action
         style={{ background: '#0ea5e9', color: '#fff', border: 'none', borderRadius: 8, padding: '5px 10px', fontFamily: FONT_FAMILY, fontSize: 11, fontWeight: 700, cursor: 'pointer' }}
-      >Book</motion.button>
+      >
+        Book
+      </motion.button>
     </div>
   </motion.div>
 );
@@ -141,11 +149,13 @@ const ServicesStrip = ({ isMobile }) => (
 );
 
 /* ══════════════════════════════════════
-   MAIN COMPONENT
+    MAIN COMPONENT
 ══════════════════════════════════════ */
 const Hero = () => {
   const { isMobile, isTablet } = useBreakpoint();
   const isStacked = isMobile || isTablet;
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // Added local state tracker for popup initialization
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -197,7 +207,6 @@ const Hero = () => {
           margin-bottom: 20px;
         }
 
-        /* RECONFIGURED: Reduced text weight and toned down fluid size metrics */
         .h-h1 {
           font-family: ${FONT_FAMILY}; 
           font-weight: 700;
@@ -327,7 +336,13 @@ const Hero = () => {
               </motion.p>
 
               <motion.div variants={su} className="h-cta-row">
-                <motion.button className="h-btn-p" whileHover={{ scale: 1.02, y: -1 }} whileTap={{ scale: 0.97 }}>
+                {/* BUTTON 1: Triggering the Form Modal System */}
+                <motion.button 
+                  className="h-btn-p" 
+                  whileHover={{ scale: 1.02, y: -1 }} 
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => setIsModalOpen(true)}
+                >
                   <Calendar size={16} strokeWidth={2.2} />
                   Book Free Consultation
                 </motion.button>
@@ -364,7 +379,8 @@ const Hero = () => {
                   <div className="h-img-fade" />
                 </div>
 
-                <AvailabilityCard isMobile={isMobile} />
+                {/* BUTTON 2: Linked click handle directly into Availability Card */}
+                <AvailabilityCard isMobile={isMobile} onBookClick={() => setIsModalOpen(true)} />
                 <RatingCard      isMobile={isMobile} />
                 <ServicesStrip   isMobile={isMobile} />
               </div>
@@ -374,6 +390,15 @@ const Hero = () => {
         </div>
 
       </section>
+
+      {/* FORM MODAL SYSTEM OVERLAY */}
+      <FormService 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        accentColor="#0ea5e9"
+        serviceName="Select a specialty service"
+        defaultService="Select a specialty service"
+      />
     </>
   );
 };

@@ -15,6 +15,10 @@ import ToothWhitening from "./services/ToothWhitening";
 import UltrasonicCleaning from "./services/UltrasonicCleaning";
 import ScrollToTop from "./components/ScrollToTop";
 import Contact from "./components/Contact";
+import FixedBraces from "./services/FixedBraces";
+import FullTeethsets from "./services/FullTeethsets";
+import GumTreatment from "./services/GumTreatment";
+import SurgicalRemoval from "./services/SurgicalRemoval";
 
 export default function App() {
   return (
@@ -37,6 +41,10 @@ export default function App() {
           <Route path="/services/root-canal" element={<RootCanal/>}/>  
           <Route path="/services/whitening" element={<ToothWhitening/>} />
           <Route path="/services/cleaning" element={<UltrasonicCleaning/>} />
+          <Route path="/services/braces" element={<FixedBraces/>} />
+          <Route path="/services/teethsets" element={<FullTeethsets/>} />
+          <Route path="/services/gum-treatment" element={<GumTreatment/>} />
+          <Route path="/services/wisdom-teeth" element={<SurgicalRemoval/>} />
         </Routes>
 
         <Footer />
