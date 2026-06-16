@@ -39,7 +39,7 @@ export default function Counter() {
   const statMetrics = [
     {
       id: 1,
-      targetValue: 15400,
+      targetValue: 50000,
       suffix: "+",
       title: "Happy Patients",
       subtitle: "Trusted family care",
