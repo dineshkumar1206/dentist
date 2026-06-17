@@ -36,7 +36,7 @@ const Navbar = () => {
               className="flex items-center space-x-2 cursor-pointer"
             >
               <div>
-                <img src="/images/RANGAS-ENTAL-CLINIC-FINAL-LOGO-1.png" alt="RANGA'S DENTAL CLINIC Logo" className="h-37 w-37 object-contain" />
+                <img src="/images/RANGAS-ENTAL-CLINIC-FINAL-LOGO-1.png" alt="RANGA'S DENTAL CLINIC Logo" className="h-45 w-45 object-contain" />
               </div>
             </motion.div>
 

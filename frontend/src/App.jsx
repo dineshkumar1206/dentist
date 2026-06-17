@@ -19,11 +19,12 @@ import FixedBraces from "./services/FixedBraces";
 import FullTeethsets from "./services/FullTeethsets";
 import GumTreatment from "./services/GumTreatment";
 import SurgicalRemoval from "./services/SurgicalRemoval";
+import CustomCursor from "./components/Customcursor";
 
 export default function App() {
   return (
     <BrowserRouter>
-
+       <CustomCursor/> 
        <ScrollToTop/>
       {/* <Preloader /> */}
 
