@@ -6,7 +6,6 @@ import { ChevronLeft, ChevronRight, Heart, Share2 } from 'lucide-react';
 /* ── Single Font Definition ── */
 const FONT_FAMILY = "'Outfit', system-ui, sans-serif";
 
-// ALL 9 SERVICES CONTAINS COMPREHENSIVE TEXT DESCRIPTIONS
 const services = [
   { 
     id: 1, 
@@ -94,11 +93,11 @@ function ServiceCard({ service }) {
   return (
     <motion.div
       variants={itemVariants}
-      className="flex-shrink-0 w-[280px] sm:w-[310px] bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300"
+      className="flex-shrink-0 w-[280px] sm:w-[310px] h-[390px] sm:h-[410px] bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300"
     >
-      <Link to={service.href} className="block group">
+      <Link to={service.href} className="flex flex-col h-full group">
         {/* Card Image Banner Wrapper */}
-        <div className="relative h-[200px] overflow-hidden bg-slate-50">
+        <div className="relative h-[190px] sm:h-[210px] flex-shrink-0 overflow-hidden bg-slate-50">
           <img 
             src={service.image} 
             alt={service.title} 
@@ -122,17 +121,22 @@ function ServiceCard({ service }) {
           </div>
         </div>
 
-        {/* Details Block rendering Title and Description */}
-        <div className="p-5 text-left bg-white flex flex-col justify-between min-h-[160px]">
-          <div>
-            <h3 className="font-bold text-slate-800 text-base sm:text-lg tracking-tight group-hover:text-cyan-600 transition-colors duration-200 line-clamp-1">
-              {service.title}
-            </h3>
-            <p className="mt-2 text-xs sm:text-sm text-slate-500 leading-relaxed line-clamp-3">
+        {/* Dynamic Structural Grid to enforce identical content rows across all components */}
+        <div className="p-5 text-left bg-white grid grid-rows-[auto_1fr_auto] flex-1 min-h-0">
+          {/* Title Area */}
+          <h3 className="font-bold text-slate-800 text-base tracking-tight group-hover:text-cyan-600 transition-colors duration-200 line-clamp-1 mb-1.5">
+            {service.title}
+          </h3>
+          
+          {/* Description Content Block Area */}
+          <div className="overflow-hidden">
+            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed line-clamp-3">
               {service.description}
             </p>
           </div>
-          <div className="mt-4 flex items-center text-xs font-semibold text-cyan-600 group-hover:translate-x-1 transition-transform duration-300">
+          
+          {/* Action Footer Anchored Perfectly to Bottom */}
+          <div className="mt-4 pt-1 flex items-center text-xs font-semibold text-cyan-600 group-hover:translate-x-1 transition-transform duration-300">
             Learn More <span className="ml-1">➔</span>
           </div>
         </div>
@@ -152,7 +156,6 @@ export default function DentalSpecialities() {
       scrollInterval = setInterval(() => {
         if (carouselRef.current) {
           const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-          // Loop back smoothly once carousel reaches edge boundaries
           if (scrollLeft + clientWidth >= scrollWidth - 10) {
             carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
           } else {
@@ -191,7 +194,7 @@ export default function DentalSpecialities() {
             </h2>
           </div>
 
-          {/* Action Navigation Controls (Left and Right Arrows) */}
+          {/* Action Navigation Controls */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => handleScroll('left')}
@@ -225,7 +228,6 @@ export default function DentalSpecialities() {
             msOverflowStyle: 'none',
           }}
         >
-          {/* Webkit display engine rules to completely hide layout scrollbars */}
           <style>{`
             div::-webkit-scrollbar {
               display: none;
@@ -233,7 +235,7 @@ export default function DentalSpecialities() {
           `}</style>
           
           {services.map((service) => (
-            <div key={service.id} className="snap-start">
+            <div key={service.id} className="snap-start flex">
               <ServiceCard service={service} />
             </div>
           ))}
