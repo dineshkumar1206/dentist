@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Heart, Share2 } from 'lucide-react';
 import BlurText from "../components/BlurText"; 
-import ImageGlareHover from "../components/ImageGlareHover"; // <-- Imported Glare Component
+import ImageGlareHover from "../components/ImageGlareHover"; 
 
 /* ── Single Font Definition ── */
 const FONT_FAMILY = "'Outfit', system-ui, sans-serif";
@@ -99,12 +99,12 @@ function ServiceCard({ service }) {
     >
       <Link to={service.href} className="flex flex-col h-full group">
         
-        {/* Card Image Banner Wrapper — Integrated ImageGlareHover inside */}
+        {/* Card Image Banner Wrapper */}
         <ImageGlareHover
           glareColor="#ffffff"
           glareOpacity={0.35}
           glareSize={180}
-          borderRadius="0px" // Resets edge framing to map cleanly inside the card layout
+          borderRadius="0px" 
           width="100%"
           height="190px"
           className="sm:h-[210px] flex-shrink-0 overflow-hidden bg-slate-50 relative"
@@ -115,7 +115,7 @@ function ServiceCard({ service }) {
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
           
-          {/* Quick Floating Interactions (z-index adjusted to stay clickable above overlay) */}
+          {/* Floating Action Controls — Transformed to match brand purples */}
           <div className="absolute top-3 right-3 flex items-center gap-2 z-20">
             <button 
               onClick={(e) => { e.preventDefault(); }} 
@@ -125,29 +125,27 @@ function ServiceCard({ service }) {
             </button>
             <button 
               onClick={(e) => { e.preventDefault(); }} 
-              className="w-8 h-8 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-slate-600 hover:bg-white hover:text-cyan-600 transition-colors shadow-xs"
+              className="w-8 h-8 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-slate-600 hover:bg-white hover:text-[#682187] transition-colors shadow-xs"
             >
               <Share2 size={14} />
             </button>
           </div>
         </ImageGlareHover>
 
-        {/* Dynamic Structural Grid Content */}
+        {/* Card Metadata Frame */}
         <div className="p-5 text-left bg-white grid grid-rows-[auto_1fr_auto] flex-1 min-h-0">
-          {/* Title Area */}
-          <h3 className="font-bold text-slate-800 text-base tracking-tight group-hover:text-cyan-600 transition-colors duration-200 line-clamp-1 mb-1.5">
+          <h3 className="font-bold text-slate-800 text-base tracking-tight group-hover:text-[#682187] transition-colors duration-200 line-clamp-1 mb-1.5">
             {service.title}
           </h3>
           
-          {/* Description Content Block Area */}
           <div className="overflow-hidden">
             <p className="text-xs sm:text-sm text-slate-500 leading-relaxed line-clamp-3">
               {service.description}
             </p>
           </div>
           
-          {/* Action Footer Anchored Perfectly to Bottom */}
-          <div className="mt-4 pt-1 flex items-center text-xs font-semibold text-cyan-600 group-hover:translate-x-1 transition-transform duration-300">
+          {/* Action Link synced with primary color signature rules */}
+          <div className="mt-4 pt-1 flex items-center text-xs font-semibold text-[#8c7c96] group-hover:text-[#682187] group-hover:translate-x-1 transition-all duration-300">
             Learn More <span className="ml-1">➔</span>
           </div>
         </div>
@@ -160,7 +158,7 @@ export default function DentalSpecialities() {
   const carouselRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Auto-scrolling loop
+  // Auto-scrolling carousel loop
   useEffect(() => {
     let scrollInterval;
     if (!isHovered) {
@@ -179,7 +177,6 @@ export default function DentalSpecialities() {
     return () => clearInterval(scrollInterval);
   }, [isHovered]);
 
-  // Click-to-Move Arrow Triggers
   const handleScroll = (direction) => {
     if (carouselRef.current) {
       const scrollAmount = direction === 'left' ? -330 : 330;
@@ -189,15 +186,15 @@ export default function DentalSpecialities() {
 
   return (
     <section 
-      className="w-full bg-white py-12 sm:py-20 relative overflow-hidden"
+      className="w-full bg-[#fcfbfe] py-12 sm:py-20 relative overflow-hidden"
       style={{ fontFamily: FONT_FAMILY }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Headline Block with Control Knobs */}
+        {/* Section Header */}
         <div className="mb-8 sm:mb-12 flex items-end justify-between">
           <div>
-            <p className="text-[10px] sm:text-[11px] font-bold tracking-[0.25em] uppercase text-cyan-600 mb-2">
+            <p className="text-[10px] sm:text-[11px] font-bold tracking-[0.25em] uppercase text-[#682187] mb-2">
               Most Popular Services
             </p>
             
@@ -211,18 +208,18 @@ export default function DentalSpecialities() {
             </h2>
           </div>
 
-          {/* Action Navigation Controls */}
+          {/* Navigational Control Handles mapped to custom purple branding rules */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => handleScroll('left')}
-              className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs active:scale-95 cursor-pointer"
+              className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:bg-[#fcfbfe] hover:border-[#8c7c96] hover:text-[#682187] transition-all shadow-xs active:scale-95 cursor-pointer"
               aria-label="Scroll left"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={() => handleScroll('right')}
-              className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs active:scale-95 cursor-pointer"
+              className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:bg-[#fcfbfe] hover:border-[#8c7c96] hover:text-[#682187] transition-all shadow-xs active:scale-95 cursor-pointer"
               aria-label="Scroll right"
             >
               <ChevronRight size={18} />
@@ -230,7 +227,7 @@ export default function DentalSpecialities() {
           </div>
         </div>
 
-        {/* CAROUSEL HORIZONTAL CONTAINER */}
+        {/* Carousel Tracks */}
         <motion.div 
           ref={carouselRef}
           variants={containerVariants}

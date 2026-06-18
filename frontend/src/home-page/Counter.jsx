@@ -44,9 +44,9 @@ export default function Counter() {
       title: "Happy Patients",
       subtitle: "Trusted family care",
       icon: Users,
-      color: "from-cyan-500 to-blue-500",
-      bgColor: "bg-cyan-50",
-      iconColor: "text-cyan-600",
+      color: "from-[#682187] to-[#4c1263]",
+      bgColor: "bg-purple-50",
+      iconColor: "text-[#682187]",
     },
     {
       id: 2,
@@ -55,9 +55,9 @@ export default function Counter() {
       title: "Smiles Straightened",
       subtitle: "Expert orthodontics",
       icon: Smile,
-      color: "from-teal-500 to-emerald-500",
-      bgColor: "bg-teal-50",
-      iconColor: "text-teal-600",
+      color: "from-[#a855f7] to-[#682187]",
+      bgColor: "bg-fuchsia-50/70",
+      iconColor: "text-[#a855f7]",
     },
     {
       id: 3,
@@ -66,9 +66,9 @@ export default function Counter() {
       title: "Years Experienced",
       subtitle: "Clinical excellence",
       icon: Award,
-      color: "from-blue-500 to-indigo-500",
-      bgColor: "bg-blue-50",
-      iconColor: "text-blue-600",
+      color: "from-[#682187] to-[#a855f7]",
+      bgColor: "bg-purple-100/40",
+      iconColor: "text-[#4c1263]",
     },
     {
       id: 4,
@@ -104,19 +104,18 @@ export default function Counter() {
 
   return (
     <section 
-      className="w-full bg-[#f8fafc] py-12 sm:py-16 lg:py-24 relative overflow-hidden"
+      className="w-full bg-[#fcfbfe] py-12 sm:py-16 lg:py-24 relative overflow-hidden"
       style={{ fontFamily: FONT_FAMILY }}
     >
-      {/* Decorative clean line background traces */}
-      <div className="absolute inset-0 pointer-events-none select-none opacity-30">
-        <div className="absolute right-[-10%] top-[-20%] w-[400px] h-[400px] bg-cyan-200 rounded-full blur-3xl" />
-        <div className="absolute left-[-5%] bottom-[-10%] w-[350px] h-[350px] bg-teal-100 rounded-full blur-3xl" />
+      {/* Dynamic background blur traces tuned to your brand guidelines */}
+      <div className="absolute inset-0 pointer-events-none select-none opacity-40">
+        <div className="absolute right-[-10%] top-[-20%] w-[400px] h-[400px] bg-purple-200/50 rounded-full blur-3xl" />
+        <div className="absolute left-[-5%] bottom-[-10%] w-[350px] h-[350px] bg-fuchsia-100/50 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Boxed Grid System Layout Matrix */}
-        {/* Changed grid-cols-1 to grid-cols-2 to strict lock a 2x2 grid on mobile viewports */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -136,7 +135,7 @@ export default function Counter() {
                    rounded-2xl lg:rounded-3xl
                    p-4 sm:p-6 lg:p-8
                    border border-slate-100
-                   shadow-md shadow-slate-200/40
+                   shadow-md shadow-purple-950/5
                    flex flex-col items-center sm:items-start text-center sm:text-left
                    relative overflow-hidden
                    group transition-all duration-300
@@ -160,7 +159,7 @@ export default function Counter() {
                   <IconComponent className="w-4 h-4 sm:w-6 sm:h-6" strokeWidth={2} />
                 </div>
 
-                {/* Animated Numerical Layout Display */}
+                {/* Animated Numerical Display */}
                 <div className="flex items-baseline mb-1 sm:mb-2 max-w-full overflow-hidden">
                   <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-none">
                     {stat.isDecimal ? (

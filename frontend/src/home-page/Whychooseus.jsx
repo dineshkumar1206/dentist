@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { Check } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import FormService from "../components/FormService";
 import BlurText from "../components/BlurText"; 
-import ImageGlareHover from "../components/ImageGlareHover"; // <-- Imported Glare Component
+import ImageGlareHover from "../components/ImageGlareHover";
+
+/* ── Design token: Uniform Font Family & Flyer Palette ── */
+const FONT_FAMILY = "'Outfit', system-ui, sans-serif";
+const PRIMARY_PURPLE = "#682187";
 
 const features = [
   "Dental check-ups",
@@ -31,7 +35,7 @@ export default function WhyChooseUs() {
 
   return (
     <>
-      <section className="bg-white py-16 sm:py-20 lg:py-24 px-4 sm:px-8 lg:px-16 xl:px-24 overflow-hidden">
+      <section className="bg-[#fcfbfe] py-16 sm:py-20 lg:py-24 px-4 sm:px-8 lg:px-16 xl:px-24 overflow-hidden" style={{ fontFamily: FONT_FAMILY }}>
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
           {/* LEFT: Text Content */}
@@ -47,7 +51,7 @@ export default function WhyChooseUs() {
             {/* Tag */}
             <motion.p 
               variants={fadeUpVariants}
-              className="text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-gray-400 mb-5"
+              className="text-xs sm:text-sm font-bold tracking-[0.25em] uppercase text-[#682187] mb-5"
             >
               Why Choose Us
             </motion.p>
@@ -55,8 +59,7 @@ export default function WhyChooseUs() {
             {/* Heading */}
             <motion.h2
               variants={fadeUpVariants}
-              className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 leading-tight mb-6"
-              style={{ fontFamily: "'Georgia', serif" }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-tight mb-6"
             >
               <BlurText
                 text="Are you looking for a dentist to give you that special smile?"
@@ -69,7 +72,7 @@ export default function WhyChooseUs() {
             {/* Subtext */}
             <motion.p 
               variants={fadeUpVariants}
-              className="text-gray-500 text-sm sm:text-base leading-relaxed mb-8 max-w-md"
+              className="text-slate-500 text-sm sm:text-base font-light leading-relaxed mb-8 max-w-md"
             >
               Our clinic provides the highest quality dental care with a group of experienced dentists and specialists dedicated to your smile.
             </motion.p>
@@ -81,24 +84,27 @@ export default function WhyChooseUs() {
             >
               {features.map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <Check size={16} strokeWidth={3} className="text-teal-500 flex-shrink-0" />
-                  <span className="text-gray-700 text-sm sm:text-base">{item}</span>
+                  <Check size={16} strokeWidth={3} className="text-[#682187] flex-shrink-0" />
+                  <span className="text-slate-700 font-medium text-sm sm:text-base">{item}</span>
                 </div>
               ))}
             </motion.div>
 
-            {/* CTA Button */}
-            <motion.div variants={fadeUpVariants}>
+            {/* Premium Capsule Action Button */}
+            <motion.div variants={fadeUpVariants} className="w-full sm:w-auto">
               <button 
                 onClick={() => setIsModalOpen(true)}
-                className="border border-gray-800 text-gray-800 text-xs font-semibold tracking-[0.2em] uppercase px-8 py-4 hover:bg-gray-900 hover:text-white transition-all duration-300 cursor-pointer"
+                className="group inline-flex items-center gap-4 bg-[#8c7c96] text-white font-semibold text-sm rounded-full pl-6 pr-2 py-2 shadow-md shadow-purple-900/5 hover:bg-[#8c43ad] transition-all duration-400 ease-out w-full sm:w-auto justify-between sm:justify-start cursor-pointer"
               >
                 Book a Visit
+                <div className="w-[38px] h-[38px] bg-white text-[#8c7c96] rounded-full flex items-center justify-center group-hover:text-[#581c74] group-hover:scale-105 transition-all duration-400 ease-out">
+                  <ArrowRight size={18} strokeWidth={2.5} className="transition-transform duration-400 ease-out group-hover:rotate-[-45deg]" />
+                </div>
               </button>
             </motion.div>
           </motion.div>
 
-          {/* RIGHT: Responsive Landscape Image wrapped with Glare Overlay */}
+          {/* RIGHT: Landscape Image Frame with Glare Overlay */}
           <motion.div 
             className="flex-1 w-full flex justify-center lg:justify-end"
             initial={{ opacity: 0, y: 40 }}
@@ -109,10 +115,10 @@ export default function WhyChooseUs() {
             <ImageGlareHover
               glareColor="#ffffff"
               glareOpacity={0.3}
-              glareSize={200}
-              borderRadius={customFrameRadius} // Perfectly trims the glare reflection to your frame curves
+              glareSize={240}
+              borderRadius={customFrameRadius} 
               width="100%"
-              className="max-w-xl lg:max-w-2xl bg-gray-100 shadow-sm"
+              className="max-w-xl lg:max-w-2xl bg-purple-50/40 shadow-xl shadow-purple-950/5"
               style={{ aspectRatio: "16/10" }}
             >
               <img
@@ -130,7 +136,7 @@ export default function WhyChooseUs() {
       <FormService 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
-        accentColor="#0ea5e9"
+        accentColor={PRIMARY_PURPLE}
         serviceName="Select a specialty service"
         defaultService="Select a specialty service"
       />

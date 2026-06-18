@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-// Removed Tooth to fix the crash shown in image_d0ee8b.png
 import { Menu, X, ChevronDown, Drill, Baby, Activity, Sparkles, Zap, Smile, Layers, Heart, Scissors } from 'lucide-react'; 
 import { NavLink } from "react-router-dom";
-import FormService from "./FormService"; // Imported the Form Modal Component
+import FormService from "./FormService"; 
+
+/* ─── Design token: Uniform Font Family & Flyer Palette ─── */
+const FONT_FAMILY = "'Outfit', system-ui, sans-serif";
+const PRIMARY_PURPLE = "#682187"; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // New state to control the modal overlay
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const services = [
     { id: 1, title: "Implants", icon: Drill, href: "/services/implants" },
@@ -24,7 +27,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-sm">
+      <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-sm" style={{ fontFamily: FONT_FAMILY }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             
@@ -46,21 +49,18 @@ const Navbar = () => {
                 {/* Home Link */}
                 <NavLink
                   to="/"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0 }}
-                  className="relative px-4 py-2 text-sm font-medium text-slate-600 hover:text-cyan-600 transition-colors duration-300 rounded-lg group"
+                  className="relative px-4 py-2 text-sm font-semibold text-slate-600 hover:text-[#682187] transition-colors duration-300 rounded-lg group"
                 >
                   Home
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#682187] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 </NavLink>
 
                 {/* Services Dropdown (Desktop Hover) */}
                 <div className="relative group/dropdown flex items-center">
-                  <button className="flex items-center space-x-1 px-4 py-2 text-sm font-medium text-slate-600 hover:text-cyan-600 transition-colors duration-300 rounded-lg group">
+                  <button className="flex items-center space-x-1 px-4 py-2 text-sm font-semibold text-slate-600 hover:text-[#682187] transition-colors duration-300 rounded-lg group">
                     <span>Services</span>
                     <ChevronDown size={18} className="transition-transform duration-200 group-hover/dropdown:rotate-180" />
-                    <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-cyan-500 scale-x-0 group-hover/dropdown:scale-x-100 transition-transform duration-300 origin-left" />
+                    <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-[#682187] scale-x-0 group-hover/dropdown:scale-x-100 transition-transform duration-300 origin-left" />
                   </button>
 
                   {/* Dropdown Menu Overlay Panel */}
@@ -72,10 +72,10 @@ const Navbar = () => {
                           <NavLink
                             key={service.id}
                             to={service.href}
-                            className="flex items-center space-x-3 p-3 rounded-xl hover:bg-cyan-50 text-slate-600 hover:text-cyan-600 transition-all duration-200 group/item"
+                            className="flex items-center space-x-3 p-3 rounded-xl hover:bg-purple-50 text-slate-600 hover:text-[#682187] transition-all duration-200 group/item"
                           >
-                            <div className="p-2.5 bg-slate-50 rounded-lg group-hover/item:bg-cyan-100 transition-colors">
-                              <IconComponent size={20} className="text-slate-500 group-hover/item:text-cyan-600" />
+                            <div className="p-2.5 bg-slate-50 rounded-lg group-hover/item:bg-purple-100/60 transition-colors">
+                              <IconComponent size={20} className="text-slate-500 group-hover/item:text-[#682187]" />
                             </div>
                             <span className="text-xs font-semibold tracking-wide leading-snug">{service.title}</span>
                           </NavLink>
@@ -88,36 +88,30 @@ const Navbar = () => {
                 {/* About Us Link */}
                 <NavLink
                   to="/about"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.2 }}
-                  className="relative px-4 py-2 text-sm font-medium text-slate-600 hover:text-cyan-600 transition-colors duration-300 rounded-lg group"
+                  className="relative px-4 py-2 text-sm font-semibold text-slate-600 hover:text-[#682187] transition-colors duration-300 rounded-lg group"
                 >
                   About Us
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#682187] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 </NavLink>
 
-                {/* Contact us */}
+                {/* Contact Link */}
                 <NavLink
                   to="/contact"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.2 }}
-                  className="relative px-4 py-2 text-sm font-medium text-slate-600 hover:text-cyan-600 transition-colors duration-300 rounded-lg group"
+                  className="relative px-4 py-2 text-sm font-semibold text-slate-600 hover:text-[#682187] transition-colors duration-300 rounded-lg group"
                 >
                   Contact
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#682187] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 </NavLink>
               </div>
 
-              {/* Desktop Booking CTA */}
+              {/* Desktop Booking CTA (Clean Purple Theme - No Icons Added) */}
               <motion.button
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => setIsModalOpen(true)}
-                className="bg-cyan-600 hover:bg-cyan-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-cyan-100 transition-colors duration-300 cursor-pointer"
+                className="bg-[#682187] hover:bg-[#581c74] text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-md shadow-purple-900/10 transition-colors duration-300 cursor-pointer"
               >
                 Book Appointment
               </motion.button>
@@ -127,7 +121,7 @@ const Navbar = () => {
             <div className="md:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-slate-600 hover:text-cyan-600 focus:outline-none p-2"
+                className="text-slate-600 hover:text-[#682187] focus:outline-none p-2"
               >
                 {isOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -148,7 +142,7 @@ const Navbar = () => {
                 {/* Home */}
                 <NavLink
                   to="/"
-                  className="block px-4 py-3 rounded-xl text-base font-medium text-slate-600 hover:bg-cyan-50 hover:text-cyan-600 transition-all"
+                  className="block px-4 py-3 rounded-xl text-base font-semibold text-slate-600 hover:bg-purple-50 hover:text-[#682187] transition-all"
                   onClick={() => setIsOpen(false)}
                 >
                   Home
@@ -158,7 +152,7 @@ const Navbar = () => {
                 <div>
                   <button 
                     onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                    className="flex items-center justify-between w-full px-4 py-3 rounded-xl text-base font-medium text-slate-600 hover:bg-cyan-50 hover:text-cyan-600 transition-all"
+                    className="flex items-center justify-between w-full px-4 py-3 rounded-xl text-base font-semibold text-slate-600 hover:bg-purple-50 hover:text-[#682187] transition-all"
                   >
                     <span>Services</span>
                     <ChevronDown size={18} className={`transition-transform duration-200 ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
@@ -178,7 +172,7 @@ const Navbar = () => {
                             <NavLink
                               key={service.id}
                               to={service.href}
-                              className="flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm font-medium text-slate-500 hover:bg-slate-50 hover:text-cyan-600 transition-all"
+                              className="flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-500 hover:bg-slate-50 hover:text-[#682187] transition-all"
                               onClick={() => {
                                 setIsOpen(false);
                                 setIsMobileServicesOpen(false);
@@ -197,7 +191,7 @@ const Navbar = () => {
                 {/* About Us */}
                 <NavLink
                   to="/about"
-                  className="block px-4 py-3 rounded-xl text-base font-medium text-slate-600 hover:bg-cyan-50 hover:text-cyan-600 transition-all"
+                  className="block px-4 py-3 rounded-xl text-base font-semibold text-slate-600 hover:bg-purple-50 hover:text-[#682187] transition-all"
                   onClick={() => setIsOpen(false)}
                 >
                   About Us
@@ -210,7 +204,7 @@ const Navbar = () => {
                       setIsOpen(false);
                       setIsModalOpen(true);
                     }}
-                    className="w-full bg-cyan-600 text-white py-3 rounded-xl font-semibold shadow-lg shadow-cyan-100 cursor-pointer"
+                    className="w-full bg-[#682187] text-white py-3 rounded-xl font-semibold shadow-md shadow-purple-900/10 cursor-pointer text-center"
                   >
                     Book Appointment
                   </button>
@@ -225,9 +219,9 @@ const Navbar = () => {
       <FormService 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
-        accentColor="#0ea5e9"
-        serviceName="Select a specialty service" // Added serviceName to define initial input choice string
-        defaultService="Select a specialty service" // Retained fallback mapping configuration hook
+        accentColor={PRIMARY_PURPLE}
+        serviceName="Select a specialty service" 
+        defaultService="Select a specialty service" 
       />
     </>
   );
