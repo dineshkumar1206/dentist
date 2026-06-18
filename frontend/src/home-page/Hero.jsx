@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Calendar, ShieldCheck, Star, ArrowRight, Award } from 'lucide-react';
+import gsap from 'gsap';
 import FormService from '../components/FormService';
 import BlurText from "../components/BlurText"; 
-import ImageGlareHover from "../components/ImageGlareHover"; // <-- Imported Glare Component
+import ImageGlareHover from "../components/ImageGlareHover";
 
-/* ─── Design token: Uniform Font Family ─── */
+/* ─── Design token: Uniform Font Family & Flyer Palette ─── */
 const FONT_FAMILY = "'Outfit', system-ui, sans-serif";
+const PRIMARY_PURPLE = "#682187"; // Core color from flyer
+const DARK_PURPLE = "#4c1263";
 
 /* ─── Breakpoint hook ─── */
 const useBreakpoint = () => {
-  const [bp, setBp] = React.useState({ isMobile: false, isTablet: false });
-  React.useEffect(() => {
+  const [bp, setBp] = useState({ isMobile: false, isTablet: false });
+  useEffect(() => {
     const check = () => {
       const w = window.innerWidth;
       setBp({ isMobile: w < 640, isTablet: w >= 640 && w < 1024 });
@@ -35,7 +38,7 @@ const StatPill = ({ icon: Icon, value, label, color, delay }) => (
       backdropFilter: 'blur(12px)',
       border: '1px solid rgba(255,255,255,0.92)',
       borderRadius: 14, padding: '11px 15px',
-      boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
+      boxShadow: '0 2px 16px rgba(0,0,0,0.04)',
       flex: '1 1 130px', minWidth: 0,
     }}
   >
@@ -65,7 +68,7 @@ const AvailabilityCard = ({ isMobile, onBookClick }) => (
       boxShadow: '0 8px 28px rgba(0,0,0,0.11)',
       border: '1px solid rgba(255,255,255,0.9)',
       minWidth: isMobile ? 164 : 205,
-      zIndex: 15, // Pushed up slightly to hover cleanly over glare
+      zIndex: 15,
     }}
   >
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -82,7 +85,7 @@ const AvailabilityCard = ({ isMobile, onBookClick }) => (
         whileHover={{ scale: 1.05 }} 
         whileTap={{ scale: 0.96 }}
         onClick={onBookClick}
-        style={{ background: '#0ea5e9', color: '#fff', border: 'none', borderRadius: 8, padding: '5px 10px', fontFamily: FONT_FAMILY, fontSize: 11, fontWeight: 700, cursor: 'pointer' }}
+        style={{ background: PRIMARY_PURPLE, color: '#fff', border: 'none', borderRadius: 8, padding: '5px 10px', fontFamily: FONT_FAMILY, fontSize: 11, fontWeight: 700, cursor: 'pointer' }}
       >
         Book
       </motion.button>
@@ -105,7 +108,7 @@ const RatingCard = ({ isMobile }) => (
       borderRadius: 15, padding: '11px 15px',
       boxShadow: '0 8px 28px rgba(0,0,0,0.09)',
       border: '1px solid rgba(255,255,255,0.9)',
-      zIndex: 15, // Pushed up slightly to hover cleanly over glare
+      zIndex: 15,
     }}
   >
     <div style={{ display: 'flex', gap: 2, marginBottom: 4 }}>
@@ -132,13 +135,13 @@ const ServicesStrip = ({ isMobile }) => (
       borderRadius: 13, padding: '9px 16px',
       display: 'flex', alignItems: 'center', gap: isMobile ? 10 : 16,
       boxShadow: '0 6px 24px rgba(0,0,0,0.07)',
-      whiteSpace: 'nowrap', zIndex: 15, // Pushed up slightly to hover cleanly over glare
+      whiteSpace: 'nowrap', zIndex: 15,
     }}
   >
     {[
-      { label: isMobile ? 'Whitening' : 'Teeth Whitening', color: '#0ea5e9' },
-      { label: 'Implants', color: '#10b981' },
-      { label: 'Orthodontics', color: '#8b5cf6' },
+      { label: isMobile ? 'Whitening' : 'Teeth Whitening', color: '#a855f7' },
+      { label: 'Implants', color: PRIMARY_PURPLE },
+      { label: 'Orthodontics', color: '#6366f1' },
     ].map(({ label, color }) => (
       <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
         <div style={{ width: 7, height: 7, borderRadius: '50%', background: color }} />
@@ -149,7 +152,7 @@ const ServicesStrip = ({ isMobile }) => (
 );
 
 /* ══════════════════════════════════════
-    MAIN COMPONENT
+    MAIN HERO COMPONENT
 ══════════════════════════════════════ */
 const Hero = () => {
   const { isMobile, isTablet } = useBreakpoint();
@@ -157,12 +160,67 @@ const Hero = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Framer Motion Background Blobs
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springX = useSpring(mouseX, { stiffness: 60, damping: 20 });
   const springY = useSpring(mouseY, { stiffness: 60, damping: 20 });
   const blobX = useTransform(springX, v => `${v * 0.015}px`);
   const blobY = useTransform(springY, v => `${v * 0.015}px`);
+
+  // Refs for GSAP Magnetic Button Animations
+  const primaryBtnRef = useRef(null);
+  const secondaryBtnRef = useRef(null);
+
+  useEffect(() => {
+    // Apply magnetic animations only on non-mobile devices
+    if (window.innerWidth < 640) return;
+
+    const setupMagneticButton = (buttonRef) => {
+      const el = buttonRef.current;
+      if (!el) return;
+
+      const onMouseMove = (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        gsap.to(el, {
+          x: x * 0.35,
+          y: y * 0.35,
+          scale: 1.03,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      };
+
+      const onMouseLeave = () => {
+        gsap.to(el, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "elastic.out(1, 0.4)"
+        });
+      };
+
+      el.addEventListener('mousemove', onMouseMove);
+      el.addEventListener('mouseleave', onMouseLeave);
+
+      return () => {
+        el.removeEventListener('mousemove', onMouseMove);
+        el.removeEventListener('mouseleave', onMouseLeave);
+      };
+    };
+
+    const cleanupPrimary = setupMagneticButton(primaryBtnRef);
+    const cleanupSecondary = setupMagneticButton(secondaryBtnRef);
+
+    return () => {
+      if (cleanupPrimary) cleanupPrimary();
+      if (cleanupSecondary) cleanupSecondary();
+    };
+  }, []);
 
   const handleMouseMove = (e) => {
     if (isMobile) return;
@@ -179,8 +237,8 @@ const Hero = () => {
       <style>{`
         *, *::before, *::after { box-sizing: border-box; }
 
-        /* ── Layout ── */
-        .h-root { position: relative; min-height: 100vh; background: #f8fafc; overflow: hidden; display: flex; align-items: center; }
+        /* ── Layout & Image Colors ── */
+        .h-root { position: relative; min-height: 100vh; background: #fcfbfe; overflow: hidden; display: flex; align-items: center; }
         .h-inner { max-width: 1280px; margin: 0 auto; padding: 96px 40px 80px; width: 100%; position: relative; z-index: 1; }
         .h-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
 
@@ -199,9 +257,9 @@ const Hero = () => {
         .h-eyebrow {
           display: inline-flex; align-items: center; gap: 8px;
           font-family: ${FONT_FAMILY}; font-size: 11px; font-weight: 600;
-          letter-spacing: 0.12em; text-transform: uppercase; color: #0284c7;
-          background: rgba(14,165,233,0.08); padding: 6px 14px;
-          border-radius: 100px; border: 1px solid rgba(14,165,233,0.15);
+          letter-spacing: 0.12em; text-transform: uppercase; color: ${PRIMARY_PURPLE};
+          background: rgba(104,33,135,0.07); padding: 6px 14px;
+          border-radius: 100px; border: 1px solid rgba(104,33,135,0.14);
           margin-bottom: 20px;
         }
 
@@ -226,36 +284,35 @@ const Hero = () => {
         }
 
         .h-h1 > span { display: inline; }
-        .h-divider { width: 48px; height: 2px; background: linear-gradient(90deg,#0ea5e9,#34d399); border-radius: 2px; margin-bottom: 22px; }
+        .h-divider { width: 48px; height: 3px; background: linear-gradient(90deg, ${PRIMARY_PURPLE}, #a855f7); border-radius: 2px; margin-bottom: 22px; }
 
         .h-desc {
           font-family: ${FONT_FAMILY}; font-size: 16px; line-height: 1.75;
-          color: #64748b; font-weight: 300; margin: 0 0 34px; max-width: 480px;
+          color: #52525b; font-weight: 300; margin: 0 0 34px; max-width: 480px;
         }
         @media (max-width: 1023px) { .h-desc { max-width: 100%; } }
         @media (max-width: 639px)  { .h-desc { font-size: 15px; } }
 
-        /* ── CTAs ── */
-        .h-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+        /* ── GSAP Animated CTAs ── */
+        .h-cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
 
         .h-btn-p {
-          background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+          background: linear-gradient(135deg, ${PRIMARY_PURPLE} 0%, ${DARK_PURPLE} 100%);
           color: #fff; border: none; border-radius: 14px; padding: 15px 28px;
           font-family: ${FONT_FAMILY}; font-size: 15px; font-weight: 600;
           cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
-          letter-spacing: -0.01em; box-shadow: 0 4px 24px rgba(14,165,233,0.35);
-          transition: box-shadow 0.2s ease; white-space: nowrap;
+          letter-spacing: -0.01em; box-shadow: 0 4px 24px rgba(104,33,135,0.3);
+          will-change: transform; white-space: nowrap;
         }
-        .h-btn-p:hover { box-shadow: 0 8px 32px rgba(14,165,233,0.45); }
 
         .h-btn-s {
-          background: transparent; color: #334155;
-          border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 15px 22px;
+          background: transparent; color: #3f3f46;
+          border: 1.5px solid #e4e4e7; border-radius: 14px; padding: 15px 22px;
           font-family: ${FONT_FAMILY}; font-size: 15px; font-weight: 500;
           cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
-          transition: background 0.2s ease, border-color 0.2s ease; white-space: nowrap;
+          will-change: transform; white-space: nowrap;
+          background: #fff;
         }
-        .h-btn-s:hover { background: #f1f5f9; border-color: #cbd5e1; }
 
         @media (max-width: 479px) {
           .h-cta-row { flex-direction: column; }
@@ -272,45 +329,45 @@ const Hero = () => {
         .h-img-frame {
           position: relative; width: 100%; aspect-ratio: 4/5;
           border-radius: 28px; overflow: hidden;
-          background: linear-gradient(145deg, #e0f2fe, #d1fae5);
-          box-shadow: 0 28px 72px rgba(0,0,0,0.12); z-index: 1;
+          background: linear-gradient(145deg, #f3e8ff, #fae8ff);
+          box-shadow: 0 28px 72px rgba(104,33,135,0.1); z-index: 1;
         }
         @media (max-width: 639px) { .h-img-frame { aspect-ratio: 3/4; border-radius: 20px; } }
 
         .h-img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
         .h-img-fade {
           position: absolute; bottom: 0; left: 0; right: 0; height: 35%;
-          background: linear-gradient(to top, rgba(15,23,42,0.18), transparent);
+          background: linear-gradient(to top, rgba(76,18,99,0.15), transparent);
           pointer-events: none; z-index: 2;
         }
 
         .h-ring {
           position: absolute; top: -20px; right: -20px;
           width: 72%; height: 72%; border-radius: 50%;
-          border: 1.5px dashed rgba(14,165,233,0.22);
+          border: 1.5px dashed rgba(104,33,135,0.2);
           pointer-events: none; z-index: 0;
         }
         @media (max-width: 1023px) { .h-ring { display: none; } }
       `}</style>
 
       <section className="h-root" onMouseMove={handleMouseMove}>
-        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0)', backgroundSize: '30px 30px', opacity: 0.42, pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 1px 1px, #f1f0f5 1px, transparent 0)', backgroundSize: '30px 30px', opacity: 0.72, pointerEvents: 'none' }} />
 
-        <motion.div style={{ x: blobX, y: blobY, position: 'absolute', top: '0%', left: '-10%', width: 560, height: 560, borderRadius: '50%', background: 'radial-gradient(circle, rgba(186,230,253,0.5) 0%, transparent 70%)', pointerEvents: 'none' }} />
-        <motion.div style={{ x: blobX, y: blobY, position: 'absolute', bottom: '-8%', right: '-6%', width: 480, height: 480, borderRadius: '50%', background: 'radial-gradient(circle, rgba(167,243,208,0.32) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        {/* Ambient background glows tailored to flyer artwork */}
+        <motion.div style={{ x: blobX, y: blobY, position: 'absolute', top: '0%', left: '-10%', width: 560, height: 560, borderRadius: '50%', background: 'radial-gradient(circle, rgba(243,232,255,0.6) 0%, transparent 70%)', pointerEvents: 'none' }} />
+        <motion.div style={{ x: blobX, y: blobY, position: 'absolute', bottom: '-8%', right: '-6%', width: 480, height: 480, borderRadius: '50%', background: 'radial-gradient(circle, rgba(250,232,255,0.4) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
         <div className="h-inner">
           <div className="h-grid">
 
-            {/* ── TEXT ── */}
+            {/* ── TEXT CONTENT SECTION ── */}
             <motion.div variants={cv} initial="hidden" animate="visible">
               <motion.div variants={su}>
                 <span className="h-eyebrow">
                   <motion.span
                     animate={{ scale: [1, 1.4, 1] }}
                     transition={{ repeat: Infinity, duration: 2.5 }}
-                    style={{ width: 6, height: 6, borderRadius: '50%', background: '#0ea5e9', display: 'inline-block', flexShrink: 0 }}
+                    style={{ width: 6, height: 6, borderRadius: '50%', background: PRIMARY_PURPLE, display: 'inline-block', flexShrink: 0 }}
                   />
                   Now Accepting New Patients
                 </span>
@@ -331,30 +388,33 @@ const Hero = () => {
                 World-class dental care, tailored uniquely to you. From routine checkups to complete cosmetic makeovers — delivered with cutting-edge technology in a calm, welcoming environment.
               </motion.p>
 
+              {/* GSAP Driven Action Layer */}
               <motion.div variants={su} className="h-cta-row">
-                <motion.button 
+                <button 
+                  ref={primaryBtnRef}
                   className="h-btn-p" 
-                  whileHover={{ scale: 1.02, y: -1 }} 
-                  whileTap={{ scale: 0.97 }}
                   onClick={() => setIsModalOpen(true)}
                 >
                   <Calendar size={16} strokeWidth={2.2} />
                   Book Free Consultation
-                </motion.button>
-                <motion.button className="h-btn-s" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
+                </button>
+                <button 
+                  ref={secondaryBtnRef}
+                  className="h-btn-s"
+                >
                   Explore Services
                   <ArrowRight size={15} strokeWidth={2} />
-                </motion.button>
+                </button>
               </motion.div>
 
               <motion.div variants={su} className="h-stats">
                 <StatPill icon={Star}        value="4.9 / 5.0"   label="500+ Patient Reviews" color="#f59e0b" delay={0.85} />
                 <StatPill icon={ShieldCheck} value="FDA Approved" label="Certified Technology"  color="#10b981" delay={0.95} />
-                <StatPill icon={Award}       value="15+ Years"    label="Clinical Excellence"   color="#0ea5e9" delay={1.05} />
+                <StatPill icon={Award}       value="16+ Years"    label="Clinical Experience"   color={PRIMARY_PURPLE} delay={1.05} />
               </motion.div>
             </motion.div>
 
-            {/* ── IMAGE WITH GLARE INTEGRATION ── */}
+            {/* ── VISUAL WRAPPER WITH GLARE ── */}
             <motion.div
               className="h-img-col"
               initial={{ opacity: 0, scale: 0.93, x: isStacked ? 0 : 36 }}
@@ -365,24 +425,23 @@ const Hero = () => {
               <div className="h-img-wrap">
                 <div className="h-ring" />
 
-                {/* Wrapped the frame with the Glare Hover component */}
                 <ImageGlareHover 
                   glareColor="#ffffff" 
-                  glareOpacity={0.35} 
-                  glareSize={220} 
+                  glareOpacity={0.3} 
+                  glareSize={240} 
                   borderRadius={isMobile ? "20px" : "28px"}
                 >
                   <div className="h-img-frame">
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(255,255,255,0.09) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 2 }} />
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 2 }} />
                     <img
                       src="/images/img-2.png"
-                      alt="Patient smiling at a modern dental clinic"
+                      alt="Modern clinical dental setup"
                     />
                     <div className="h-img-fade" />
                   </div>
                 </ImageGlareHover>
 
-                {/* Floating elements remain positioned relative to .h-img-wrap */}
+                {/* Overlaid spatial content */}
                 <AvailabilityCard isMobile={isMobile} onBookClick={() => setIsModalOpen(true)} />
                 <RatingCard      isMobile={isMobile} />
                 <ServicesStrip   isMobile={isMobile} />
@@ -396,7 +455,7 @@ const Hero = () => {
       <FormService 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
-        accentColor="#0ea5e9"
+        accentColor={PRIMARY_PURPLE}
         serviceName="Select a specialty service"
         defaultService="Select a specialty service"
       />
