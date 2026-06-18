@@ -60,7 +60,7 @@ function Field({ label, required, error, children }) {
     <div className="flex flex-col gap-1.5">
       <label className="text-xs font-semibold uppercase tracking-widest text-[#1a2332]/60">
         {label}
-        {required && <span className="text-[#0ea5e9] ml-0.5">*</span>}
+        {required && <span className="text-[#682187] ml-0.5">*</span>}
       </label>
       {children}
       {error && (
@@ -72,9 +72,9 @@ function Field({ label, required, error, children }) {
   );
 }
 
-// ─── Input base styles ────────────────────────────────────────────────────────
+// ─── Input base styles (Updated to Brand Purple Tokens) ────────────────────────
 const inputClass =
-  "w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#1a2332] placeholder-gray-400 outline-none transition-all duration-200 focus:border-[#0ea5e9] focus:ring-2 focus:ring-[#0ea5e9]/20 hover:border-[#0ea5e9]/50";
+  "w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-[#1a2332] placeholder-gray-400 outline-none transition-all duration-200 focus:border-[#682187] focus:ring-2 focus:ring-[#682187]/20 hover:border-[#682187]/50";
 
 const errorInputClass =
   "w-full rounded-xl border border-red-300 bg-red-50/40 px-4 py-3 text-sm text-[#1a2332] placeholder-gray-400 outline-none focus:border-red-400 focus:ring-2 focus:ring-red-200 transition-all duration-200";
@@ -82,9 +82,9 @@ const errorInputClass =
 // ─── Main component ───────────────────────────────────────────────────────────
 export default function FormService({
   serviceName = "Child Dental Care",
-  accentColor = "#0ea5e9",
-  isOpen = true, // Control visibility from parent
-  onClose,       // Callback to handle closing/dismissing the modal
+  accentColor = "#682187", // Synchronized default token fallback
+  isOpen = true, 
+  onClose,       
   onSubmit,
 }) {
   const [form, setForm] = useState({
@@ -154,7 +154,6 @@ export default function FormService({
   return (
     <AnimatePresence>
       {isOpen && (
-        /* Backdrop Backdrop Layer overlay */
         <motion.div
           variants={backdropAnim}
           initial="hidden"
@@ -163,13 +162,12 @@ export default function FormService({
           onClick={onClose}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm overflow-y-auto"
         >
-          {/* Boxed Centered Modal Content Card */}
           <motion.div
             variants={modalAnim}
             initial="hidden"
             animate="visible"
             exit="exit"
-            onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside the form
+            onClick={(e) => e.stopPropagation()} 
             className="relative w-full max-w-lg my-auto rounded-3xl bg-white border border-gray-100 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
           >
             {/* Close Button Top Right */}
@@ -181,7 +179,7 @@ export default function FormService({
             </button>
 
             {submitted ? (
-              /* Success Screen inside contained box */
+              /* Success Screen Box */
               <div className="p-10 text-center flex flex-col items-center justify-center overflow-y-auto">
                 <motion.div
                   initial={{ scale: 0 }}
@@ -195,7 +193,7 @@ export default function FormService({
                 <h3 className="text-2xl font-extrabold text-[#1a2332] mb-2">
                   Appointment Requested!
                 </h3>
-                <p className="text-[#4a5568] text-sm leading-relaxed mb-4">
+                <p className="text-[#4a5568] text-sm font-light leading-relaxed mb-4">
                   Thank you, <strong>{form.firstName}</strong>! Your{" "}
                   <strong>{form.service}</strong> consultation request has been received.
                   Our team will confirm your slot on{" "}
@@ -221,7 +219,7 @@ export default function FormService({
                         service: serviceName, age: "", date: "", time: "", concern: "", consent: false,
                       });
                     }}
-                    className="text-xs text-[#0ea5e9] font-medium hover:underline cursor-pointer"
+                    className="text-xs text-[#682187] font-semibold hover:underline cursor-pointer"
                   >
                     Book another appointment
                   </button>
@@ -235,9 +233,9 @@ export default function FormService({
                 </div>
               </div>
             ) : (
-              /* Actual Form Elements Wrapper with Internal Scrolling if text overflows */
+              /* Regular Form Workflow Elements */
               <>
-                {/* Header Section */}
+                {/* Header Profile Section */}
                 <div
                   className="px-8 py-6 flex items-start gap-4 pr-14"
                   style={{
@@ -264,14 +262,14 @@ export default function FormService({
                   </div>
                 </div>
 
-                {/* Internal Scrollable Content Layer */}
+                {/* Main Content Layers */}
                 <div className="px-8 py-6 flex-1 overflow-y-auto flex flex-col gap-5 CustomScrollbar">
                   {/* Row: First + Last name */}
                   <div className="grid grid-cols-2 gap-4">
                     <div id="field-firstName">
                       <Field label="First Name" required error={errors.firstName}>
                         <div className="relative">
-                          <User size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                          <User size={15} className="absolute left-3.5 top-1/2 -translate-y-1-2 text-gray-400 pointer-events-none" />
                           <input
                             className={`${errors.firstName ? errorInputClass : inputClass} pl-9`}
                             placeholder="Aarav"
@@ -324,7 +322,7 @@ export default function FormService({
                     </Field>
                   </div>
 
-                  {/* Service Select Field Input */}
+                  {/* Specialty Dropdowns */}
                   <div id="field-service">
                     <Field label="Required Treatment Specialty" required error={errors.service}>
                       <select
@@ -356,7 +354,7 @@ export default function FormService({
                     </Field>
                   </div>
 
-                  {/* Date + Time */}
+                  {/* Date + Time inputs */}
                   <div className="grid grid-cols-2 gap-4">
                     <div id="field-date">
                       <Field label="Preferred Date" required error={errors.date}>
@@ -391,7 +389,7 @@ export default function FormService({
                     </div>
                   </div>
 
-                  {/* Concern */}
+                  {/* Concerns text area */}
                   <Field label="Describe Your Concern (Optional)">
                     <div className="relative">
                       <MessageSquare size={15} className="absolute left-3.5 top-3.5 text-gray-400 pointer-events-none" />
@@ -405,17 +403,17 @@ export default function FormService({
                     </div>
                   </Field>
 
-                  {/* Consent */}
-                  <div id="field-consent">
+                  {/* Consent Elements block */}
+                  <div className="field-consent">
                     <label className="flex items-start gap-3 cursor-pointer group">
                       <div
                         onClick={() => handleChange("consent", !form.consent)}
                         className={`mt-0.5 w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all duration-200 ${
                           form.consent
-                            ? "border-[#0ea5e9] bg-[#0ea5e9]"
+                            ? "border-[#682187] bg-[#682187]"
                             : errors.consent
                             ? "border-red-400 bg-red-50"
-                            : "border-gray-300 group-hover:border-[#0ea5e9]/60"
+                            : "border-gray-300 group-hover:border-[#682187]/60"
                         }`}
                         style={form.consent ? { borderColor: accentColor, background: accentColor } : {}}
                       >
@@ -434,7 +432,7 @@ export default function FormService({
                   </div>
                 </div>
 
-                {/* Sticky Footer / Action Panel inside Modal */}
+                {/* Sticky Action Footer */}
                 <div className="px-8 py-4 bg-gray-50 border-t border-gray-100 flex flex-col gap-3">
                   <motion.button
                     whileHover={{ scale: 1.01 }}
@@ -445,7 +443,7 @@ export default function FormService({
                     style={{
                       background: submitting
                         ? `${accentColor}99`
-                        : `linear-gradient(135deg, ${accentColor} 0%, #06b6d4 100%)`,
+                        : `linear-gradient(135deg, ${accentColor} 0%, #4c1263 100%)`,
                     }}
                   >
                     {submitting ? (
