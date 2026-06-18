@@ -1,11 +1,12 @@
 import React from 'react';
 import { motion, useAnimation, useMotionValue } from 'framer-motion';
+import BlurText from "../components/BlurText"; // Imported BlurText from requested path
 
 /* ── Single Font Definition ── */
 const FONT_FAMILY = "'Outfit', system-ui, sans-serif";
 
 /* ══════════════════════════════════════
-   CircularText Component
+    CircularText Component
 ══════════════════════════════════════ */
 const getRotationTransition = (duration, from, loop = true) => ({
   from,
@@ -112,26 +113,26 @@ const SpinBadge = () => (
       onHover="speedUp"
     />
     
-       <div
-  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-  w-[56px] h-[56px]
-  sm:w-[64px] sm:h-[64px]
-  md:w-[80px] md:h-[80px]
-  lg:w-[88px] lg:h-[88px]
-  bg-white border border-cyan-100 rounded-full flex items-center justify-center shadow-lg shadow-cyan-950/15 pointer-events-none z-10 overflow-hidden"
->
-  <img
-    src="/images/tooth-icon.jpg"
-    alt="Tooth Icon"
-    className="w-[60%] h-[60%] object-contain"
-  />
-</div>
+    <div
+      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+      w-[56px] h-[56px]
+      sm:w-[64px] sm:h-[64px]
+      md:w-[80px] md:h-[80px]
+      lg:w-[88px] lg:h-[88px]
+      bg-white border border-cyan-100 rounded-full flex items-center justify-center shadow-lg shadow-cyan-950/15 pointer-events-none z-10 overflow-hidden"
+    >
+      <img
+        src="/images/tooth-icon.jpg"
+        alt="Tooth Icon"
+        className="w-[60%] h-[60%] object-contain"
+      />
+    </div>
   </div>
 );
 
-/* ══════════════════════════════════════
-   MAIN HERO2 Component
-══════════════════════════════════════ */
+/* ──════════════════════════════════════
+    MAIN HERO2 Component
+════════════════════════════════════════ */
 const Hero2 = () => {
   // Stagger wrapper configuration for the text elements on the right
   const textContainerVariants = {
@@ -164,7 +165,7 @@ const Hero2 = () => {
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.2 }} // Fires once when 20% of the graphic frame crosses the threshold
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="lg:col-span-6 w-full aspect-[4/3] sm:aspect-[16/10] lg:h-[540px] xl:h-[600px] relative bg-cyan-50/50 rounded-[2.5rem] p-3 sm:p-4 shadow-xl shadow-slate-200/50 overflow-hidden flex flex-col justify-end group"
         >
@@ -208,7 +209,7 @@ const Hero2 = () => {
           variants={textContainerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }} // Ensures cascading transitions start cleanly as the user moves down
+          viewport={{ once: true, amount: 0.3 }}
           className="lg:col-span-6 w-full flex flex-col justify-center px-2 sm:px-6 lg:px-8 xl:px-12 py-4"
         >
           <motion.p 
@@ -218,14 +219,18 @@ const Hero2 = () => {
             Welcome to WhiteDental
           </motion.p>
 
-          <motion.h1 
+          {/* ── UPDATED HEADING WITH BLURTEXT ── */}
+          <motion.h2 
             variants={textItemVariants}
             className="text-slate-900 tracking-tight leading-[1.12] mb-5 font-bold text-3xl sm:text-4xl md:text-5xl xl:text-[3.25rem]"
           >
-            Clinical excellence <br />
-            in the heart of <br />
-            your city
-          </motion.h1>
+            <BlurText
+              text="Clinical excellence in the heart of your city"
+              delay={150}
+              animateBy="words"
+              direction="top"
+            />
+          </motion.h2>
 
           <motion.p 
             variants={textItemVariants}

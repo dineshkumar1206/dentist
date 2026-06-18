@@ -171,9 +171,9 @@ const Hero = () => {
   };
 
   // Animation completion callback for heading
-  const handleAnimationComplete = () => {
-    console.log('Heading animation completed!');
-  };
+  // const handleAnimationComplete = () => {
+  //   console.log('Heading animation completed!');
+  // };
 
   const cv = { hidden: {}, visible: { transition: { staggerChildren: 0.11, delayChildren: 0.2 } } };
   const su = { hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } } };
@@ -331,7 +331,6 @@ const Hero = () => {
                   delay={150}
                   animateBy="words"
                   direction="top"
-                  onAnimationComplete={handleAnimationComplete}
                 />
               </motion.h1>
 

@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import BlurText from "../components/BlurText"; // Imported BlurText from requested path
 
 // ── Animation helpers ──────────────────────────────────────────────────────
 const fadeUp = (delay = 0) => ({
@@ -128,12 +129,15 @@ export default function About() {
               </span>
             </Reveal>
 
+            {/* ── 1. MAIN HERO HEADING WITH BLURTEXT ── */}
             <Reveal variant={fadeLeft(0.1)}>
               <h1 className="text-4xl md:text-5xl font-extrabold text-[#0f172a] leading-tight mb-4">
-                Smiles Built on{" "}
-                <span className="text-[#0ea5e9]">Trust &</span>
-                <br />
-                Expertise
+                <BlurText
+                  text="Smiles Built on Trust & Expertise"
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                />
               </h1>
             </Reveal>
 
@@ -248,11 +252,16 @@ export default function About() {
 
           {/* Story text */}
           <div>
+            {/* ── 2. OUR STORY HEADING WITH BLURTEXT ── */}
             <Reveal variant={fadeRight()}>
               <span className="text-xs font-semibold tracking-widest text-[#0ea5e9] uppercase">Our Story</span>
               <h2 className="text-3xl md:text-4xl font-extrabold text-[#0f172a] mt-2 mb-4">
-                15 Years of Crafting{" "}
-                <span className="text-[#0ea5e9]">Confident Smiles</span>
+                <BlurText
+                  text="15 Years of Crafting Confident Smiles"
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                />
               </h2>
               <div className="w-10 h-1 bg-teal-400 rounded mb-6" />
             </Reveal>
@@ -274,9 +283,17 @@ export default function About() {
       {/* ── TIMELINE ── */}
       <section className="py-20 px-6 bg-[#f0f8ff]">
         <div className="max-w-3xl mx-auto">
+          {/* ── 3. MILESTONES HEADING WITH BLURTEXT ── */}
           <Reveal className="text-center mb-14">
             <span className="text-xs font-semibold tracking-widest text-[#0ea5e9] uppercase">Milestones</span>
-            <h2 className="text-3xl font-extrabold text-[#0f172a] mt-2">How We've Grown</h2>
+            <h2 className="text-3xl font-extrabold text-[#0f172a] mt-2">
+              <BlurText
+                text="How We've Grown"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
+            </h2>
           </Reveal>
 
           <div className="relative border-l-2 border-cyan-200 pl-8 space-y-10">
@@ -297,10 +314,16 @@ export default function About() {
       {/* ── VALUES ── */}
       <section className="py-24 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
+          {/* ── 4. VALUES SECTION HEADING WITH BLURTEXT ── */}
           <Reveal className="text-center mb-14">
             <span className="text-xs font-semibold tracking-widest text-[#0ea5e9] uppercase">Why Choose Us</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#0f172a] mt-2">
-              The Values Behind Every Visit
+              <BlurText
+                text="The Values Behind Every Visit"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
           </Reveal>
 
@@ -330,10 +353,16 @@ export default function About() {
       {/* ── TEAM ── */}
       <section id="team" className="py-24 px-6 bg-gradient-to-b from-[#e8f4fd] to-white">
         <div className="max-w-6xl mx-auto">
+          {/* ── 5. TEAM HEADING WITH BLURTEXT ── */}
           <Reveal className="text-center mb-14">
             <span className="text-xs font-semibold tracking-widest text-[#0ea5e9] uppercase">Our Specialists</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#0f172a] mt-2">
-              Meet the Hands Behind Your Smile
+              <BlurText
+                text="Meet the Hands Behind Your Smile"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
           </Reveal>
 
@@ -381,9 +410,14 @@ export default function About() {
         <div className="pointer-events-none absolute -bottom-20 right-1/4 w-60 h-60 rounded-full bg-teal-400 opacity-10 blur-3xl" />
 
         <Reveal className="max-w-2xl mx-auto text-center">
+          {/* ── 6. BOTTOM CTA HEADING WITH BLURTEXT ── */}
           <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-            Ready for a{" "}
-            <span className="text-[#0ea5e9]">Healthier Smile?</span>
+            <BlurText
+              text="Ready for a Healthier Smile?"
+              delay={150}
+              animateBy="words"
+              direction="top"
+            />
           </h2>
           <p className="text-gray-400 mb-8">
             Book your free consultation today and take the first step towards the smile you deserve.

@@ -13,7 +13,8 @@ import {
   Sparkles,
   Activity,
 } from "lucide-react";
-import FormService from "../components/FormService"; // ← import the form
+import FormService from "../components/FormService"; 
+import BlurText from "../components/BlurText"; // Imported BlurText from requested path
 
 // ─── Animation helpers ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -102,14 +103,12 @@ const smileImg =
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function SurgicalRemoval() {
   const [activeStep, setActiveStep] = useState(0);
-
-  // ── Modal state — false by default so it does not load automatically ──────
   const [showForm, setShowForm] = useState(false);
 
   return (
     <div className="font-sans mt-6 bg-[#f0f7ff] text-[#1a2332]">
 
-      {/* ── FORM MODAL — Only mounts and renders when showForm is explicitly true ── */}
+      {/* ── FORM MODAL ── */}
       {showForm && (
         <FormService
           serviceName="Surgical Removal of Wisdom Teeth"
@@ -118,7 +117,7 @@ export default function SurgicalRemoval() {
         />
       )}
 
-      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#f0f7ff] via-[#e0f2fe] to-[#f0f7ff] pt-24 pb-20 px-6 md:px-16">
         <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 -left-20 w-[350px] h-[350px] rounded-full bg-[#06b6d4]/10 blur-3xl pointer-events-none" />
@@ -135,14 +134,19 @@ export default function SurgicalRemoval() {
               Oral Surgery
             </motion.span>
 
+            {/* ── 1. MAIN HERO HEADING WITH BLURTEXT ── */}
             <motion.h1
               variants={fadeUp}
               initial="hidden"
               animate="visible"
               className="text-4xl md:text-5xl font-extrabold leading-tight mb-4"
             >
-              Safe and Comfortable{" "}
-              <span className="text-[#0ea5e9]">Wisdom Tooth Extraction</span>
+              <BlurText
+                text="Safe and Comfortable Wisdom Tooth Extraction"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </motion.h1>
 
             <motion.div
@@ -170,7 +174,6 @@ export default function SurgicalRemoval() {
               animate="visible"
               className="flex flex-wrap gap-4"
             >
-              {/* ── BUTTON 1: opens the form modal ── */}
               <button
                 onClick={() => setShowForm(true)}
                 className="inline-flex items-center gap-2 bg-[#0ea5e9] hover:bg-[#0284c7] text-white font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-[#0ea5e9]/30 transition-all duration-200 hover:scale-105 active:scale-95"
@@ -210,8 +213,8 @@ export default function SurgicalRemoval() {
         </div>
       </section>
 
-      {/* ── STATS BAR ────────────────────────────────────────────────────── */}
-      <AnimatedSection className="bg-[#1a2332] py-8 px-6">
+      {/* ── STATS BAR ── */}
+      <section className="bg-[#1a2332] py-8 px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {stats.map((s, i) => (
             <motion.div
@@ -227,9 +230,9 @@ export default function SurgicalRemoval() {
             </motion.div>
           ))}
         </div>
-      </AnimatedSection>
+      </section>
 
-      {/* ── SIGNS AND INDICATORS SECTION ─────────────────────────────────── */}
+      {/* ── SIGNS AND INDICATORS SECTION ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-14 items-center">
           <AnimatedSection>
@@ -249,8 +252,14 @@ export default function SurgicalRemoval() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Diagnostic Necessity
             </span>
+            {/* ── 2. TREATED INDICATORS HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
-              When Is Extraction <span className="text-[#0ea5e9]">Surgically Required?</span>
+              <BlurText
+                text="When Is Extraction Surgically Required?"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <div className="h-1 w-12 bg-[#0ea5e9] rounded-full mb-6" />
             <p className="text-[#4a5568] leading-relaxed mb-4">
@@ -278,15 +287,21 @@ export default function SurgicalRemoval() {
         </div>
       </section>
 
-      {/* ── BENEFITS ─────────────────────────────────────────────────────── */}
-      <section className="bg-gradient-to-br from-[#1a2332] to-[#0f172a] py-20 px-6 md:px-16">
+      {/* ── BENEFITS ── */}
+      <section className="py-20 px-6 md:px-16 bg-[#1a2332]">
         <div className="max-w-6xl mx-auto">
           <AnimatedSection className="text-center mb-14">
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Safeguard Long-Term Wellness
             </span>
+            {/* ── 3. TIMELY REMOVAL HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3">
-              Benefits of Timely Wisdom Teeth Removal
+              <BlurText
+                text="Benefits of Timely Wisdom Teeth Removal"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
               Extracting problematic third molars blocks deep root absorption layout damage, systemic shifting, and sinus tension factors:
@@ -315,14 +330,20 @@ export default function SurgicalRemoval() {
         </div>
       </section>
 
-      {/* ── PROCEDURE STEPS ──────────────────────────────────────────────── */}
+      {/* ── PROCEDURE STEPS ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <AnimatedSection className="text-center mb-14">
           <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
             Clinical Protocol
           </span>
+          {/* ── 4. PROCESS SECTION HEADING WITH BLURTEXT ── */}
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 leading-tight">
-            Our Surgical <span className="text-[#0ea5e9]">Extraction Process</span>
+            <BlurText
+              text="Our Surgical Extraction Process"
+              delay={150}
+              animateBy="words"
+              direction="top"
+            />
           </h2>
           <p className="text-[#4a5568] max-w-xl mx-auto mt-3">
             Completely transparent, deeply controlled, and executed utilizing advanced anesthetic delivery systems.
@@ -365,22 +386,36 @@ export default function SurgicalRemoval() {
                   className={activeStep === i ? "text-white" : "text-[#0ea5e9]"}
                 />
               </div>
-              <h3 className="font-bold text-[#1a2332] text-sm mb-2">{s.title}</h3>
+              {/* ── 5. CARD STEP TITLE SUB-HEADINGS WITH BLURTEXT ── */}
+              <h3 className="font-bold text-[#1a2332] text-sm mb-2">
+                <BlurText
+                  text={s.title}
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                />
+              </h3>
               <p className="text-[#4a5568] text-sm leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ── MAINTENANCE / WHY CHOOSE US ────────────────────────────────────── */}
+      {/* ── MAINTENANCE / WHY CHOOSE US ── */}
       <section className="bg-[#f0f7ff] py-20 px-6 md:px-16">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
           <AnimatedSection delay={0.1}>
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Optimal Recovery
             </span>
+            {/* ── 6. RECOVERY FLOW HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
-              Post-Operative Recovery <span className="text-[#0ea5e9]">& Aftercare Flow</span>
+              <BlurText
+                text="Post-Operative Recovery & Aftercare Flow"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <div className="h-1 w-12 bg-[#0ea5e9] rounded-full mb-6" />
             <p className="text-[#4a5568] leading-relaxed mb-6">
@@ -437,7 +472,7 @@ export default function SurgicalRemoval() {
         </div>
       </section>
 
-      {/* ── CTA BANNER ───────────────────────────────────────────────────── */}
+      {/* ── CTA BANNER ── */}
       <section className="py-20 px-6">
         <AnimatedSection className="max-w-4xl mx-auto">
           <div className="relative bg-gradient-to-r from-[#0ea5e9] to-[#06b6d4] rounded-3xl overflow-hidden px-10 py-14 text-center shadow-2xl shadow-[#0ea5e9]/30">
@@ -457,15 +492,20 @@ export default function SurgicalRemoval() {
               ))}
             </div>
             <div className="relative z-10">
+              {/* ── 7. CTA BANNER HEADING WITH BLURTEXT ── */}
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-                Schedule Your Wisdom Tooth Consultation Today
+                <BlurText
+                  text="Schedule Your Wisdom Tooth Consultation Today"
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                />
               </h2>
               <p className="text-white/85 max-w-xl mx-auto mb-8 text-lg leading-relaxed">
                 If you are currently experiencing active swelling, back-jaw tension, or molar compression, 
                 timely intervention prevents serious complications. Contact our expert clinic today.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                {/* ── BUTTON 2: opens the form modal ── */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}

@@ -10,7 +10,7 @@ import {
   CalendarCheck2,
 } from "lucide-react";
 import FormService from "./FormService"; 
-
+import BlurText from "./BlurText";
 export default function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -59,14 +59,22 @@ export default function Contact() {
           >
             Get In Touch
           </motion.span>
-          <motion.h1 
+          
+          {/* ── 1. MAIN HEADER HEADING WITH BLURTEXT ── */}
+          <motion.h2 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             className="mt-3 text-4xl font-black tracking-tight text-slate-900 sm:text-5xl"
           >
-            We’d Love to See Your Smile
-          </motion.h1>
+            <BlurText
+              text="We’d Love to See Your Smile"
+              delay={150}
+              animateBy="words"
+              direction="top"
+            />
+          </motion.h2>
+          
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -90,8 +98,14 @@ export default function Contact() {
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/10 rounded-full blur-2xl transform translate-x-8 -translate-y-8 group-hover:bg-sky-500/20 transition-colors" />
               <div>
+                {/* ── 2. URGENT CALLOUT CARD HEADING WITH BLURTEXT ── */}
                 <h2 className="text-lg font-bold mb-2 flex items-center gap-2">
-                  Need Urgent Care?
+                  <BlurText
+                    text="Need Urgent Care?"
+                    delay={150}
+                    animateBy="words"
+                    direction="top"
+                  />
                 </h2>
                 <p className="text-slate-300 text-xs leading-relaxed mb-5">
                   If you are experiencing a severe toothache, swelling, or structural trauma, avoid waiting lists altogether. Call our priority line directly.
@@ -178,12 +192,12 @@ export default function Contact() {
 
       {/* MODAL SYSTEM OVERLAY */}
       <FormService 
-              isOpen={isModalOpen} 
-              onClose={() => setIsModalOpen(false)} 
-              accentColor="#0ea5e9"
-              serviceName="Select a specialty service" // Added serviceName to define initial input choice string
-              defaultService="Select a specialty service" // Retained fallback mapping configuration hook
-            />
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        accentColor="#0ea5e9"
+        serviceName="Select a specialty service" 
+        defaultService="Select a specialty service" 
+      />
     </div>
   );
 }

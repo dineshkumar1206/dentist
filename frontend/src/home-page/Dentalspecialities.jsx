@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Heart, Share2 } from 'lucide-react';
+import BlurText from "../components/BlurText"; // Imported BlurText from requested path
 
 /* ── Single Font Definition ── */
 const FONT_FAMILY = "'Outfit', system-ui, sans-serif";
@@ -189,8 +190,15 @@ export default function DentalSpecialities() {
             <p className="text-[10px] sm:text-[11px] font-bold tracking-[0.25em] uppercase text-cyan-600 mb-2">
               Most Popular Services
             </p>
+            
+            {/* ── UPDATED HEADING WITH BLURTEXT ── */}
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
-              Our Clinical Services
+              <BlurText
+                text="Our Clinical Services"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
           </div>
 
@@ -224,7 +232,7 @@ export default function DentalSpecialities() {
           onMouseLeave={() => setIsHovered(false)}
           className="flex gap-6 overflow-x-auto pb-6 pt-2 px-1 snap-x snap-mandatory scrollbar-none"
           style={{
-            scrollbarWidth: 'none',
+            scrollbitWidth: 'none',
             msOverflowStyle: 'none',
           }}
         >

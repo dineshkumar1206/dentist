@@ -13,7 +13,8 @@ import {
   Activity,
   AlertTriangle,
 } from "lucide-react";
-import FormService from "../components/FormService"; // ← import the form
+import FormService from "../components/FormService"; 
+import BlurText from "../components/BlurText"; // Imported BlurText from requested path
 
 // ─── Animation helpers ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -101,14 +102,12 @@ const smileImg ="/images/root-canal-service.jpg";
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function RootCanal() {
   const [activeStep, setActiveStep] = useState(0);
-
-  // ── Modal state — false by default so it does not load automatically ──────
   const [showForm, setShowForm] = useState(false);
 
   return (
     <div className="font-sans mt-6 bg-[#f0f7ff] text-[#1a2332]">
 
-      {/* ── FORM MODAL — Only mounts and renders when showForm is explicitly true ── */}
+      {/* ── FORM MODAL ── */}
       {showForm && (
         <FormService
           serviceName="Root Canal Treatment"
@@ -117,7 +116,7 @@ export default function RootCanal() {
         />
       )}
 
-      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#f0f7ff] via-[#e0f2fe] to-[#f0f7ff] pt-24 pb-20 px-6 md:px-16">
         <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 -left-20 w-[350px] h-[350px] rounded-full bg-[#06b6d4]/10 blur-3xl pointer-events-none" />
@@ -134,14 +133,19 @@ export default function RootCanal() {
               Root Canal Treatment
             </motion.span>
 
+            {/* ── 1. MAIN HERO HEADING WITH BLURTEXT ── */}
             <motion.h1
               variants={fadeUp}
               initial="hidden"
               animate="visible"
               className="text-4xl md:text-5xl font-extrabold leading-tight mb-4"
             >
-              Save Your Natural Tooth with{" "}
-              <span className="text-[#0ea5e9]">Expert Root Canal Care</span>
+              <BlurText
+                text="Save Your Natural Tooth with Expert Root Canal Care"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </motion.h1>
 
             <motion.div
@@ -170,7 +174,6 @@ export default function RootCanal() {
               animate="visible"
               className="flex flex-wrap gap-4"
             >
-              {/* ── BUTTON 1: opens the form modal ── */}
               <button
                 onClick={() => setShowForm(true)}
                 className="inline-flex items-center gap-2 bg-[#0ea5e9] hover:bg-[#0284c7] text-white font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-[#0ea5e9]/30 transition-all duration-200 hover:scale-105 active:scale-95"
@@ -210,8 +213,8 @@ export default function RootCanal() {
         </div>
       </section>
 
-      {/* ── STATS BAR ────────────────────────────────────────────────────── */}
-      <AnimatedSection className="bg-[#1a2332] py-8 px-6">
+      {/* ── STATS BAR ── */}
+      <section className="bg-[#1a2332] py-8 px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {stats.map((s, i) => (
             <motion.div
@@ -227,9 +230,9 @@ export default function RootCanal() {
             </motion.div>
           ))}
         </div>
-      </AnimatedSection>
+      </section>
 
-      {/* ── IMPORTANCE SECTION / WHAT IS ROOT CANAL ─────────────────────── */}
+      {/* ── IMPORTANCE SECTION / WHAT IS ROOT CANAL ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-14 items-center">
           <AnimatedSection>
@@ -249,9 +252,14 @@ export default function RootCanal() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Advanced Endodontic Therapy
             </span>
+            {/* ── 2. UNDERSTANDING SECTION HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
-              Understanding{" "}
-              <span className="text-[#0ea5e9]">Root Canal Therapy</span>
+              <BlurText
+                text="Understanding Root Canal Therapy"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <div className="h-1 w-12 bg-[#0ea5e9] rounded-full mb-6" />
             <p className="text-[#4a5568] leading-relaxed mb-5">
@@ -278,15 +286,21 @@ export default function RootCanal() {
         </div>
       </section>
 
-      {/* ── BENEFITS ─────────────────────────────────────────────────────── */}
+      {/* ── BENEFITS ── */}
       <section className="bg-gradient-to-br from-[#1a2332] to-[#0f172a] py-20 px-6 md:px-16">
         <div className="max-w-6xl mx-auto">
           <AnimatedSection className="text-center mb-14">
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Why Choose Root Canal Therapy
             </span>
+            {/* ── 3. BENEFITS SECTION HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3">
-              The Real Benefits of Saving Your Tooth
+              <BlurText
+                text="The Real Benefits of Saving Your Tooth"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
               Choosing root canal therapy over extraction allows you to maintain your 
@@ -303,6 +317,7 @@ export default function RootCanal() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
+                whileInView="visible"
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 className="flex items-start gap-4 bg-white/5 border border-white/10 hover:border-[#0ea5e9]/50 rounded-xl p-5 transition-colors duration-200 cursor-default"
               >
@@ -316,81 +331,98 @@ export default function RootCanal() {
         </div>
       </section>
 
-      {/* ── PROCEDURE STEPS ──────────────────────────────────────────────── */}
+      {/* ── PROCEDURE STEPS ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <AnimatedSection className="text-center mb-14">
           <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
             Step by Step
           </span>
+          {/* ── 4. PROCESS SECTION HEADING WITH BLURTEXT ── */}
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 leading-tight">
-            Our Treatment <span className="text-[#0ea5e9]">Process</span>
+            <BlurText
+              text="Our Treatment Process"
+              delay={150}
+              animateBy="words"
+              direction="top"
+            />
           </h2>
           <p className="text-[#4a5568] max-w-xl mx-auto mt-3">
             Transparent, comfortable, and guided carefully by specialist dentists.
           </p>
         </AnimatedSection>
 
-       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-stretch">
-  {steps.map((s, i) => (
-    <motion.div
-      key={s.num}
-      custom={i}
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      onClick={() => setActiveStep(i)}
-      className={`relative rounded-2xl p-6 border-2 cursor-pointer transition-all duration-300 h-full ${
-        activeStep === i
-          ? "border-[#0ea5e9] bg-[#0ea5e9]/8 shadow-lg shadow-[#0ea5e9]/15"
-          : "border-gray-200 bg-white hover:border-[#0ea5e9]/40"
-      }`}
-    >
-      {i < steps.length - 1 && (
-        <div className="hidden md:block absolute top-10 -right-2 w-4 h-0.5 bg-gray-200 z-10" />
-      )}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-stretch">
+          {steps.map((s, i) => (
+            <motion.div
+              key={s.num}
+              custom={i}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              onClick={() => setActiveStep(i)}
+              className={`relative rounded-2xl p-6 border-2 cursor-pointer transition-all duration-300 h-full ${
+                activeStep === i
+                  ? "border-[#0ea5e9] bg-[#0ea5e9]/8 shadow-lg shadow-[#0ea5e9]/15"
+                  : "border-gray-200 bg-white hover:border-[#0ea5e9]/40"
+              }`}
+            >
+              {i < steps.length - 1 && (
+                <div className="hidden md:block absolute top-10 -right-2 w-4 h-0.5 bg-gray-200 z-10" />
+              )}
 
-      <span
-        className={`text-xs font-bold tracking-widest ${
-          activeStep === i ? "text-[#0ea5e9]" : "text-gray-400"
-        }`}
-      >
-        {s.num}
-      </span>
+              <span
+                className={`text-xs font-bold tracking-widest ${
+                  activeStep === i ? "text-[#0ea5e9]" : "text-gray-400"
+                }`}
+              >
+                {s.num}
+              </span>
 
-      <div
-        className={`w-11 h-11 rounded-xl flex items-center justify-center my-3 ${
-          activeStep === i ? "bg-[#0ea5e9]" : "bg-[#f0f7ff]"
-        }`}
-      >
-        <s.icon
-          size={20}
-          className={activeStep === i ? "text-white" : "text-[#0ea5e9]"}
-        />
-      </div>
+              <div
+                className={`w-11 h-11 rounded-xl flex items-center justify-center my-3 ${
+                  activeStep === i ? "bg-[#0ea5e9]" : "bg-[#f0f7ff]"
+                }`}
+              >
+                <s.icon
+                  size={20}
+                  className={activeStep === i ? "text-white" : "text-[#0ea5e9]"}
+                />
+              </div>
 
-      <h3 className="font-bold text-[#1a2332] text-sm mb-2">
-        {s.title}
-      </h3>
+              {/* ── 5. CARD STEP SUB-HEADINGS WITH BLURTEXT ── */}
+              <h3 className="font-bold text-[#1a2332] text-sm mb-2">
+                <BlurText
+                  text={s.title}
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                />
+              </h3>
 
-      <p className="text-[#4a5568] text-sm leading-relaxed">
-        {s.desc}
-      </p>
-    </motion.div>
-  ))}
-</div>
+              <p className="text-[#4a5568] text-sm leading-relaxed">
+                {s.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
-      {/* ── WHY CHOOSE US ────────────────────────────────────────────────── */}
+      {/* ── WHY CHOOSE US ── */}
       <section className="bg-[#f0f7ff] py-20 px-6 md:px-16">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
           <AnimatedSection delay={0.1}>
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Our Promise
             </span>
+            {/* ── 6. TRUST PROMISE HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
-              Why Trust Our Specialist{" "}
-              <span className="text-[#0ea5e9]">Root Canal Services?</span>
+              <BlurText
+                text="Why Trust Our Specialist Root Canal Services?"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <div className="h-1 w-12 bg-[#0ea5e9] rounded-full mb-6" />
             <p className="text-[#4a5568] leading-relaxed mb-6">
@@ -447,7 +479,7 @@ export default function RootCanal() {
         </div>
       </section>
 
-      {/* ── CTA BANNER ───────────────────────────────────────────────────── */}
+      {/* ── CTA BANNER ── */}
       <section className="py-20 px-6">
         <AnimatedSection className="max-w-4xl mx-auto">
           <div className="relative bg-gradient-to-r from-[#0ea5e9] to-[#06b6d4] rounded-3xl overflow-hidden px-10 py-14 text-center shadow-2xl shadow-[#0ea5e9]/30">
@@ -467,8 +499,14 @@ export default function RootCanal() {
               ))}
             </div>
             <div className="relative z-10">
+              {/* ── 7. CTA BANNER HEADING WITH BLURTEXT ── */}
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-                Book Your Consultation Today
+                <BlurText
+                  text="Book Your Consultation Today"
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                />
               </h2>
               <p className="text-white/85 max-w-xl mx-auto mb-8 text-lg leading-relaxed">
                 If you are currently experiencing persistent pain or temperature sensitivity, 
@@ -476,7 +514,6 @@ export default function RootCanal() {
                 to bring back your healthy, pain-free smile.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                {/* ── BUTTON 2: opens the form modal ── */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}

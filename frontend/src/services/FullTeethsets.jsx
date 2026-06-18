@@ -13,7 +13,8 @@ import {
   Sparkles,
   Activity,
 } from "lucide-react";
-import FormService from "../components/FormService"; // ← import the form
+import FormService from "../components/FormService"; 
+import BlurText from "../components/BlurText"; // Imported BlurText from requested path
 
 // ─── Animation helpers ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -102,14 +103,12 @@ const smileImg =
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function FullTeethsets() {
   const [activeStep, setActiveStep] = useState(0);
-
-  // ── Modal state — false by default so it does not load automatically ──────
   const [showForm, setShowForm] = useState(false);
 
   return (
     <div className="font-sans mt-6 bg-[#f0f7ff] text-[#1a2332]">
 
-      {/* ── FORM MODAL — Only mounts and renders when showForm is explicitly true ── */}
+      {/* ── FORM MODAL ── */}
       {showForm && (
         <FormService
           serviceName="Full Teeth Sets (Removable & Fixed)"
@@ -118,7 +117,7 @@ export default function FullTeethsets() {
         />
       )}
 
-      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#f0f7ff] via-[#e0f2fe] to-[#f0f7ff] pt-24 pb-20 px-6 md:px-16">
         <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 -left-20 w-[350px] h-[350px] rounded-full bg-[#06b6d4]/10 blur-3xl pointer-events-none" />
@@ -135,14 +134,19 @@ export default function FullTeethsets() {
               Restorative Dentistry
             </motion.span>
 
+            {/* ── 1. MAIN HERO HEADING WITH BLURTEXT ── */}
             <motion.h1
               variants={fadeUp}
               initial="hidden"
               animate="visible"
               className="text-4xl md:text-5xl font-extrabold leading-tight mb-4"
             >
-              Restore Your Complete Smile with{" "}
-              <span className="text-[#0ea5e9]">Full Teeth Sets</span>
+              <BlurText
+                text="Restore Your Complete Smile with Full Teeth Sets"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </motion.h1>
 
             <motion.div
@@ -170,7 +174,6 @@ export default function FullTeethsets() {
               animate="visible"
               className="flex flex-wrap gap-4"
             >
-              {/* ── BUTTON 1: opens the form modal ── */}
               <button
                 onClick={() => setShowForm(true)}
                 className="inline-flex items-center gap-2 bg-[#0ea5e9] hover:bg-[#0284c7] text-white font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-[#0ea5e9]/30 transition-all duration-200 hover:scale-105 active:scale-95"
@@ -210,8 +213,8 @@ export default function FullTeethsets() {
         </div>
       </section>
 
-      {/* ── STATS BAR ────────────────────────────────────────────────────── */}
-      <AnimatedSection className="bg-[#1a2332] py-8 px-6">
+      {/* ── STATS BAR ── */}
+      <section className="bg-[#1a2332] py-8 px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {stats.map((s, i) => (
             <motion.div
@@ -227,9 +230,9 @@ export default function FullTeethsets() {
             </motion.div>
           ))}
         </div>
-      </AnimatedSection>
+      </section>
 
-      {/* ── SELECTION CONFIGURATIONS ─────────────────────────────────────── */}
+      {/* ── SELECTION CONFIGURATIONS ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-14 items-center">
           <AnimatedSection>
@@ -249,20 +252,42 @@ export default function FullTeethsets() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Rehabilitation Modalities
             </span>
+            {/* ── 2. MODALITIES HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
-              Types of Full Arch Restoration <span className="text-[#0ea5e9]">Prosthetics</span>
+              <BlurText
+                text="Types of Full Arch Restoration Prosthetics"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <div className="h-1 w-12 bg-[#0ea5e9] rounded-full mb-6" />
             
             <div className="space-y-4 mb-6">
               <div>
-                <h4 className="text-sm font-bold text-[#1a2332]">Option A: Removable Dentures</h4>
+                {/* ── 3. OPTION A SUB-HEADING WITH BLURTEXT ── */}
+                <h4 className="text-sm font-bold text-[#1a2332]">
+                  <BlurText
+                    text="Option A: Removable Dentures"
+                    delay={150}
+                    animateBy="words"
+                    direction="top"
+                  />
+                </h4>
                 <p className="text-sm text-[#4a5568] leading-relaxed">
                   Custom-made prosthetic fixtures designed to rest securely over your soft mucosal gums. They can be cleanly removed for straightforward home hygiene maintenance, representing a highly practical approach.
                 </p>
               </div>
               <div>
-                <h4 className="text-sm font-bold text-[#1a2332]">Option B: Fixed Full Sets</h4>
+                {/* ── 4. OPTION B SUB-HEADING WITH BLURTEXT ── */}
+                <h4 className="text-sm font-bold text-[#1a2332]">
+                  <BlurText
+                    text="Option B: Fixed Full Sets"
+                    delay={150}
+                    animateBy="words"
+                    direction="top"
+                  />
+                </h4>
                 <p className="text-sm text-[#4a5568] leading-relaxed">
                   Permanently anchored restorations secured firmly by strategic dental implants. This structure eliminates slipping, brings back original natural biting forces, and yields completely seamless functional profiles.
                 </p>
@@ -281,15 +306,21 @@ export default function FullTeethsets() {
         </div>
       </section>
 
-      {/* ── BENEFITS ─────────────────────────────────────────────────────── */}
-      <section className="bg-gradient-to-br from-[#1a2332] to-[#0f172a] py-20 px-6 md:px-16">
+      {/* ── BENEFITS ── */}
+      <section className="py-20 px-6 md:px-16 bg-[#1a2332]">
         <div className="max-w-6xl mx-auto">
           <AnimatedSection className="text-center mb-14">
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Reclaiming Your Comfort
             </span>
+            {/* ── 5. BENEFITS HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3">
-              Benefits of Modern Full Teeth Sets
+              <BlurText
+                text="Benefits of Modern Full Teeth Sets"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
               Replacing entire arches of missing teeth completely reverses structural collapsing, facial drooping, and restriction layouts:
@@ -318,14 +349,20 @@ export default function FullTeethsets() {
         </div>
       </section>
 
-      {/* ── PROCEDURE STEPS ──────────────────────────────────────────────── */}
+      {/* ── PROCEDURE STEPS ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <AnimatedSection className="text-center mb-14">
           <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
             The Engineering Process
           </span>
+          {/* ── 6. PROCESS HEADING WITH BLURTEXT ── */}
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 leading-tight">
-            Our Restoration <span className="text-[#0ea5e9]">Care Workflow</span>
+            <BlurText
+              text="Our Restoration Care Workflow"
+              delay={150}
+              animateBy="words"
+              direction="top"
+            />
           </h2>
           <p className="text-[#4a5568] max-w-xl mx-auto mt-3">
             Carefully customized, scientifically executed, and completely monitored by restorative specialists.
@@ -368,22 +405,36 @@ export default function FullTeethsets() {
                   className={activeStep === i ? "text-white" : "text-[#0ea5e9]"}
                 />
               </div>
-              <h3 className="font-bold text-[#1a2332] text-sm mb-2">{s.title}</h3>
+              {/* ── 7. STEP TITLE CARD SUB-HEADING WITH BLURTEXT ── */}
+              <h3 className="font-bold text-[#1a2332] text-sm mb-2">
+                <BlurText
+                  text={s.title}
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                />
+              </h3>
               <p className="text-[#4a5568] text-sm leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ── MAINTENANCE / WHY CHOOSE US ────────────────────────────────────── */}
+      {/* ── MAINTENANCE / WHY CHOOSE US ── */}
       <section className="bg-[#f0f7ff] py-20 px-6 md:px-16">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
           <AnimatedSection delay={0.1}>
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Prolonging Structural Health
             </span>
+            {/* ── 8. MAINTENANCE HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
-              Caring for Your New <span className="text-[#0ea5e9]">Restored Smile</span>
+              <BlurText
+                text="Caring for Your New Restored Smile"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <div className="h-1 w-12 bg-[#0ea5e9] rounded-full mb-6" />
             <p className="text-[#4a5568] leading-relaxed mb-6">
@@ -439,7 +490,7 @@ export default function FullTeethsets() {
         </div>
       </section>
 
-      {/* ── CTA BANNER ───────────────────────────────────────────────────── */}
+      {/* ── CTA BANNER ── */}
       <section className="py-20 px-6">
         <AnimatedSection className="max-w-4xl mx-auto">
           <div className="relative bg-gradient-to-r from-[#0ea5e9] to-[#06b6d4] rounded-3xl overflow-hidden px-10 py-14 text-center shadow-2xl shadow-[#0ea5e9]/30">
@@ -459,15 +510,20 @@ export default function FullTeethsets() {
               ))}
             </div>
             <div className="relative z-10">
+              {/* ── 9. CTA BANNER HEADING WITH BLURTEXT ── */}
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-                Schedule Your Consultation Today
+                <BlurText
+                  text="Schedule Your Consultation Today"
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                />
               </h2>
               <p className="text-white/85 max-w-xl mx-auto mb-8 text-lg leading-relaxed">
                 If you are looking to reconstruct missing teeth or explore alternative full arch fixtures, 
                 our specialized team is here to map out the ideal treatment balance for you.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                {/* ── BUTTON 2: opens the form modal ── */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}

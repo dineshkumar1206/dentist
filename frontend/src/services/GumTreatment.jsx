@@ -13,7 +13,8 @@ import {
   Sparkles,
   Activity,
 } from "lucide-react";
-import FormService from "../components/FormService"; // ← import the form
+import FormService from "../components/FormService"; 
+import BlurText from "../components/BlurText"; // Imported BlurText from requested path
 
 // ─── Animation helpers ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -102,14 +103,12 @@ const smileImg =
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function GumTreatment() {
   const [activeStep, setActiveStep] = useState(0);
-
-  // ── Modal state — false by default so it does not load automatically ──────
   const [showForm, setShowForm] = useState(false);
 
   return (
     <div className="font-sans mt-6 bg-[#f0f7ff] text-[#1a2332]">
 
-      {/* ── FORM MODAL — Only mounts and renders when showForm is explicitly true ── */}
+      {/* ── FORM MODAL ── */}
       {showForm && (
         <FormService
           serviceName="Gum Treatment / Flap Surgery"
@@ -118,7 +117,7 @@ export default function GumTreatment() {
         />
       )}
 
-      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#f0f7ff] via-[#e0f2fe] to-[#f0f7ff] pt-24 pb-20 px-6 md:px-16">
         <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 -left-20 w-[350px] h-[350px] rounded-full bg-[#06b6d4]/10 blur-3xl pointer-events-none" />
@@ -135,14 +134,19 @@ export default function GumTreatment() {
               Periodontal Therapy
             </motion.span>
 
+            {/* ── 1. MAIN HERO HEADING WITH BLURTEXT ── */}
             <motion.h1
               variants={fadeUp}
               initial="hidden"
               animate="visible"
               className="text-4xl md:text-5xl font-extrabold leading-tight mb-4"
             >
-              Restore Healthy Gums with{" "}
-              <span className="text-[#0ea5e9]">Advanced Gum Treatment</span>
+              <BlurText
+                text="Restore Healthy Gums with Advanced Gum Treatment"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </motion.h1>
 
             <motion.div
@@ -170,7 +174,6 @@ export default function GumTreatment() {
               animate="visible"
               className="flex flex-wrap gap-4"
             >
-              {/* ── BUTTON 1: opens the form modal ── */}
               <button
                 onClick={() => setShowForm(true)}
                 className="inline-flex items-center gap-2 bg-[#0ea5e9] hover:bg-[#0284c7] text-white font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-[#0ea5e9]/30 transition-all duration-200 hover:scale-105 active:scale-95"
@@ -210,8 +213,8 @@ export default function GumTreatment() {
         </div>
       </section>
 
-      {/* ── STATS BAR ────────────────────────────────────────────────────── */}
-      <AnimatedSection className="bg-[#1a2332] py-8 px-6">
+      {/* ── STATS BAR ── */}
+      <section className="bg-[#1a2332] py-8 px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {stats.map((s, i) => (
             <motion.div
@@ -227,9 +230,9 @@ export default function GumTreatment() {
             </motion.div>
           ))}
         </div>
-      </AnimatedSection>
+      </section>
 
-      {/* ── SIGNS AND SYMPTOMS SECTION ───────────────────────────────────── */}
+      {/* ── SIGNS AND SYMPTOMS SECTION ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-14 items-center">
           <AnimatedSection>
@@ -249,8 +252,14 @@ export default function GumTreatment() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Early Intervention
             </span>
+            {/* ── 2. SYMPTOMS SECTION HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
-              Signs You May Require <span className="text-[#0ea5e9]">Gum Care Services</span>
+              <BlurText
+                text="Signs You May Require Gum Care Services"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <div className="h-1 w-12 bg-[#0ea5e9] rounded-full mb-6" />
             <p className="text-[#4a5568] leading-relaxed mb-4">
@@ -278,15 +287,21 @@ export default function GumTreatment() {
         </div>
       </section>
 
-      {/* ── BENEFITS ─────────────────────────────────────────────────────── */}
-      <section className="bg-gradient-to-br from-[#1a2332] to-[#0f172a] py-20 px-6 md:px-16">
+      {/* ── BENEFITS ── */}
+      <section className="py-20 px-6 md:px-16 bg-[#1a2332]">
         <div className="max-w-6xl mx-auto">
           <AnimatedSection className="text-center mb-14">
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Protect Your Anchor Structures
             </span>
+            {/* ── 3. BENEFITS SECTION HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3">
-              Benefits of Periodontal Treatment & Surgery
+              <BlurText
+                text="Benefits of Periodontal Treatment & Surgery"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
               Reversing periodontal infection blocks the risk of shifting dental alignments, pocket pain, and long-term tooth structural failure:
@@ -315,14 +330,20 @@ export default function GumTreatment() {
         </div>
       </section>
 
-      {/* ── PROCEDURE STEPS ──────────────────────────────────────────────── */}
+      {/* ── PROCEDURE STEPS ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <AnimatedSection className="text-center mb-14">
           <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
             The Medical Approach
           </span>
+          {/* ── 4. PROCESS SECTION HEADING WITH BLURTEXT ── */}
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 leading-tight">
-            Our Gum Care <span className="text-[#0ea5e9]">Workflow</span>
+            <BlurText
+              text="Our Gum Care Workflow"
+              delay={150}
+              animateBy="words"
+              direction="top"
+            />
           </h2>
           <p className="text-[#4a5568] max-w-xl mx-auto mt-3">
             Completely precise, highly comfortable, and closely monitored by expert periodontal specialists.
@@ -365,22 +386,36 @@ export default function GumTreatment() {
                   className={activeStep === i ? "text-white" : "text-[#0ea5e9]"}
                 />
               </div>
-              <h3 className="font-bold text-[#1a2332] text-sm mb-2">{s.title}</h3>
+              {/* ── 5. CARD STEP SUB-HEADINGS WITH BLURTEXT ── */}
+              <h3 className="font-bold text-[#1a2332] text-sm mb-2">
+                <BlurText
+                  text={s.title}
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                />
+              </h3>
               <p className="text-[#4a5568] text-sm leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ── MAINTENANCE / WHY CHOOSE US ────────────────────────────────────── */}
+      {/* ── MAINTENANCE / WHY CHOOSE US ── */}
       <section className="bg-[#f0f7ff] py-20 px-6 md:px-16">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
           <AnimatedSection delay={0.1}>
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Long-term Prevention
             </span>
+            {/* ── 6. PREVENTION HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
-              Importance of Early <span className="text-[#0ea5e9]">Periodontal Management</span>
+              <BlurText
+                text="Importance of Early Periodontal Management"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <div className="h-1 w-12 bg-[#0ea5e9] rounded-full mb-6" />
             <p className="text-[#4a5568] leading-relaxed mb-6">
@@ -436,7 +471,7 @@ export default function GumTreatment() {
         </div>
       </section>
 
-      {/* ── CTA BANNER ───────────────────────────────────────────────────── */}
+      {/* ── CTA BANNER ── */}
       <section className="py-20 px-6">
         <AnimatedSection className="max-w-4xl mx-auto">
           <div className="relative bg-gradient-to-r from-[#0ea5e9] to-[#06b6d4] rounded-3xl overflow-hidden px-10 py-14 text-center shadow-2xl shadow-[#0ea5e9]/30">
@@ -456,15 +491,20 @@ export default function GumTreatment() {
               ))}
             </div>
             <div className="relative z-10">
+              {/* ── 7. CTA BANNER HEADING WITH BLURTEXT ── */}
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-                Schedule Your Gum Health Consultation Today
+                <BlurText
+                  text="Schedule Your Gum Health Consultation Today"
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                />
               </h2>
               <p className="text-white/85 max-w-xl mx-auto mb-8 text-lg leading-relaxed">
                 If you are currently experiencing active gum bleeding, chronic tenderness, or bad breath indicators, 
                 let our expert specialists perform a meticulous assessment to preserve your natural smile.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                {/* ── BUTTON 2: opens the form modal ── */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}

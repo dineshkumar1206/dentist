@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Check } from "lucide-react";
 import { motion } from "framer-motion";
-import FormService from "../components/FormService"; // Imported the Form Modal Component
+import FormService from "../components/FormService";
+import BlurText from "../components/BlurText"; // Imported BlurText from requested path
 
 const features = [
   "Dental check-ups",
@@ -22,7 +23,7 @@ const fadeUpVariants = {
 };
 
 export default function WhyChooseUs() {
-  const [isModalOpen, setIsModalOpen] = useState(false); // Added state to track form modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
@@ -47,13 +48,18 @@ export default function WhyChooseUs() {
               Why Choose Us
             </motion.p>
 
-            {/* Headline */}
+            {/* ── UPDATED HEADING WITH BLURTEXT ── */}
             <motion.h2
               variants={fadeUpVariants}
               className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 leading-tight mb-6"
               style={{ fontFamily: "'Georgia', serif" }}
             >
-              Are you looking for a dentist to give you that special smile?
+              <BlurText
+                text="Are you looking for a dentist to give you that special smile?"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </motion.h2>
 
             {/* Subtext */}
@@ -80,7 +86,7 @@ export default function WhyChooseUs() {
             {/* CTA Button */}
             <motion.div variants={fadeUpVariants}>
               <button 
-                onClick={() => setIsModalOpen(true)} // Attached click trigger action
+                onClick={() => setIsModalOpen(true)}
                 className="border border-gray-800 text-gray-800 text-xs font-semibold tracking-[0.2em] uppercase px-8 py-4 hover:bg-gray-900 hover:text-white transition-all duration-300 cursor-pointer"
               >
                 Book a Visit
@@ -99,7 +105,6 @@ export default function WhyChooseUs() {
             <div
               className="w-full max-w-xl lg:max-w-2xl overflow-hidden bg-gray-100 shadow-sm"
               style={{
-                // Elegant asymmetrical curve styling optimized specifically for landscape frames
                 borderRadius: "120px 24px 120px 24px", 
                 aspectRatio: "16/10" 
               }}

@@ -13,7 +13,8 @@ import {
   HeartPulse,
   Bone,
 } from "lucide-react";
-import FormService from "../components/FormService"; // ← Import the form component
+import FormService from "../components/FormService"; 
+import BlurText from "../components/BlurText"; // Imported BlurText from requested path
 
 // ─── Animation helpers ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -103,14 +104,12 @@ const smileImg =
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function Implants() {
   const [activeStep, setActiveStep] = useState(0);
-
-  // ── Modal state — false by default so it does not load automatically ──────
   const [showForm, setShowForm] = useState(false);
 
   return (
     <div className="font-sans mt-6 bg-[#f0f7ff] text-[#1a2332]">
       
-      {/* ── FORM MODAL — Only mounts and renders when showForm is explicitly true ── */}
+      {/* ── FORM MODAL ── */}
       {showForm && (
         <FormService
           serviceName="Implants"
@@ -119,14 +118,12 @@ export default function Implants() {
         />
       )}
 
-      {/* ── HERO ─────────────────────────────────────────────────────────── */}
+      {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#f0f7ff] via-[#e0f2fe] to-[#f0f7ff] pt-24 pb-20 px-6 md:px-16">
-        {/* decorative blobs */}
         <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-[#0ea5e9]/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 -left-20 w-[350px] h-[350px] rounded-full bg-[#06b6d4]/10 blur-3xl pointer-events-none" />
 
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
-          {/* left copy */}
           <div>
             <motion.span
               initial={{ opacity: 0, y: -10 }}
@@ -138,14 +135,19 @@ export default function Implants() {
               Premium Dental Implants
             </motion.span>
 
+            {/* ── 1. MAIN HERO HEADING WITH BLURTEXT ── */}
             <motion.h1
               variants={fadeUp}
               initial="hidden"
               animate="visible"
               className="text-4xl md:text-5xl font-extrabold leading-tight mb-4"
             >
-              Restore Your Smile with{" "}
-              <span className="text-[#0ea5e9]">Dental Implants</span>
+              <BlurText
+                text="Restore Your Smile with Dental Implants"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </motion.h1>
 
             <motion.div
@@ -174,7 +176,6 @@ export default function Implants() {
               animate="visible"
               className="flex flex-wrap gap-4"
             >
-              {/* ── BUTTON 1: Connected to opens the form modal ── */}
               <button 
                 onClick={() => setShowForm(true)}
                 className="inline-flex items-center gap-2 bg-[#0ea5e9] hover:bg-[#0284c7] text-white font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-[#0ea5e9]/30 transition-all duration-200 hover:scale-105 active:scale-95"
@@ -189,7 +190,6 @@ export default function Implants() {
             </motion.div>
           </div>
 
-          {/* right image */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -203,7 +203,6 @@ export default function Implants() {
                 className="w-full h-[420px] object-cover"
               />
             </div>
-            {/* corner tag */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -216,8 +215,8 @@ export default function Implants() {
         </div>
       </section>
 
-      {/* ── STATS BAR ────────────────────────────────────────────────────── */}
-      <AnimatedSection className="bg-[#1a2332] py-8 px-6">
+      {/* ── STATS BAR ── */}
+      <section className="bg-[#1a2332] py-8 px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {stats.map((s, i) => (
             <motion.div
@@ -233,9 +232,9 @@ export default function Implants() {
             </motion.div>
           ))}
         </div>
-      </AnimatedSection>
+      </section>
 
-      {/* ── WHAT IS AN IMPLANT ───────────────────────────────────────────── */}
+      {/* ── WHAT IS AN IMPLANT ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-14 items-center">
           <AnimatedSection>
@@ -247,7 +246,6 @@ export default function Implants() {
                   className="w-full h-[350px] object-cover"
                 />
               </div>
-              {/* decorative square */}
               <div className="absolute -bottom-6 -right-6 w-28 h-28 rounded-xl bg-[#0ea5e9]/15 border-2 border-[#0ea5e9]/30 -z-10" />
             </div>
           </AnimatedSection>
@@ -256,8 +254,14 @@ export default function Implants() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Understanding Implants
             </span>
+            {/* ── 2. IMPLANT UNDERSTANDING SECTION HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
-              What Is a <span className="text-[#0ea5e9]">Tooth Implant?</span>
+              <BlurText
+                text="What Is a Tooth Implant?"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <div className="h-1 w-12 bg-[#0ea5e9] rounded-full mb-6" />
             <p className="text-[#4a5568] leading-relaxed mb-5">
@@ -287,15 +291,21 @@ export default function Implants() {
         </div>
       </section>
 
-      {/* ── BENEFITS ─────────────────────────────────────────────────────── */}
+      {/* ── BENEFITS ── */}
       <section className="bg-gradient-to-br from-[#1a2332] to-[#0f172a] py-20 px-6 md:px-16">
         <div className="max-w-6xl mx-auto">
           <AnimatedSection className="text-center mb-14">
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Why Choose Implants
             </span>
+            {/* ── 3. BENEFITS HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3">
-              Benefits of <span className="text-[#0ea5e9]">Dental Implants</span>
+              <BlurText
+                text="Benefits of Dental Implants"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
               Dental implants go far beyond aesthetics — they restore function,
@@ -325,14 +335,20 @@ export default function Implants() {
         </div>
       </section>
 
-      {/* ── PROCEDURE STEPS ──────────────────────────────────────────────── */}
+      {/* ── PROCEDURE STEPS ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <AnimatedSection className="text-center mb-14">
           <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
             Step by Step
           </span>
+          {/* ── 4. PROCESS SECTION HEADING WITH BLURTEXT ── */}
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 leading-tight">
-            Our Implant <span className="text-[#0ea5e9]">Procedure</span>
+            <BlurText
+              text="Our Implant Procedure"
+              delay={150}
+              animateBy="words"
+              direction="top"
+          />
           </h2>
           <p className="text-[#4a5568] max-w-xl mx-auto mt-3">
             Transparent, comfortable, and guided every step of the way — here's
@@ -356,7 +372,6 @@ export default function Implants() {
                   : "border-gray-200 bg-white hover:border-[#0ea5e9]/40"
               }`}
             >
-              {/* connector line */}
               {i < steps.length - 1 && (
                 <div className="hidden md:block absolute top-10 -right-2 w-4 h-0.5 bg-gray-200 z-10" />
               )}
@@ -377,23 +392,36 @@ export default function Implants() {
                   className={activeStep === i ? "text-white" : "text-[#0ea5e9]"}
                 />
               </div>
-              <h3 className="font-bold text-[#1a2332] text-sm mb-2">{s.title}</h3>
+              {/* ── 5. CARD STEP TITLE SUB-HEADINGS WITH BLURTEXT ── */}
+              <h3 className="font-bold text-[#1a2332] text-sm mb-2">
+                <BlurText
+                  text={s.title}
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                />
+              </h3>
               <p className="text-[#4a5568] text-sm leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ── WHY CHOOSE US + IMAGE ────────────────────────────────────────── */}
+      {/* ── WHY CHOOSE US ── */}
       <section className="bg-[#f0f7ff] py-20 px-6 md:px-16">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
           <AnimatedSection delay={0.1}>
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Our Promise
             </span>
+            {/* ── 6. SERVICES PROMISE HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
-              Why Choose Our{" "}
-              <span className="text-[#0ea5e9]">Implant Services?</span>
+              <BlurText
+                text="Why Choose Our Implant Services?"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
             </h2>
             <div className="h-1 w-12 bg-[#0ea5e9] rounded-full mb-6" />
             <p className="text-[#4a5568] leading-relaxed mb-6">
@@ -454,11 +482,10 @@ export default function Implants() {
         </div>
       </section>
 
-      {/* ── CTA BANNER ───────────────────────────────────────────────────── */}
+      {/* ── CTA BANNER ── */}
       <section className="py-20 px-6">
         <AnimatedSection className="max-w-4xl mx-auto">
           <div className="relative bg-gradient-to-r from-[#0ea5e9] to-[#06b6d4] rounded-3xl overflow-hidden px-10 py-14 text-center shadow-2xl shadow-[#0ea5e9]/30">
-            {/* background pattern */}
             <div className="absolute inset-0 opacity-10">
               {[...Array(6)].map((_, i) => (
                 <div
@@ -475,8 +502,14 @@ export default function Implants() {
               ))}
             </div>
             <div className="relative z-10">
+              {/* ── 7. CTA BANNER HEADING WITH BLURTEXT ── */}
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-                Book Your Implant Consultation Today
+                <BlurText
+                  text="Book Your Implant Consultation Today"
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                />
               </h2>
               <p className="text-white/85 max-w-xl mx-auto mb-8 text-lg leading-relaxed">
                 If you are looking for a reliable solution for missing teeth, our
@@ -484,7 +517,6 @@ export default function Implants() {
                 Contact us today.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                {/* ── BUTTON 2: Connected to opens the form modal ── */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
@@ -499,7 +531,7 @@ export default function Implants() {
                   whileTap={{ scale: 0.97 }}
                   className="inline-flex items-center gap-2 border-2 border-white text-white font-semibold px-7 py-3.5 rounded-full hover:bg-white/10 transition-all"
                 >
-                  "Call Our Clinic"
+                  Call Our Clinic
                   <ChevronRight size={16} />
                 </motion.button>
               </div>
