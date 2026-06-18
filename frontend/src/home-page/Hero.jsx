@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Calendar, ShieldCheck, Star, ArrowRight, Award } from 'lucide-react';
 import FormService from '../components/FormService';
-
+import BlurText from "../components/BlurText"; 
 
 /* ─── Design token: Uniform Font Family ─── */
 const FONT_FAMILY = "'Outfit', system-ui, sans-serif";
-
 
 /* ─── Breakpoint hook ─── */
 const useBreakpoint = () => {
@@ -81,7 +80,7 @@ const AvailabilityCard = ({ isMobile, onBookClick }) => (
       <motion.button 
         whileHover={{ scale: 1.05 }} 
         whileTap={{ scale: 0.96 }}
-        onClick={onBookClick} // Attached booking form trigger action
+        onClick={onBookClick}
         style={{ background: '#0ea5e9', color: '#fff', border: 'none', borderRadius: 8, padding: '5px 10px', fontFamily: FONT_FAMILY, fontSize: 11, fontWeight: 700, cursor: 'pointer' }}
       >
         Book
@@ -155,7 +154,7 @@ const Hero = () => {
   const { isMobile, isTablet } = useBreakpoint();
   const isStacked = isMobile || isTablet;
 
-  const [isModalOpen, setIsModalOpen] = useState(false); // Added local state tracker for popup initialization
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -171,6 +170,11 @@ const Hero = () => {
     mouseY.set(e.clientY - rect.top - rect.height / 2);
   };
 
+  // Animation completion callback for heading
+  const handleAnimationComplete = () => {
+    console.log('Heading animation completed!');
+  };
+
   const cv = { hidden: {}, visible: { transition: { staggerChildren: 0.11, delayChildren: 0.2 } } };
   const su = { hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } } };
 
@@ -184,14 +188,12 @@ const Hero = () => {
         .h-inner { max-width: 1280px; margin: 0 auto; padding: 96px 40px 80px; width: 100%; position: relative; z-index: 1; }
         .h-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
 
-        /* Tablet ≥640 <1024 */
         @media (max-width: 1023px) {
           .h-inner { padding: 96px 32px 80px; }
           .h-grid  { grid-template-columns: 1fr; gap: 48px; }
           .h-img-col { order: -1; }
         }
 
-        /* Mobile <640 */
         @media (max-width: 639px) {
           .h-inner { padding: 100px 18px 72px; }
           .h-grid  { gap: 36px; }
@@ -226,6 +228,9 @@ const Hero = () => {
             letter-spacing: -0.01em;
           } 
         }
+
+        /* Extra styling override context for components nested within h1 */
+        .h-h1 > span { display: inline; }
 
         .h-divider { width: 48px; height: 2px; background: linear-gradient(90deg,#0ea5e9,#34d399); border-radius: 2px; margin-bottom: 22px; }
 
@@ -297,11 +302,8 @@ const Hero = () => {
       `}</style>
 
       <section className="h-root" onMouseMove={handleMouseMove}>
-
-        {/* Dot grid */}
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0)', backgroundSize: '30px 30px', opacity: 0.42, pointerEvents: 'none' }} />
 
-        {/* Blobs */}
         <motion.div style={{ x: blobX, y: blobY, position: 'absolute', top: '0%', left: '-10%', width: 560, height: 560, borderRadius: '50%', background: 'radial-gradient(circle, rgba(186,230,253,0.5) 0%, transparent 70%)', pointerEvents: 'none' }} />
         <motion.div style={{ x: blobX, y: blobY, position: 'absolute', bottom: '-8%', right: '-6%', width: 480, height: 480, borderRadius: '50%', background: 'radial-gradient(circle, rgba(167,243,208,0.32) 0%, transparent 70%)', pointerEvents: 'none' }} />
 
@@ -322,11 +324,15 @@ const Hero = () => {
                 </span>
               </motion.div>
 
-              {/* Balanced, clean font weight config */}
+              {/* ── UPDATED HEADING WITH BLURTEXT ── */}
               <motion.h1 variants={su} className="h-h1">
-                Expert Care for a{' '}
-                <span style={{ fontWeight: 700, color: '#0284c7' }}>Brighter,</span>
-                <br />Healthier Smile
+                <BlurText
+                  text="Expert Care for a Brighter, Healthier Smile"
+                  delay={150}
+                  animateBy="words"
+                  direction="top"
+                  onAnimationComplete={handleAnimationComplete}
+                />
               </motion.h1>
 
               <motion.div variants={su} className="h-divider" />
@@ -336,7 +342,6 @@ const Hero = () => {
               </motion.p>
 
               <motion.div variants={su} className="h-cta-row">
-                {/* BUTTON 1: Triggering the Form Modal System */}
                 <motion.button 
                   className="h-btn-p" 
                   whileHover={{ scale: 1.02, y: -1 }} 
@@ -379,7 +384,6 @@ const Hero = () => {
                   <div className="h-img-fade" />
                 </div>
 
-                {/* BUTTON 2: Linked click handle directly into Availability Card */}
                 <AvailabilityCard isMobile={isMobile} onBookClick={() => setIsModalOpen(true)} />
                 <RatingCard      isMobile={isMobile} />
                 <ServicesStrip   isMobile={isMobile} />
@@ -388,10 +392,8 @@ const Hero = () => {
 
           </div>
         </div>
-
       </section>
 
-      {/* FORM MODAL SYSTEM OVERLAY */}
       <FormService 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
