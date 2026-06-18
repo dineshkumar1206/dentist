@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, useAnimation, useMotionValue } from 'framer-motion';
-import BlurText from "../components/BlurText"; // Imported BlurText from requested path
+import BlurText from "../components/BlurText"; 
+import ImageGlareHover from "../components/ImageGlareHover"; // <-- Imported Glare Component
 
 /* ── Single Font Definition ── */
 const FONT_FAMILY = "'Outfit', system-ui, sans-serif";
@@ -134,7 +135,6 @@ const SpinBadge = () => (
     MAIN HERO2 Component
 ════════════════════════════════════════ */
 const Hero2 = () => {
-  // Stagger wrapper configuration for the text elements on the right
   const textContainerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -161,23 +161,34 @@ const Hero2 = () => {
       {/* Boxed Content Layout Grid Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-6 md:py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-center min-h-[calc(100vh-10rem)]">
         
-        {/* ══ LEFT VISUAL SPLIT (Triggered on Scroll Viewport Entry) ══ */}
+        {/* ══ LEFT VISUAL SPLIT ══ */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="lg:col-span-6 w-full aspect-[4/3] sm:aspect-[16/10] lg:h-[540px] xl:h-[600px] relative bg-cyan-50/50 rounded-[2.5rem] p-3 sm:p-4 shadow-xl shadow-slate-200/50 overflow-hidden flex flex-col justify-end group"
+          className="lg:col-span-6 w-full aspect-[4/3] sm:aspect-[16/10] lg:h-[540px] xl:h-[600px] relative"
         >
-          {/* Practice image workspace layout layer */}
-          <img
-            className="w-full h-full object-cover object-center rounded-[2rem] block transform group-hover:scale-[1.015] transition-transform duration-700 ease-out"
-            src="/images/img-4.png"
-            alt="State of the art modern clinical dental workspace"
-          />
-          <div className="absolute inset-4 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent pointer-events-none rounded-[2rem]" />
+          {/* Integrated ImageGlareHover directly around the main structural container */}
+          <ImageGlareHover 
+            glareColor="#ffffff"
+            glareOpacity={0.3}
+            glareSize={200}
+            borderRadius="2.5rem"
+            width="100%"
+            height="100%"
+            className="p-3 sm:p-4 bg-cyan-50/50 shadow-xl shadow-slate-200/50"
+          >
+            {/* Practice image workspace layout layer */}
+            <img
+              className="w-full h-full object-cover object-center rounded-[2rem] block"
+              src="/images/img-4.png"
+              alt="State of the art modern clinical dental workspace"
+            />
+            <div className="absolute inset-4 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent pointer-events-none rounded-[2rem]" />
+          </ImageGlareHover>
 
-          {/* Floating Spinning Badge Overlay */}
+          {/* Floating Spinning Badge Overlay (Kept out of Glare to preserve absolute positioning & transitions) */}
           <motion.div
             className="absolute top-4 sm:top-6 md:top-8 lg:top-10 left-1/2 -translate-x-1/2 z-30"
             initial={{ opacity: 0, scale: 0.5 }}
@@ -204,7 +215,7 @@ const Hero2 = () => {
           </motion.div>
         </motion.div>
 
-        {/* ══ RIGHT CONTENT FRAME (Triggered on Scroll Viewport Entry via Stagger) ══ */}
+        {/* ══ RIGHT CONTENT FRAME ══ */}
         <motion.div 
           variants={textContainerVariants}
           initial="hidden"
@@ -219,7 +230,6 @@ const Hero2 = () => {
             Welcome to WhiteDental
           </motion.p>
 
-          {/* ── UPDATED HEADING WITH BLURTEXT ── */}
           <motion.h2 
             variants={textItemVariants}
             className="text-slate-900 tracking-tight leading-[1.12] mb-5 font-bold text-3xl sm:text-4xl md:text-5xl xl:text-[3.25rem]"

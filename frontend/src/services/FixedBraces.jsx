@@ -14,7 +14,8 @@ import {
   Activity,
 } from "lucide-react";
 import FormService from "../components/FormService"; 
-import BlurText from "../components/BlurText"; // Imported BlurText from requested path
+import BlurText from "../components/BlurText"; 
+import ImageGlareHover from "../components/ImageGlareHover"; // <-- Imported Glare Component
 
 // ─── Animation helpers ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -134,7 +135,6 @@ export default function FixedBraces() {
               Orthodontic Care
             </motion.span>
 
-            {/* ── 1. MAIN HERO HEADING WITH BLURTEXT ── */}
             <motion.h1
               variants={fadeUp}
               initial="hidden"
@@ -188,24 +188,32 @@ export default function FixedBraces() {
             </motion.div>
           </div>
 
+          {/* ── HERO IMAGE WITH GLARE ── */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
-            <div className="rounded-2xl overflow-hidden shadow-2xl ring-4 ring-white">
+            <ImageGlareHover
+              glareColor="#ffffff"
+              glareOpacity={0.3}
+              glareSize={180}
+              borderRadius="1rem"
+              width="100%"
+              className="shadow-2xl ring-4 ring-white relative z-10"
+            >
               <img
                 src={heroImg}
                 alt="Orthodontic Fixed Braces Systems"
                 className="w-full h-[420px] object-cover"
               />
-            </div>
+            </ImageGlareHover>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
-              className="absolute top-4 right-4 bg-[#0ea5e9] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow"
+              className="absolute top-4 right-4 bg-[#0ea5e9] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow z-20"
             >
               Proven Results
             </motion.div>
@@ -235,15 +243,23 @@ export default function FixedBraces() {
       {/* ── CASES TREATED SECTION ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-14 items-center">
+          {/* ── TREATED CASES IMAGE WITH GLARE ── */}
           <AnimatedSection>
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-xl ring-4 ring-white">
+              <ImageGlareHover
+                glareColor="#ffffff"
+                glareOpacity={0.25}
+                glareSize={180}
+                borderRadius="1rem"
+                width="100%"
+                className="shadow-xl ring-4 ring-white relative z-10"
+              >
                 <img
                   src={procedureImg}
                   alt="Common Dental Issues Treated with Braces"
                   className="w-full h-[350px] object-cover"
                 />
-              </div>
+              </ImageGlareHover>
               <div className="absolute -bottom-6 -right-6 w-28 h-28 rounded-xl bg-[#0ea5e9]/15 border-2 border-[#0ea5e9]/30 -z-10" />
             </div>
           </AnimatedSection>
@@ -252,7 +268,6 @@ export default function FixedBraces() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Targeted Correction
             </span>
-            {/* ── 2. TREATED CASES SECTION HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
               <BlurText
                 text="Issues Safely Treated With Fixed Braces"
@@ -293,7 +308,6 @@ export default function FixedBraces() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               The Orthodontic Advantage
             </span>
-            {/* ── 3. ADVANTAGES SECTION HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3">
               <BlurText
                 text="Benefits of Fixed Braces Treatments"
@@ -335,7 +349,6 @@ export default function FixedBraces() {
           <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
             The Journey
           </span>
-          {/* ── 4. PROCESS SECTION HEADING WITH BLURTEXT ── */}
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 leading-tight">
             <BlurText
               text="Our Orthodontic Care Process"
@@ -385,7 +398,6 @@ export default function FixedBraces() {
                   className={activeStep === i ? "text-white" : "text-[#0ea5e9]"}
                 />
               </div>
-              {/* ── 5. PROCESS STEP CARD SUB-HEADINGS WITH BLURTEXT ── */}
               <h3 className="font-bold text-[#1a2332] text-sm mb-2">
                 <BlurText
                   text={s.title}
@@ -407,7 +419,6 @@ export default function FixedBraces() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Braces Maintenance
             </span>
-            {/* ── 6. TREATMENT TRACKING HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
               <BlurText
                 text="Caring for Your Teeth During Treatment"
@@ -442,21 +453,29 @@ export default function FixedBraces() {
             ))}
           </AnimatedSection>
 
+          {/* ── MAINTENANCE SMILE IMAGE WITH GLARE ── */}
           <AnimatedSection>
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-xl ring-4 ring-white">
+              <ImageGlareHover
+                glareColor="#ffffff"
+                glareOpacity={0.3}
+                glareSize={180}
+                borderRadius="1rem"
+                width="100%"
+                className="shadow-xl ring-4 ring-white relative z-10"
+              >
                 <img
                   src={smileImg}
                   alt="Confident happy patient during braces care"
                   className="w-full h-[400px] object-cover object-top"
                 />
-              </div>
+              </ImageGlareHover>
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
                 viewport={{ once: true }}
-                className="absolute -bottom-5 -left-5 bg-white rounded-xl shadow-xl px-5 py-4 border border-gray-100 flex items-center gap-3"
+                className="absolute -bottom-5 -left-5 bg-white rounded-xl shadow-xl px-5 py-4 border border-gray-100 flex items-center gap-3 z-20"
               >
                 <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
                   <CheckCircle2 className="text-green-500" size={20} />
@@ -491,7 +510,6 @@ export default function FixedBraces() {
               ))}
             </div>
             <div className="relative z-10">
-              {/* ── 7. CTA BANNER HEADING WITH BLURTEXT ── */}
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
                 <BlurText
                   text="Schedule Your Orthodontic Consultation Today"

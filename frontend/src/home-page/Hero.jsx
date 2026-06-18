@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Calendar, ShieldCheck, Star, ArrowRight, Award } from 'lucide-react';
 import FormService from '../components/FormService';
 import BlurText from "../components/BlurText"; 
+import ImageGlareHover from "../components/ImageGlareHover"; // <-- Imported Glare Component
 
 /* ─── Design token: Uniform Font Family ─── */
 const FONT_FAMILY = "'Outfit', system-ui, sans-serif";
@@ -64,7 +65,7 @@ const AvailabilityCard = ({ isMobile, onBookClick }) => (
       boxShadow: '0 8px 28px rgba(0,0,0,0.11)',
       border: '1px solid rgba(255,255,255,0.9)',
       minWidth: isMobile ? 164 : 205,
-      zIndex: 10,
+      zIndex: 15, // Pushed up slightly to hover cleanly over glare
     }}
   >
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -104,7 +105,7 @@ const RatingCard = ({ isMobile }) => (
       borderRadius: 15, padding: '11px 15px',
       boxShadow: '0 8px 28px rgba(0,0,0,0.09)',
       border: '1px solid rgba(255,255,255,0.9)',
-      zIndex: 10,
+      zIndex: 15, // Pushed up slightly to hover cleanly over glare
     }}
   >
     <div style={{ display: 'flex', gap: 2, marginBottom: 4 }}>
@@ -131,7 +132,7 @@ const ServicesStrip = ({ isMobile }) => (
       borderRadius: 13, padding: '9px 16px',
       display: 'flex', alignItems: 'center', gap: isMobile ? 10 : 16,
       boxShadow: '0 6px 24px rgba(0,0,0,0.07)',
-      whiteSpace: 'nowrap', zIndex: 10,
+      whiteSpace: 'nowrap', zIndex: 15, // Pushed up slightly to hover cleanly over glare
     }}
   >
     {[
@@ -169,11 +170,6 @@ const Hero = () => {
     mouseX.set(e.clientX - rect.left - rect.width / 2);
     mouseY.set(e.clientY - rect.top - rect.height / 2);
   };
-
-  // Animation completion callback for heading
-  // const handleAnimationComplete = () => {
-  //   console.log('Heading animation completed!');
-  // };
 
   const cv = { hidden: {}, visible: { transition: { staggerChildren: 0.11, delayChildren: 0.2 } } };
   const su = { hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } } };
@@ -229,9 +225,7 @@ const Hero = () => {
           } 
         }
 
-        /* Extra styling override context for components nested within h1 */
         .h-h1 > span { display: inline; }
-
         .h-divider { width: 48px; height: 2px; background: linear-gradient(90deg,#0ea5e9,#34d399); border-radius: 2px; margin-bottom: 22px; }
 
         .h-desc {
@@ -283,8 +277,7 @@ const Hero = () => {
         }
         @media (max-width: 639px) { .h-img-frame { aspect-ratio: 3/4; border-radius: 20px; } }
 
-        .h-img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s ease; }
-        .h-img-frame:hover img { transform: scale(1.04); }
+        .h-img-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .h-img-fade {
           position: absolute; bottom: 0; left: 0; right: 0; height: 35%;
@@ -312,7 +305,6 @@ const Hero = () => {
 
             {/* ── TEXT ── */}
             <motion.div variants={cv} initial="hidden" animate="visible">
-
               <motion.div variants={su}>
                 <span className="h-eyebrow">
                   <motion.span
@@ -324,7 +316,6 @@ const Hero = () => {
                 </span>
               </motion.div>
 
-              {/* ── UPDATED HEADING WITH BLURTEXT ── */}
               <motion.h1 variants={su} className="h-h1">
                 <BlurText
                   text="Expert Care for a Brighter, Healthier Smile"
@@ -363,7 +354,7 @@ const Hero = () => {
               </motion.div>
             </motion.div>
 
-            {/* ── IMAGE ── */}
+            {/* ── IMAGE WITH GLARE INTEGRATION ── */}
             <motion.div
               className="h-img-col"
               initial={{ opacity: 0, scale: 0.93, x: isStacked ? 0 : 36 }}
@@ -374,15 +365,24 @@ const Hero = () => {
               <div className="h-img-wrap">
                 <div className="h-ring" />
 
-                <div className="h-img-frame">
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(255,255,255,0.09) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 2 }} />
-                  <img
-                    src="/images/img-2.png"
-                    alt="Patient smiling at a modern dental clinic"
-                  />
-                  <div className="h-img-fade" />
-                </div>
+                {/* Wrapped the frame with the Glare Hover component */}
+                <ImageGlareHover 
+                  glareColor="#ffffff" 
+                  glareOpacity={0.35} 
+                  glareSize={220} 
+                  borderRadius={isMobile ? "20px" : "28px"}
+                >
+                  <div className="h-img-frame">
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(255,255,255,0.09) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 2 }} />
+                    <img
+                      src="/images/img-2.png"
+                      alt="Patient smiling at a modern dental clinic"
+                    />
+                    <div className="h-img-fade" />
+                  </div>
+                </ImageGlareHover>
 
+                {/* Floating elements remain positioned relative to .h-img-wrap */}
                 <AvailabilityCard isMobile={isMobile} onBookClick={() => setIsModalOpen(true)} />
                 <RatingCard      isMobile={isMobile} />
                 <ServicesStrip   isMobile={isMobile} />

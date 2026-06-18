@@ -14,7 +14,8 @@ import {
   Activity,
 } from "lucide-react";
 import FormService from "../components/FormService"; 
-import BlurText from "../components/BlurText"; // Imported BlurText from requested path
+import BlurText from "../components/BlurText"; 
+import ImageGlareHover from "../components/ImageGlareHover"; // <-- Imported Glare Component
 
 // ─── Animation helpers ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -134,7 +135,6 @@ export default function FullTeethsets() {
               Restorative Dentistry
             </motion.span>
 
-            {/* ── 1. MAIN HERO HEADING WITH BLURTEXT ── */}
             <motion.h1
               variants={fadeUp}
               initial="hidden"
@@ -188,24 +188,32 @@ export default function FullTeethsets() {
             </motion.div>
           </div>
 
+          {/* ── HERO IMAGE WITH GLARE ── */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
-            <div className="rounded-2xl overflow-hidden shadow-2xl ring-4 ring-white">
+            <ImageGlareHover
+              glareColor="#ffffff"
+              glareOpacity={0.3}
+              glareSize={180}
+              borderRadius="1rem"
+              width="100%"
+              className="shadow-2xl ring-4 ring-white relative z-10"
+            >
               <img
                 src={heroImg}
                 alt="Full Teeth Sets Treatment"
                 className="w-full h-[420px] object-cover"
               />
-            </div>
+            </ImageGlareHover>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
-              className="absolute top-4 right-4 bg-[#0ea5e9] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow"
+              className="absolute top-4 right-4 bg-[#0ea5e9] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow z-20"
             >
               Full Rehabilitation
             </motion.div>
@@ -235,15 +243,23 @@ export default function FullTeethsets() {
       {/* ── SELECTION CONFIGURATIONS ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-14 items-center">
+          {/* ── SELECTION IMAGE WITH GLARE ── */}
           <AnimatedSection>
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-xl ring-4 ring-white">
+              <ImageGlareHover
+                glareColor="#ffffff"
+                glareOpacity={0.25}
+                glareSize={180}
+                borderRadius="1rem"
+                width="100%"
+                className="shadow-xl ring-4 ring-white relative z-10"
+              >
                 <img
                   src={procedureImg}
                   alt="Understanding Restorative Configurations"
                   className="w-full h-[350px] object-cover"
                 />
-              </div>
+              </ImageGlareHover>
               <div className="absolute -bottom-6 -right-6 w-28 h-28 rounded-xl bg-[#0ea5e9]/15 border-2 border-[#0ea5e9]/30 -z-10" />
             </div>
           </AnimatedSection>
@@ -252,7 +268,6 @@ export default function FullTeethsets() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Rehabilitation Modalities
             </span>
-            {/* ── 2. MODALITIES HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
               <BlurText
                 text="Types of Full Arch Restoration Prosthetics"
@@ -265,7 +280,6 @@ export default function FullTeethsets() {
             
             <div className="space-y-4 mb-6">
               <div>
-                {/* ── 3. OPTION A SUB-HEADING WITH BLURTEXT ── */}
                 <h4 className="text-sm font-bold text-[#1a2332]">
                   <BlurText
                     text="Option A: Removable Dentures"
@@ -279,7 +293,6 @@ export default function FullTeethsets() {
                 </p>
               </div>
               <div>
-                {/* ── 4. OPTION B SUB-HEADING WITH BLURTEXT ── */}
                 <h4 className="text-sm font-bold text-[#1a2332]">
                   <BlurText
                     text="Option B: Fixed Full Sets"
@@ -313,7 +326,6 @@ export default function FullTeethsets() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Reclaiming Your Comfort
             </span>
-            {/* ── 5. BENEFITS HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3">
               <BlurText
                 text="Benefits of Modern Full Teeth Sets"
@@ -355,7 +367,6 @@ export default function FullTeethsets() {
           <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
             The Engineering Process
           </span>
-          {/* ── 6. PROCESS HEADING WITH BLURTEXT ── */}
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 leading-tight">
             <BlurText
               text="Our Restoration Care Workflow"
@@ -405,7 +416,6 @@ export default function FullTeethsets() {
                   className={activeStep === i ? "text-white" : "text-[#0ea5e9]"}
                 />
               </div>
-              {/* ── 7. STEP TITLE CARD SUB-HEADING WITH BLURTEXT ── */}
               <h3 className="font-bold text-[#1a2332] text-sm mb-2">
                 <BlurText
                   text={s.title}
@@ -427,7 +437,6 @@ export default function FullTeethsets() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Prolonging Structural Health
             </span>
-            {/* ── 8. MAINTENANCE HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
               <BlurText
                 text="Caring for Your New Restored Smile"
@@ -461,21 +470,29 @@ export default function FullTeethsets() {
             ))}
           </AnimatedSection>
 
+          {/* ── MAINTENANCE SMILE IMAGE WITH GLARE ── */}
           <AnimatedSection>
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-xl ring-4 ring-white">
+              <ImageGlareHover
+                glareColor="#ffffff"
+                glareOpacity={0.3}
+                glareSize={180}
+                borderRadius="1rem"
+                width="100%"
+                className="shadow-xl ring-4 ring-white relative z-10"
+              >
                 <img
                   src={smileImg}
                   alt="Confident smile following full restorative rehabilitation"
                   className="w-full h-[400px] object-cover object-top"
                 />
-              </div>
+              </ImageGlareHover>
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
                 viewport={{ once: true }}
-                className="absolute -bottom-5 -left-5 bg-white rounded-xl shadow-xl px-5 py-4 border border-gray-100 flex items-center gap-3"
+                className="absolute -bottom-5 -left-5 bg-white rounded-xl shadow-xl px-5 py-4 border border-gray-100 flex items-center gap-3 z-20"
               >
                 <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
                   <CheckCircle2 className="text-green-500" size={20} />
@@ -510,7 +527,6 @@ export default function FullTeethsets() {
               ))}
             </div>
             <div className="relative z-10">
-              {/* ── 9. CTA BANNER HEADING WITH BLURTEXT ── */}
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
                 <BlurText
                   text="Schedule Your Consultation Today"

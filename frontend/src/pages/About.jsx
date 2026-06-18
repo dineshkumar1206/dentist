@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import BlurText from "../components/BlurText"; // Imported BlurText from requested path
+import BlurText from "../components/BlurText"; 
+import ImageGlareHover from "../components/ImageGlareHover"; // <-- Imported Glare Component
 
 // ── Animation helpers ──────────────────────────────────────────────────────
 const fadeUp = (delay = 0) => ({
@@ -129,7 +130,6 @@ export default function About() {
               </span>
             </Reveal>
 
-            {/* ── 1. MAIN HERO HEADING WITH BLURTEXT ── */}
             <Reveal variant={fadeLeft(0.1)}>
               <h1 className="text-4xl md:text-5xl font-extrabold text-[#0f172a] leading-tight mb-4">
                 <BlurText
@@ -171,23 +171,32 @@ export default function About() {
             </Reveal>
           </div>
 
-          {/* Right — clinic image + floating badge */}
+          {/* Right — clinic image with glare */}
           <Reveal variant={fadeRight(0.2)} className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
-              <img
-                src="/images/img-2.png"
-                alt="Ranga's Dental Clinic interior"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-            </div>
+            <ImageGlareHover
+              glareColor="#ffffff"
+              glareOpacity={0.3}
+              glareSize={180}
+              borderRadius="1rem"
+              width="100%"
+              className="shadow-2xl aspect-[4/3] relative z-10"
+            >
+              <div className="w-full h-full relative">
+                <img
+                  src="/images/img-2.png"
+                  alt="Ranga's Dental Clinic interior"
+                  className="w-full h-full object-cover rounded-2xl"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none rounded-2xl" />
+              </div>
+            </ImageGlareHover>
 
-            {/* Floating stat card */}
+            {/* Floating stat card (z-index adjusted to sit cleanly above glare boundaries) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.5 }}
-              className="absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-xl px-5 py-4 flex items-center gap-3"
+              className="absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-xl px-5 py-4 flex items-center gap-3 z-20"
             >
               <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-xl">⭐</div>
               <div>
@@ -201,7 +210,7 @@ export default function About() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.9, duration: 0.4 }}
-              className="absolute -top-4 -right-4 bg-[#0ea5e9] text-white rounded-2xl shadow-lg px-4 py-3 text-center"
+              className="absolute -top-4 -right-4 bg-[#0ea5e9] text-white rounded-2xl shadow-lg px-4 py-3 text-center z-20"
             >
               <div className="text-xl font-black">15+</div>
               <div className="text-xs font-medium opacity-90">Years of Care</div>
@@ -231,28 +240,39 @@ export default function About() {
       {/* ── OUR STORY ── */}
       <section id="story" className="py-24 px-6 bg-white">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          {/* Image collage */}
+          {/* Image collage with separate Glare elements per image component node */}
           <Reveal variant={fadeLeft()} className="relative grid grid-cols-2 gap-3">
-            <img
-              src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=300&fit=crop"
-              alt="Dental treatment"
-              className="rounded-2xl w-full h-48 object-cover shadow-md col-span-2"
-            />
-            <img
-              src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=300&h=220&fit=crop"
-              alt="Modern dental chair"
-              className="rounded-2xl w-full h-40 object-cover shadow-md"
-            />
-            <img
-              src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=300&h=220&fit=crop&crop=right"
-              alt="Dental equipment"
-              className="rounded-2xl w-full h-40 object-cover shadow-md"
-            />
+            <div className="col-span-2">
+              <ImageGlareHover glareOpacity={0.25} borderRadius="1rem" width="100%">
+                <img
+                  src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=300&fit=crop"
+                  alt="Dental treatment"
+                  className="rounded-2xl w-full h-48 object-cover shadow-md"
+                />
+              </ImageGlareHover>
+            </div>
+            <div>
+              <ImageGlareHover glareOpacity={0.25} borderRadius="1rem" width="100%">
+                <img
+                  src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=300&h=220&fit=crop"
+                  alt="Modern dental chair"
+                  className="rounded-2xl w-full h-40 object-cover shadow-md"
+                />
+              </ImageGlareHover>
+            </div>
+            <div>
+              <ImageGlareHover glareOpacity={0.25} borderRadius="1rem" width="100%">
+                <img
+                  src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=300&h=220&fit=crop&crop=right"
+                  alt="Dental equipment"
+                  className="rounded-2xl w-full h-40 object-cover shadow-md"
+                />
+              </ImageGlareHover>
+            </div>
           </Reveal>
 
           {/* Story text */}
           <div>
-            {/* ── 2. OUR STORY HEADING WITH BLURTEXT ── */}
             <Reveal variant={fadeRight()}>
               <span className="text-xs font-semibold tracking-widest text-[#0ea5e9] uppercase">Our Story</span>
               <h2 className="text-3xl md:text-4xl font-extrabold text-[#0f172a] mt-2 mb-4">
@@ -283,7 +303,6 @@ export default function About() {
       {/* ── TIMELINE ── */}
       <section className="py-20 px-6 bg-[#f0f8ff]">
         <div className="max-w-3xl mx-auto">
-          {/* ── 3. MILESTONES HEADING WITH BLURTEXT ── */}
           <Reveal className="text-center mb-14">
             <span className="text-xs font-semibold tracking-widest text-[#0ea5e9] uppercase">Milestones</span>
             <h2 className="text-3xl font-extrabold text-[#0f172a] mt-2">
@@ -314,7 +333,6 @@ export default function About() {
       {/* ── VALUES ── */}
       <section className="py-24 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          {/* ── 4. VALUES SECTION HEADING WITH BLURTEXT ── */}
           <Reveal className="text-center mb-14">
             <span className="text-xs font-semibold tracking-widest text-[#0ea5e9] uppercase">Why Choose Us</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#0f172a] mt-2">
@@ -353,7 +371,6 @@ export default function About() {
       {/* ── TEAM ── */}
       <section id="team" className="py-24 px-6 bg-gradient-to-b from-[#e8f4fd] to-white">
         <div className="max-w-6xl mx-auto">
-          {/* ── 5. TEAM HEADING WITH BLURTEXT ── */}
           <Reveal className="text-center mb-14">
             <span className="text-xs font-semibold tracking-widest text-[#0ea5e9] uppercase">Our Specialists</span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#0f172a] mt-2">
@@ -380,18 +397,27 @@ export default function About() {
                 whileHover={{ y: -8 }}
                 className="bg-white rounded-3xl overflow-hidden shadow-lg border border-cyan-50 group"
               >
-                {/* Image with gradient overlay */}
-                <div className="relative h-60 overflow-hidden">
+                {/* Team Card Image Frame wrapped with Glare */}
+                <ImageGlareHover
+                  glareColor="#ffffff"
+                  glareOpacity={0.3}
+                  glareSize={150}
+                  borderRadius="0px" // Resets radius locally so it fills the upper rounded border card smoothly
+                  width="100%"
+                  className="h-60 bg-slate-100 relative"
+                >
                   <img
                     src={doc.img}
                     alt={doc.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className={`absolute inset-0 bg-gradient-to-t ${doc.color} opacity-20`} />
-                  <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-[#0ea5e9]">
+                  <div className={`absolute inset-0 bg-gradient-to-t ${doc.color} opacity-20 pointer-events-none`} />
+                  
+                  {/* Years Experience Badge (z-index adjusted to sit above reflection) */}
+                  <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold text-[#0ea5e9] z-20">
                     {doc.exp}
                   </div>
-                </div>
+                </ImageGlareHover>
 
                 <div className="p-5">
                   <h3 className="font-extrabold text-[#0f172a] text-lg">{doc.name}</h3>
@@ -410,7 +436,6 @@ export default function About() {
         <div className="pointer-events-none absolute -bottom-20 right-1/4 w-60 h-60 rounded-full bg-teal-400 opacity-10 blur-3xl" />
 
         <Reveal className="max-w-2xl mx-auto text-center">
-          {/* ── 6. BOTTOM CTA HEADING WITH BLURTEXT ── */}
           <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
             <BlurText
               text="Ready for a Healthier Smile?"

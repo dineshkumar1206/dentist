@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Check } from "lucide-react";
 import { motion } from "framer-motion";
 import FormService from "../components/FormService";
-import BlurText from "../components/BlurText"; // Imported BlurText from requested path
+import BlurText from "../components/BlurText"; 
+import ImageGlareHover from "../components/ImageGlareHover"; // <-- Imported Glare Component
 
 const features = [
   "Dental check-ups",
@@ -24,6 +25,9 @@ const fadeUpVariants = {
 
 export default function WhyChooseUs() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Reusable asymmetrical border radius token matching your specific image design layout
+  const customFrameRadius = "120px 24px 120px 24px";
 
   return (
     <>
@@ -48,7 +52,7 @@ export default function WhyChooseUs() {
               Why Choose Us
             </motion.p>
 
-            {/* ── UPDATED HEADING WITH BLURTEXT ── */}
+            {/* Heading */}
             <motion.h2
               variants={fadeUpVariants}
               className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 leading-tight mb-6"
@@ -94,7 +98,7 @@ export default function WhyChooseUs() {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT: Responsive Landscape Image */}
+          {/* RIGHT: Responsive Landscape Image wrapped with Glare Overlay */}
           <motion.div 
             className="flex-1 w-full flex justify-center lg:justify-end"
             initial={{ opacity: 0, y: 40 }}
@@ -102,19 +106,21 @@ export default function WhyChooseUs() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            <div
-              className="w-full max-w-xl lg:max-w-2xl overflow-hidden bg-gray-100 shadow-sm"
-              style={{
-                borderRadius: "120px 24px 120px 24px", 
-                aspectRatio: "16/10" 
-              }}
+            <ImageGlareHover
+              glareColor="#ffffff"
+              glareOpacity={0.3}
+              glareSize={200}
+              borderRadius={customFrameRadius} // Perfectly trims the glare reflection to your frame curves
+              width="100%"
+              className="max-w-xl lg:max-w-2xl bg-gray-100 shadow-sm"
+              style={{ aspectRatio: "16/10" }}
             >
               <img
                 src="/images/why-choose-us.png"
                 alt="Happy patient with a beautiful smile"
                 className="w-full h-full object-cover object-center"
               />
-            </div>
+            </ImageGlareHover>
           </motion.div>
 
         </div>

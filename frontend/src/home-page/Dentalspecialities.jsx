@@ -2,7 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Heart, Share2 } from 'lucide-react';
-import BlurText from "../components/BlurText"; // Imported BlurText from requested path
+import BlurText from "../components/BlurText"; 
+import ImageGlareHover from "../components/ImageGlareHover"; // <-- Imported Glare Component
 
 /* ── Single Font Definition ── */
 const FONT_FAMILY = "'Outfit', system-ui, sans-serif";
@@ -97,16 +98,25 @@ function ServiceCard({ service }) {
       className="flex-shrink-0 w-[280px] sm:w-[310px] h-[390px] sm:h-[410px] bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300"
     >
       <Link to={service.href} className="flex flex-col h-full group">
-        {/* Card Image Banner Wrapper */}
-        <div className="relative h-[190px] sm:h-[210px] flex-shrink-0 overflow-hidden bg-slate-50">
+        
+        {/* Card Image Banner Wrapper — Integrated ImageGlareHover inside */}
+        <ImageGlareHover
+          glareColor="#ffffff"
+          glareOpacity={0.35}
+          glareSize={180}
+          borderRadius="0px" // Resets edge framing to map cleanly inside the card layout
+          width="100%"
+          height="190px"
+          className="sm:h-[210px] flex-shrink-0 overflow-hidden bg-slate-50 relative"
+        >
           <img 
             src={service.image} 
             alt={service.title} 
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
           
-          {/* Quick Floating Interactions */}
-          <div className="absolute top-3 right-3 flex items-center gap-2">
+          {/* Quick Floating Interactions (z-index adjusted to stay clickable above overlay) */}
+          <div className="absolute top-3 right-3 flex items-center gap-2 z-20">
             <button 
               onClick={(e) => { e.preventDefault(); }} 
               className="w-8 h-8 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-slate-600 hover:bg-white hover:text-red-500 transition-colors shadow-xs"
@@ -120,9 +130,9 @@ function ServiceCard({ service }) {
               <Share2 size={14} />
             </button>
           </div>
-        </div>
+        </ImageGlareHover>
 
-        {/* Dynamic Structural Grid to enforce identical content rows across all components */}
+        {/* Dynamic Structural Grid Content */}
         <div className="p-5 text-left bg-white grid grid-rows-[auto_1fr_auto] flex-1 min-h-0">
           {/* Title Area */}
           <h3 className="font-bold text-slate-800 text-base tracking-tight group-hover:text-cyan-600 transition-colors duration-200 line-clamp-1 mb-1.5">
@@ -191,7 +201,6 @@ export default function DentalSpecialities() {
               Most Popular Services
             </p>
             
-            {/* ── UPDATED HEADING WITH BLURTEXT ── */}
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
               <BlurText
                 text="Our Clinical Services"
@@ -232,7 +241,7 @@ export default function DentalSpecialities() {
           onMouseLeave={() => setIsHovered(false)}
           className="flex gap-6 overflow-x-auto pb-6 pt-2 px-1 snap-x snap-mandatory scrollbar-none"
           style={{
-            scrollbitWidth: 'none',
+            scrollbarWidth: 'none',
             msOverflowStyle: 'none',
           }}
         >

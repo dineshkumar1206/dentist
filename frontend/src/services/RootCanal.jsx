@@ -14,7 +14,8 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import FormService from "../components/FormService"; 
-import BlurText from "../components/BlurText"; // Imported BlurText from requested path
+import BlurText from "../components/BlurText"; 
+import ImageGlareHover from "../components/ImageGlareHover"; // <-- Imported Glare Component
 
 // ─── Animation helpers ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -53,12 +54,12 @@ function AnimatedSection({ children, className = "", delay = 0 }) {
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const benefits = [
-  { icon: Shield, text: "Relieves severe tooth pain and continuous discomfort" },
-  { icon: Activity, text: "Eliminates deep infection from inside the tooth pulp" },
-  { icon: CheckCircle2, text: "Preserves your natural tooth structure safely" },
-  { icon: Smile, text: "Restores normal chewing, biting, and speaking functions" },
-  { icon: AlertTriangle, text: "Prevents the stressful need for total tooth extraction" },
-  { icon: Star, text: "Provides a durable, long-lasting dental health solution" },
+  { icon: Shield, text: "Thoroughly removes harmful bacteria and deep-seated infection roots" },
+  { icon: Activity, text: "Significantly reduces chronic gum inflammation, swelling, and bleeding" },
+  { icon: CheckCircle2, text: "Prevents further progressive gum erosion and underlying jawbone damage" },
+  { icon: Smile, text: "Helps save your natural teeth from shifting or eventual tooth loss" },
+  { icon: AlertTriangle, text: "Eliminates chronic bad breath caused by underlying periodontal disease" },
+  { icon: Star, text: "Promotes completely healthier, firmer gums and stronger anchor structures" },
 ];
 
 const steps = [
@@ -97,7 +98,7 @@ const stats = [
 
 const heroImg = "/images/root-canal-hero.png";
 const procedureImg = "/images/root-canal.png";
-const smileImg ="/images/root-canal-service.jpg";
+const smileImg = "/images/root-canal-service.jpg";
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function RootCanal() {
@@ -133,7 +134,6 @@ export default function RootCanal() {
               Root Canal Treatment
             </motion.span>
 
-            {/* ── 1. MAIN HERO HEADING WITH BLURTEXT ── */}
             <motion.h1
               variants={fadeUp}
               initial="hidden"
@@ -188,24 +188,32 @@ export default function RootCanal() {
             </motion.div>
           </div>
 
+          {/* ── HERO IMAGE WITH GLARE ── */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="relative"
           >
-            <div className="rounded-2xl overflow-hidden shadow-2xl ring-4 ring-white">
+            <ImageGlareHover
+              glareColor="#ffffff"
+              glareOpacity={0.3}
+              glareSize={180}
+              borderRadius="1rem"
+              width="100%"
+              className="shadow-2xl ring-4 ring-white relative z-10"
+            >
               <img
                 src={heroImg}
                 alt="Root Canal Treatment"
                 className="w-full h-[420px] object-cover"
               />
-            </div>
+            </ImageGlareHover>
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
-              className="absolute top-4 right-4 bg-[#0ea5e9] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow"
+              className="absolute top-4 right-4 bg-[#0ea5e9] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow z-20"
             >
               97% Success Rate
             </motion.div>
@@ -232,18 +240,25 @@ export default function RootCanal() {
         </div>
       </section>
 
-      {/* ── IMPORTANCE SECTION / WHAT IS ROOT CANAL ── */}
+      {/* ── UNDERSTANDING SECTION WITH GLARE ── */}
       <section className="py-20 px-6 md:px-16 max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-14 items-center">
           <AnimatedSection>
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-xl ring-4 ring-white">
+              <ImageGlareHover
+                glareColor="#ffffff"
+                glareOpacity={0.25}
+                glareSize={180}
+                borderRadius="1rem"
+                width="100%"
+                className="shadow-xl ring-4 ring-white relative z-10"
+              >
                 <img
                   src={procedureImg}
                   alt="Understanding Root Canal Treatment"
                   className="w-full h-[350px] object-cover"
                 />
-              </div>
+              </ImageGlareHover>
               <div className="absolute -bottom-6 -right-6 w-28 h-28 rounded-xl bg-[#0ea5e9]/15 border-2 border-[#0ea5e9]/30 -z-10" />
             </div>
           </AnimatedSection>
@@ -252,7 +267,6 @@ export default function RootCanal() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Advanced Endodontic Therapy
             </span>
-            {/* ── 2. UNDERSTANDING SECTION HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
               <BlurText
                 text="Understanding Root Canal Therapy"
@@ -293,7 +307,6 @@ export default function RootCanal() {
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Why Choose Root Canal Therapy
             </span>
-            {/* ── 3. BENEFITS SECTION HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3">
               <BlurText
                 text="The Real Benefits of Saving Your Tooth"
@@ -317,7 +330,6 @@ export default function RootCanal() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                whileInView="visible"
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 className="flex items-start gap-4 bg-white/5 border border-white/10 hover:border-[#0ea5e9]/50 rounded-xl p-5 transition-colors duration-200 cursor-default"
               >
@@ -337,7 +349,6 @@ export default function RootCanal() {
           <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
             Step by Step
           </span>
-          {/* ── 4. PROCESS SECTION HEADING WITH BLURTEXT ── */}
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 leading-tight">
             <BlurText
               text="Our Treatment Process"
@@ -390,7 +401,6 @@ export default function RootCanal() {
                 />
               </div>
 
-              {/* ── 5. CARD STEP SUB-HEADINGS WITH BLURTEXT ── */}
               <h3 className="font-bold text-[#1a2332] text-sm mb-2">
                 <BlurText
                   text={s.title}
@@ -408,14 +418,13 @@ export default function RootCanal() {
         </div>
       </section>
 
-      {/* ── WHY CHOOSE US ── */}
+      {/* ── WHY CHOOSE US WITH GLARE ── */}
       <section className="bg-[#f0f7ff] py-20 px-6 md:px-16">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
           <AnimatedSection delay={0.1}>
             <span className="text-xs font-semibold tracking-widest uppercase text-[#0ea5e9]">
               Our Promise
             </span>
-            {/* ── 6. TRUST PROMISE HEADING WITH BLURTEXT ── */}
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 leading-tight">
               <BlurText
                 text="Why Trust Our Specialist Root Canal Services?"
@@ -450,21 +459,29 @@ export default function RootCanal() {
             ))}
           </AnimatedSection>
 
+          {/* ── PROMISE SMILE IMAGE WITH GLARE ── */}
           <AnimatedSection>
             <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-xl ring-4 ring-white">
+              <ImageGlareHover
+                glareColor="#ffffff"
+                glareOpacity={0.3}
+                glareSize={180}
+                borderRadius="1rem"
+                width="100%"
+                className="shadow-xl ring-4 ring-white relative z-10"
+              >
                 <img
                   src={smileImg}
                   alt="Relieved patient after professional root canal treatment"
                   className="w-full h-[400px] object-cover object-top"
                 />
-              </div>
+              </ImageGlareHover>
               <motion.div
                 initial={{ opacity: 0, scale: 0.85 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
                 viewport={{ once: true }}
-                className="absolute -bottom-5 -left-5 bg-white rounded-xl shadow-xl px-5 py-4 border border-gray-100 flex items-center gap-3"
+                className="absolute -bottom-5 -left-5 bg-white rounded-xl shadow-xl px-5 py-4 border border-gray-100 flex items-center gap-3 z-20"
               >
                 <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
                   <CheckCircle2 className="text-green-500" size={20} />
@@ -499,7 +516,6 @@ export default function RootCanal() {
               ))}
             </div>
             <div className="relative z-10">
-              {/* ── 7. CTA BANNER HEADING WITH BLURTEXT ── */}
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
                 <BlurText
                   text="Book Your Consultation Today"
@@ -525,6 +541,7 @@ export default function RootCanal() {
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
+                  rel="noopener noreferrer"
                   whileTap={{ scale: 0.97 }}
                   className="inline-flex items-center gap-2 border-2 border-white text-white font-semibold px-7 py-3.5 rounded-full hover:bg-white/10 transition-all"
                 >
