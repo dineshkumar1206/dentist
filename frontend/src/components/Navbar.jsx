@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, Drill, Baby, Activity, Sparkles, Zap, Smile, Layers, Heart, Scissors } from 'lucide-react'; 
+import { Menu, X, ChevronDown, Drill, Baby, Activity, Smile, Zap, WandSparkles, Layers, Heart, Scissors } from 'lucide-react'; 
 import { NavLink } from "react-router-dom";
 import FormService from "./FormService"; 
 
@@ -17,9 +17,9 @@ const Navbar = () => {
     { id: 1, title: "Implants", icon: Drill, href: "/services/implants" },
     { id: 2, title: "Child Dental Care", icon: Baby, href: "/services/child-dental-care" },
     { id: 3, title: "Root Canal Treatment", icon: Activity, href: "/services/root-canal" },
-    { id: 4, title: "Tooth Whitening Procedures", icon: Sparkles, href: "/services/whitening" },
+    { id: 4, title: "Before & After Smile Transformations", icon: Smile, href: "/services/whitening" },
     { id: 5, title: "Ultrasonic Cleaning & Polishing", icon: Zap, href: "/services/cleaning" },
-    { id: 6, title: "Fixed Braces / Clip Treatment", icon: Smile, href: "/services/braces" },
+    { id: 6, title: "Fixed Braces / Clip Treatment", icon: WandSparkles, href: "/services/braces" },
     { id: 7, title: "Full Teethsets (Removal & Fixed)", icon: Layers, href: "/services/teethsets" },
     { id: 8, title: "Gum Treatment / Flap Surgery", icon: Heart, href: "/services/gum-treatment" },
     { id: 9, title: "Surgical Removal of Wisdom Teeth", icon: Scissors, href: "/services/wisdom-teeth" },

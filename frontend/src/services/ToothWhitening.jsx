@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   CheckCircle2,
   Shield,
   Clock,
   Smile,
   ChevronRight,
+  ChevronLeft,
   Star,
   CalendarCheck,
   Microscope,
@@ -101,7 +102,13 @@ const stats = [
   { value: "4.9★", label: "Patient Rating" },
 ];
 
-const heroImg = "/images/whitening-hero.png";
+// Carousel Images Pool
+const carouselImages = [
+  "/images/BA-1.png",
+  "/images/BA-2.png",
+  "/images/BA-3.png"
+];
+
 const procedureImg = "/images/whitening-importance.png";
 const smileImg = "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80";
 
@@ -109,9 +116,47 @@ const smileImg = "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w
 export default function ToothWhitening() {
   const [activeStep, setActiveStep] = useState(0);
   const [showForm, setShowForm] = useState(false);
+  
+  // Carousel States
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [slideDirection, setSlideDirection] = useState(0); // -1 for left, 1 for right
 
   // Ref for Primary GSAP Magnetic Button Animation
   const primaryBtnRef = useRef(null);
+
+  // Carousel handlers
+  const handleNextSlide = () => {
+    setSlideDirection(1);
+    setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+  };
+
+  const handlePrevSlide = () => {
+    setSlideDirection(-1);
+    setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
+  };
+
+  const handleDotClick = (index) => {
+    setSlideDirection(index > currentSlide ? 1 : -1);
+    setCurrentSlide(index);
+  };
+
+  // Drag swipe physics handler for Mobile & Tablet responsive moving
+  const handleDragEnd = (event, info) => {
+    const swipeThreshold = 50; // Minimum drag distance pixels required to swipe
+    if (info.offset.x < -swipeThreshold) {
+      handleNextSlide();
+    } else if (info.offset.x > swipeThreshold) {
+      handlePrevSlide();
+    }
+  };
+
+  // Automatic Carousel Interval (Updated speed to 2.5 seconds)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      handleNextSlide();
+    }, 2500); // changes slides every 2.5 seconds
+    return () => clearInterval(timer);
+  }, [currentSlide]);
 
   useEffect(() => {
     if (window.innerWidth < 640) return;
@@ -152,6 +197,24 @@ export default function ToothWhitening() {
     };
   }, []);
 
+  // Motion Variants for Carousel slide transitions
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? "100%" : "-100%",
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.5, ease: [0.25, 1, 0.5, 1] }
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? "100%" : "-100%",
+      opacity: 0,
+      transition: { duration: 0.5, ease: [0.25, 1, 0.5, 1] }
+    })
+  };
+
   return (
     <div className="mt-6 bg-[#fcfbfe] text-[#1a2332]" style={{ fontFamily: FONT_FAMILY }}>
 
@@ -189,7 +252,7 @@ export default function ToothWhitening() {
               className="text-4xl md:text-5xl font-extrabold leading-[1.15] tracking-tight mb-4 text-[#0f172a]"
             >
               <BlurText
-                text="Brighten Your Smile with Professional Tooth Whitening"
+                text="Discover the Power of a Brighter, More Confident Smile"
                 delay={150}
                 animateBy="words"
                 direction="top"
@@ -210,9 +273,7 @@ export default function ToothWhitening() {
               animate="visible"
               className="text-[#52525b] text-base font-light leading-relaxed mb-8 max-w-md"
             >
-              Over time, teeth become stained by coffee, tea, smoking, or natural aging. 
-              Our advanced whitening procedures safely remove discoloration, restoring 
-              a radiant smile effectively while completely protecting your enamel.
+              Explore our before-and-after smile transformations and see the remarkable results achieved through professional teeth whitening and cosmetic dental treatments. Over time, teeth can become stained or discolored due to coffee, tea, smoking, and natural aging. Our advanced dental solutions help restore the natural brightness of your teeth, enhancing both your smile and self-confidence.
             </motion.p>
 
             {/* Action Buttons Layer */}
@@ -241,12 +302,12 @@ export default function ToothWhitening() {
             </motion.div>
           </div>
 
-          {/* ── HERO IMAGE WITH GLARE ── */}
+          {/* ── MODERN ANIMATED & RESPONSIVE TOUCH-SWIPE HERO CAROUSEL ── */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="relative"
+            className="relative group/carousel select-none touch-pan-y"
           >
             <ImageGlareHover
               glareColor="#ffffff"
@@ -254,14 +315,57 @@ export default function ToothWhitening() {
               glareSize={240}
               borderRadius="1.5rem"
               width="100%"
-              className="shadow-2xl aspect-[4/3] relative z-10 bg-purple-50/20"
+              className="shadow-2xl aspect-[4/3] relative z-10 bg-purple-50/20 overflow-hidden"
             >
-              <img
-                src={heroImg}
-                alt="Professional Tooth Whitening Procedures specialty layout"
-                className="w-full h-[420px] object-cover rounded-2xl"
-              />
+              <motion.div 
+                className="w-full h-[320px] sm:h-[38px] md:h-[420px] relative overflow-hidden rounded-2xl cursor-grab active:cursor-grabbing"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.6}
+                onDragEnd={handleDragEnd}
+              >
+                <AnimatePresence initial={false} custom={slideDirection}>
+                  <motion.img
+                    key={currentSlide}
+                    src={carouselImages[currentSlide]}
+                    custom={slideDirection}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    draggable="false"
+                    alt={`Professional Tooth Whitening slide ${currentSlide + 1}`}
+                    className="absolute inset-0 w-full h-full object-cover rounded-2xl pointer-events-none"
+                  />
+                </AnimatePresence>
+              </motion.div>
             </ImageGlareHover>
+
+            {/* Responsive Arrow Buttons (Hidden on small screens/touch devices, visible on desktop hover) */}
+            <button 
+              onClick={handlePrevSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white backdrop-blur-sm text-slate-800 hidden md:flex items-center justify-center shadow-md transition-all opacity-0 group-hover/carousel:opacity-100"
+            >
+              <ChevronLeft size={20} strokeWidth={2.5} />
+            </button>
+            <button 
+              onClick={handleNextSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white backdrop-blur-sm text-slate-800 hidden md:flex items-center justify-center shadow-md transition-all opacity-0 group-hover/carousel:opacity-100"
+            >
+              <ChevronRight size={20} strokeWidth={2.5} />
+            </button>
+
+            {/* Manual Navigation Indicators */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-full">
+              {carouselImages.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleDotClick(idx)}
+                  className={`h-2 rounded-full transition-all duration-300 ${idx === currentSlide ? "w-5 bg-white" : "w-2 bg-white/50"}`}
+                />
+              ))}
+            </div>
+
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -318,11 +422,11 @@ export default function ToothWhitening() {
 
           <AnimatedSection delay={0.1}>
             <span className="text-xs font-bold tracking-[0.2em] text-[#682187] uppercase">
-              Understanding Discoloration
+              Understanding Smile Transformations
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 tracking-tight leading-tight">
               <BlurText
-                text="What Causes Tooth Staining?"
+                text="What Makes a Smile Transformation Possible?"
                 delay={150}
                 animateBy="words"
                 direction="top"
@@ -330,23 +434,22 @@ export default function ToothWhitening() {
             </h2>
             <div className="h-1 w-12 bg-[#682187] rounded-full mb-6" />
             <p className="text-slate-500 font-light leading-relaxed mb-4">
-              Tooth whitening lightens the natural shade of your teeth without stripping enamel. 
-              We tackle the deep, complex discoloration caused over the years by:
+              A beautiful smile is more than just whiter teeth. Our smile transformations combine advanced cosmetic and restorative dental treatments to enhance the appearance, function, and confidence of your smile. Every transformation is carefully tailored to address individual dental concerns and achieve natural-looking results.
             </p>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-slate-600 font-medium mb-6">
-              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Coffee, Tea & Red Wine</li>
-              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Tobacco & Smoking Habits</li>
-              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Natural Aging & Wear</li>
-              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Certain Medications</li>
-              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Food/Beverage Stains</li>
-              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Poor Oral Hygiene Cycles</li>
+              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Teeth Whitening for a Brighter Smile</li>
+              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Correction of Stains & Discoloration</li>
+              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Improved Tooth Shape & Symmetry</li>
+              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Enhanced Smile Aesthetics</li>
+              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Restoration of Damaged or Worn Teeth</li>
+              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Boosted Confidence & Oral Appearance</li>
             </ul>
             <div className="flex items-center gap-4 bg-[#fdfbfe] border border-purple-100 rounded-xl p-4 shadow-sm">
               <div className="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center shrink-0">
                 <Shield className="text-[#682187]" size={22} />
               </div>
               <p className="text-sm text-slate-600 font-medium">
-                <strong className="text-[#1a2332]">Professional Supervision</strong> — unlike generic over-the-counter kits, our expert procedures prioritize your gum safety and total structural comfort.
+                <strong className="text-[#1a2332]">Personalized Dental Care</strong> — Every smile is unique. Our experienced dental professionals create customized treatment plans to ensure safe, effective, and long-lasting results while maintaining the health and integrity of your teeth and gums.
               </p>
             </div>
           </AnimatedSection>
@@ -360,7 +463,7 @@ export default function ToothWhitening() {
             <span className="text-xs font-bold tracking-[0.15em] uppercase text-purple-400">
               Why Choose Professional Systems
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3 tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3 tracking-tight text-center flex justify-center">
               <BlurText
                 text="Benefits of Professional Whitening"
                 delay={150}
@@ -402,7 +505,7 @@ export default function ToothWhitening() {
           <span className="text-xs font-bold tracking-[0.2em] text-[#682187] uppercase">
             The Journey
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold mt-2 tracking-tight leading-tight">
+          <h2 className="text-3xl md:text-4xl font-extrabold mt-2 tracking-tight leading-tight text-center flex justify-center">
             <BlurText
               text="Our Whitening Process"
               delay={150}
@@ -562,7 +665,7 @@ export default function ToothWhitening() {
               ))}
             </div>
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight text-center flex justify-center">
                 <BlurText
                   text="Book Your Consultation Today"
                   delay={150}

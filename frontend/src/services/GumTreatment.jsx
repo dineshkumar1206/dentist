@@ -360,7 +360,7 @@ export default function GumTreatment() {
             <span className="text-xs font-bold tracking-[0.15em] uppercase text-purple-400">
               Protect Your Anchor Structures
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3 tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3 tracking-tight text-center flex justify-center">
               <BlurText
                 text="Benefits of Periodontal Treatment & Surgery"
                 delay={150}

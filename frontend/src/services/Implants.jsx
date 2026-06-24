@@ -364,7 +364,7 @@ export default function Implants() {
             <span className="text-xs font-bold tracking-[0.15em] uppercase text-purple-400">
               Why Choose Implants
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3 tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 mb-3 tracking-tight text-center flex justify-center">
               <BlurText
                 text="Benefits of Dental Implants"
                 delay={150}
@@ -406,7 +406,7 @@ export default function Implants() {
           <span className="text-xs font-bold tracking-[0.2em] text-[#682187] uppercase">
             Step by Step
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold mt-2 tracking-tight leading-tight">
+          <h2 className="text-3xl md:text-4xl font-extrabold mt-2 tracking-tight leading-tight text-center flex justify-center">
             <BlurText
               text="Our Implant Procedure"
               delay={150}
