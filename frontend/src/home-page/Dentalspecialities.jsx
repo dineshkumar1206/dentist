@@ -32,7 +32,7 @@ const services = [
   },
   { 
     id: 4, 
-    title: "Tooth Whitening Procedures",
+    title: "Before & After Smile Transformations",
     description: "Professional whitening treatments for a brighter and more radiant smile.",
     image: "/images/whitening-importance.png",
     href: "/services/whitening" 
