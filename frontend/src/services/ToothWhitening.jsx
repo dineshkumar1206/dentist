@@ -11,7 +11,11 @@ import {
   CalendarCheck,
   Microscope,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  Play,
+  Pause,
+  Volume2,
+  VolumeX
 } from "lucide-react";
 import gsap from 'gsap';
 import FormService from "../components/FormService"; 
@@ -106,7 +110,8 @@ const stats = [
 const carouselImages = [
   "/images/BA-1.png",
   "/images/BA-2.png",
-  "/images/BA-3.png"
+  "/images/BA-3.png",
+  "/images/BA-4.png"
 ];
 
 const procedureImg = "/images/whitening-importance.png";
@@ -116,6 +121,63 @@ const smileImg = "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w
 export default function ToothWhitening() {
   const [activeStep, setActiveStep] = useState(0);
   const [showForm, setShowForm] = useState(false);
+  
+  // Video Player States
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [videoProgress, setVideoProgress] = useState(0);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => {
+      const percent = (video.currentTime / video.duration) * 100 || 0;
+      setVideoProgress(percent);
+    };
+
+    const handleVideoEnded = () => {
+      setIsVideoPlaying(false);
+      setVideoProgress(0);
+    };
+
+    video.addEventListener("timeupdate", handleTimeUpdate);
+    video.addEventListener("ended", handleVideoEnded);
+
+    return () => {
+      video.removeEventListener("timeupdate", handleTimeUpdate);
+      video.removeEventListener("ended", handleVideoEnded);
+    };
+  }, []);
+
+  const togglePlay = () => {
+    if (!videoRef.current) return;
+    if (isVideoPlaying) {
+      videoRef.current.pause();
+      setIsVideoPlaying(false);
+    } else {
+      videoRef.current.play();
+      setIsVideoPlaying(true);
+    }
+  };
+
+  const toggleMute = (e) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    videoRef.current.muted = !videoRef.current.muted;
+    setIsMuted(videoRef.current.muted);
+  };
+
+  const handleProgressClick = (e) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const width = rect.width;
+    const newTime = (clickX / width) * videoRef.current.duration;
+    videoRef.current.currentTime = newTime;
+  };
   
   // Carousel States
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -394,6 +456,164 @@ export default function ToothWhitening() {
               <p className="text-xs text-slate-400 mt-1 uppercase font-bold tracking-[0.15em]">{s.label}</p>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* ── PATIENT PORTRAIT VIDEO REVIEW ── */}
+      <section className="py-16 md:py-24 px-6 md:px-16 bg-gradient-to-br from-[#fbf9fe] via-white to-[#f5f0fa] overflow-hidden">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          
+          {/* Video Player Column */}
+          <AnimatedSection className="lg:col-span-5 flex justify-center w-full order-2 lg:order-1" delay={0.1}>
+            <div className="relative w-full max-w-[290px] sm:max-w-[320px] aspect-[9/16] rounded-[2.5rem] overflow-hidden shadow-[0_25px_60px_-15px_rgba(104,33,135,0.25)] border-8 border-slate-950 bg-black group/video">
+              <video
+                ref={videoRef}
+                src="/Video/WhatsApp Video 2026-06-30 at 10.55.06 AM.mp4"
+                className="absolute w-[178%] h-[56.25%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90 object-cover cursor-pointer"
+                loop
+                playsInline
+                onClick={togglePlay}
+              />
+              
+              {/* Play Overlay when not playing */}
+              {!isVideoPlaying && (
+                <div 
+                  className="absolute inset-0 flex flex-col justify-between p-6 bg-gradient-to-b from-black/20 via-black/40 to-black/80 cursor-pointer transition-all duration-300 hover:via-black/30 z-10"
+                  onClick={togglePlay}
+                >
+                  <div className="flex justify-between items-center">
+                    <span className="bg-[#682187]/90 text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full backdrop-blur-sm">
+                      Patient Review
+                    </span>
+                    <span className="flex items-center gap-1 text-white text-[10px] font-medium bg-black/40 px-2.5 py-1 rounded-full backdrop-blur-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Video Story
+                    </span>
+                  </div>
+
+                  {/* Play Button */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+                    <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-white text-[#682187] shadow-xl transition-transform duration-300 transform group-hover/video:scale-110 z-10">
+                      <Play size={24} fill="#682187" className="ml-1" />
+                    </div>
+                    {/* Pulsing ring */}
+                    <div className="absolute w-20 h-20 rounded-full bg-white/30 animate-ping pointer-events-none" />
+                  </div>
+
+                  {/* Patient Caption bottom */}
+                  <div className="text-white">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={12} fill="#fbbf24" color="#fbbf24" />
+                      ))}
+                    </div>
+                    <p className="font-bold text-base leading-tight">Sarala's Transformation</p>
+                    <p className="text-xs text-white/70 mt-0.5">Click to watch her story</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Custom Controls when playing (appears on hover) */}
+              {isVideoPlaying && (
+                <div 
+                  className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col gap-2 opacity-0 group-hover/video:opacity-100 transition-opacity duration-300 z-20"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Progress bar */}
+                  <div 
+                    className="w-full h-1.5 bg-white/30 hover:bg-white/40 rounded-full cursor-pointer relative overflow-hidden"
+                    onClick={handleProgressClick}
+                  >
+                    <div 
+                      className="absolute left-0 top-0 h-full bg-[#682187] rounded-full"
+                      style={{ width: `${videoProgress}%` }}
+                    />
+                  </div>
+                  {/* Controls */}
+                  <div className="flex justify-between items-center text-white">
+                    <button 
+                      onClick={togglePlay}
+                      className="hover:text-purple-300 transition-colors p-1 cursor-pointer"
+                    >
+                      <Pause size={16} fill="white" />
+                    </button>
+                    <button 
+                      onClick={toggleMute}
+                      className="hover:text-purple-300 transition-colors p-1 cursor-pointer"
+                    >
+                      {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </AnimatedSection>
+
+          {/* Testimonial details Column */}
+          <AnimatedSection className="lg:col-span-7 flex flex-col justify-center order-1 lg:order-2" delay={0.2}>
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold tracking-[0.2em] uppercase text-[#682187] mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#682187]" />
+              Real Patient Experience
+            </span>
+            
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0f172a] mb-6 tracking-tight leading-tight">
+              <BlurText
+                text="Watch How Sarala Restored Her Smile & Confidence"
+                delay={150}
+                animateBy="words"
+                direction="top"
+              />
+            </h2>
+            <div className="h-1 w-12 bg-[#682187] rounded-full mb-6" />
+
+            <div className="relative bg-white border border-purple-50 rounded-2xl p-6 sm:p-8 shadow-[0_10px_30px_-5px_rgba(104,33,135,0.05)] mb-8">
+              {/* Large quote marks background */}
+              <span className="absolute top-2 right-6 text-7xl font-serif text-purple-100 select-none pointer-events-none">“</span>
+              
+              <div className="flex items-center gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={16} fill="#fbbf24" color="#fbbf24" />
+                ))}
+              </div>
+
+              <p className="text-slate-600 font-light italic leading-relaxed text-base mb-6 relative z-10">
+                "I was always extremely self-conscious about my smile, especially with the persistent stains from years of coffee and tea. The whitening treatment here was a complete game changer. It took less than an hour, was entirely comfortable, and the results were instant. Now, I can't stop smiling!"
+              </p>
+
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center font-bold text-[#682187] text-lg shadow-inner">
+                  SJ
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#1a2332] text-sm">Sarala</h4>
+                  <p className="text-xs text-slate-400">Verified Patient • Treatment: June 2026</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Metrics and Action */}
+            <div className="grid grid-cols-2 gap-4 mb-8">
+              <div className="bg-[#682187]/5 border border-[#682187]/10 rounded-xl p-4 flex flex-col justify-center">
+                <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-0.5">Shade Result</p>
+                <p className="text-xl font-bold text-[#682187]">4 Shades Brighter</p>
+              </div>
+              <div className="bg-[#682187]/5 border border-[#682187]/10 rounded-xl p-4 flex flex-col justify-center">
+                <p className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-0.5">Treatment Time</p>
+                <p className="text-xl font-bold text-[#682187]">45-Minute Session</p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-4 items-center">
+              <button
+                onClick={() => setShowForm(true)}
+                className="bg-[#682187] hover:bg-[#4c1263] text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all text-sm cursor-pointer flex items-center gap-2"
+              >
+                <CalendarCheck size={16} />
+                Get Your Own Bright Smile
+              </button>
+            </div>
+          </AnimatedSection>
+
         </div>
       </section>
 
