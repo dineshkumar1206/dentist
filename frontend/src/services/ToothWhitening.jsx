@@ -582,7 +582,7 @@ export default function ToothWhitening() {
 
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center font-bold text-[#682187] text-lg shadow-inner">
-                  SJ
+                  S
                 </div>
                 <div>
                   <h4 className="font-bold text-[#1a2332] text-sm">Sarala</h4>
@@ -642,11 +642,11 @@ export default function ToothWhitening() {
 
           <AnimatedSection delay={0.1}>
             <span className="text-xs font-bold tracking-[0.2em] text-[#682187] uppercase">
-              Understanding Smile Transformations
+              Understanding Before & After Tooth Restoration
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold mt-2 mb-4 tracking-tight leading-tight">
               <BlurText
-                text="What Makes a Smile Transformation Possible?"
+                text="See the Difference with Professional Tooth Restoration"
                 delay={150}
                 animateBy="words"
                 direction="top"
@@ -654,22 +654,22 @@ export default function ToothWhitening() {
             </h2>
             <div className="h-1 w-12 bg-[#682187] rounded-full mb-6" />
             <p className="text-slate-500 font-light leading-relaxed mb-4">
-              A beautiful smile is more than just whiter teeth. Our smile transformations combine advanced cosmetic and restorative dental treatments to enhance the appearance, function, and confidence of your smile. Every transformation is carefully tailored to address individual dental concerns and achieve natural-looking results.
+              Damaged, chipped, stained, or worn teeth can significantly impact both your smile and your confidence. Our before-and-after tooth restoration treatments showcase the remarkable improvements that modern restorative and cosmetic dentistry can achieve. Every case is carefully planned to restore the natural beauty, strength, and function of your teeth.
             </p>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-slate-600 font-medium mb-6">
-              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Teeth Whitening for a Brighter Smile</li>
-              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Correction of Stains & Discoloration</li>
-              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Improved Tooth Shape & Symmetry</li>
-              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Enhanced Smile Aesthetics</li>
-              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Restoration of Damaged or Worn Teeth</li>
-              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Boosted Confidence & Oral Appearance</li>
+              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Repair Chipped & Broken Teeth</li>
+              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Restore Worn or Damaged Tooth Structure</li>
+              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Correct Tooth Discoloration & Stains</li>
+              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Improve Tooth Shape & Natural Appearance</li>
+              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Enhance Smile Function & Aesthetics</li>
+              <li className="flex items-center gap-2"><span className="text-[#682187]">✔</span> Long-Lasting, Natural-Looking Results</li>
             </ul>
             <div className="flex items-center gap-4 bg-[#fdfbfe] border border-purple-100 rounded-xl p-4 shadow-sm">
               <div className="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center shrink-0">
                 <Shield className="text-[#682187]" size={22} />
               </div>
               <p className="text-sm text-slate-600 font-medium">
-                <strong className="text-[#1a2332]">Personalized Dental Care</strong> — Every smile is unique. Our experienced dental professionals create customized treatment plans to ensure safe, effective, and long-lasting results while maintaining the health and integrity of your teeth and gums.
+                <strong className="text-[#1a2332]">Personalized Restoration for Every Smile</strong> — Every patient has unique dental needs. Our experienced dental team develops customized treatment plans using advanced restorative techniques to deliver healthy, durable, and aesthetically pleasing results while preserving your natural teeth whenever possible.
               </p>
             </div>
           </AnimatedSection>
