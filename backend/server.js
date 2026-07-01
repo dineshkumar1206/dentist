@@ -37,7 +37,7 @@ app.use("/dentist-form/api/appointments", appointmentRoutes);
 console.log("Route mounting: appointment API endpoints mounted successfully and working properly.");
 
 // Health check endpoint
-app.get("/health", (req, res) => {
+app.get("/dentist-form/health", (req, res) => {
   res.status(200).json({
     success: true,
     status: "OK",
