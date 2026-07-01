@@ -283,7 +283,7 @@ export default function ToothWhitening() {
       {/* ── FORM MODAL ── */}
       {showForm && (
         <FormService
-          serviceName="Tooth Whitening Procedures"
+          serviceName="Professional Tooth Restoration"
           isOpen={showForm}
           onClose={() => setShowForm(false)}
           accentColor={PRIMARY_PURPLE}

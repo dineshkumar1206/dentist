@@ -14,6 +14,8 @@ import {
   X,
 } from "lucide-react";
 
+import { createAppointment } from "../app";
+
 // ─── Animation variants ───────────────────────────────────────────────────────
 const backdropAnim = {
   hidden: { opacity: 0 },
@@ -46,7 +48,7 @@ const servicesList = [
   "Implants",
   "Child Dental Care",
   "Root Canal Treatment",
-  "Tooth Whitening Procedures",
+  "Professional Tooth Restoration",
   "Ultrasonic Cleaning & Polishing",
   "Fixed Braces / Clip Treatment",
   "Full Teethsets (Removal & Fixed)",
@@ -143,10 +145,20 @@ export default function FormService({
       return;
     }
     setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1200));
-    setSubmitting(false);
-    setSubmitted(true);
-    onSubmit?.(form);
+    try {
+      const data = await createAppointment(form);
+      if (data.success) {
+        setSubmitted(true);
+        onSubmit?.(form);
+      } else {
+        setErrors({ submit: data.message || "Failed to book appointment. Please try again." });
+      }
+    } catch (error) {
+      console.error("Error submitting appointment:", error);
+      setErrors({ submit: error.message || "Network error. Make sure the database backend server is running." });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const todayStr = new Date().toISOString().split("T")[0];
@@ -434,6 +446,11 @@ export default function FormService({
 
                 {/* Sticky Action Footer */}
                 <div className="px-8 py-4 bg-gray-50 border-t border-gray-100 flex flex-col gap-3">
+                  {errors.submit && (
+                    <p className="flex items-center gap-1.5 text-xs text-red-500 justify-center font-medium bg-red-50 border border-red-100 rounded-lg py-2 px-3">
+                      <AlertCircle size={13} className="shrink-0" /> {errors.submit}
+                    </p>
+                  )}
                   <motion.button
                     whileHover={{ scale: 1.01 }}
                     whileTap={{ scale: 0.99 }}
