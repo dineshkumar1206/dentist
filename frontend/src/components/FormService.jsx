@@ -178,6 +178,9 @@ export default function FormService({
       if (data.success) {
         setSubmitted(true);
         onSubmit?.(form);
+        setTimeout(() => {
+          window.location.href = getWhatsAppUrl();
+        }, 1500);
       } else {
         setErrors({ submit: data.message || "Failed to book appointment. Please try again." });
       }
@@ -251,22 +254,17 @@ export default function FormService({
                   Confirmation sent to {form.email}
                 </div>
 
-                <div className="w-full mt-6">
-                  <a
-                    href={getWhatsAppUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full flex items-center justify-center gap-2.5 text-white font-bold py-3.5 rounded-xl shadow-md transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
-                    style={{
-                      background: "#25D366",
-                      textDecoration: "none",
-                      display: "flex",
-                    }}
-                  >
-                    <WhatsAppIcon />
-                    Send Details to WhatsApp
-                  </a>
+                <div
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold mt-3"
+                  style={{ background: "#25D36615", color: "#20ba56" }}
+                >
+                  <span
+                    className="w-1.5 h-1.5 rounded-full animate-ping"
+                    style={{ background: "#25D366" }}
+                  />
+                  Connecting to WhatsApp...
                 </div>
+
 
                 <div className="flex gap-4 mt-8">
                   <button
