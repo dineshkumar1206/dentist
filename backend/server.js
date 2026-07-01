@@ -21,7 +21,9 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://127.0.0.1:5173",
-      "https://dentist-chi-livid.vercel.app"
+      "https://dentist-chi-livid.vercel.app",
+      "https://rangasdental.in",
+      "https://www.rangasdental.in"
     ],
     credentials: true,
   })

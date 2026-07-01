@@ -155,12 +155,23 @@ export default function Footer() {
 
         {/* Bottom Bar Matrix */}
         <div className="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs font-light text-slate-300 gap-4">
-          <p>© {currentYear} Ranga's Dental Clinic. All rights reserved.</p>
-          <div className="flex space-x-6">
-            <a href="#" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-slate-300 transition-colors">Terms of Service</a>
-          </div>
-        </div>
+  <p>
+    © {currentYear} Ranga's Dental Clinic. Designed by{' '}
+    <a 
+      href="https://amigowebster.com/" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="hover:text-white transition-colors"
+    >
+      amigowebster
+    </a>{' '}
+    All rights reserved.
+  </p>
+  <div className="flex space-x-6">
+    <a href="#" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
+    <a href="#" className="hover:text-slate-300 transition-colors">Terms of Service</a>
+  </div>
+</div>
 
       </div>
     </footer>
